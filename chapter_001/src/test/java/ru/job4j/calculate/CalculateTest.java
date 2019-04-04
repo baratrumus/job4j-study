@@ -7,7 +7,7 @@ import static org.junit.Assert.assertThat;
 /**
 * Package for test calculate.
 *
-* @author Ilya  Ivannikov (baratrumus@yandex.ru)
+* @author Ilya   Ivannikov (baratrumus@yandex.ru)
 * @version $Id$
 * @since 0.1
 */
