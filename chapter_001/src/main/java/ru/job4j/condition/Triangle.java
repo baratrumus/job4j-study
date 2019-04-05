@@ -59,7 +59,7 @@ public class Triangle {
      * @param c Длина от точки b c.
      * @return возвращает true - false можно ли построить треугольник
      */
-    private boolean exist(double a, double c, double b) {
+    public boolean exist(double a, double c, double b) {
         return (a + b) > c && (b + c) > a && (a + c) > b ? true : false;
     }
 }

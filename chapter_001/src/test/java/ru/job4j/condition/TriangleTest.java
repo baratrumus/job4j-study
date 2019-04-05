@@ -18,4 +18,16 @@ public class TriangleTest {
         //Проверяем результат и ожидаемое значение.
         assertThat(result, closeTo(expected, 0.1));
     }
+
+    @Test
+    public void when5and2and20ThenExistsFalse() {
+        // Создаем объект треугольник.
+        Triangle triangle = new Triangle();
+        // Вычисляем площадь.
+        boolean result = triangle.exist(5, 2, 20);
+        // Задаем ожидаемый результат.
+        boolean expected = false;
+        //Проверяем результат и ожидаемое значение.
+        assertEquals(result, expected);
+    }
 }
