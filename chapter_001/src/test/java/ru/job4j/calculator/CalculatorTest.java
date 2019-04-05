@@ -23,7 +23,7 @@ public class CalculatorTest {
     }
 
     @Test
-    public void whenThreeDividedbyTwoThenOneAndFive()  {
+    public void whenThreeDivByTwoThenOneAndFive()  {
         Calculator calc = new Calculator();
         double result = calc.div(3D, 2D);
         double expected = 1.5D;
@@ -37,7 +37,5 @@ public class CalculatorTest {
         double expected = 6D;
         assertThat(result, is(expected));
     }
-    //вот они все
-    //для того чтоб делать сразу делай вот так
 }
 
