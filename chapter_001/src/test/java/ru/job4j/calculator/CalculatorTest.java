@@ -37,9 +37,7 @@ public class CalculatorTest {
         double expected = 6D;
         assertThat(result, is(expected));
     }
-//Привет, что не получается?
-    привет
-
-
+    //вот они все
+    //для того чтоб делать сразу делай вот так
 }
 
