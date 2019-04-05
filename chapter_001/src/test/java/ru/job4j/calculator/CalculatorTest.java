@@ -10,7 +10,7 @@ public class CalculatorTest {
     public void whenAddOnePlusOneThenTwo()  {
         Calculator calc = new Calculator();
         double result = calc.add(1D, 1D);
-        double expected = 2D;
+        double expected =  2D;
         assertThat(result, is(expected));
     }
 
@@ -37,6 +37,8 @@ public class CalculatorTest {
         double expected = 6D;
         assertThat(result, is(expected));
     }
+//Привет, что не получается?
+    привет
 
 
 }
