@@ -36,7 +36,7 @@ public class Calculator {
     }
 
     /**
-     * @param first  first  operand
+     * @param first   first  operand
      * @param second second operand
      * @return  multiple  of first and second
      */
