@@ -9,6 +9,13 @@ package ru.job4j.loop;
 
 
 public class Counter {
+
+    /**
+     *
+     * @param start начальная граница
+     * @param finish конечная граница
+     * @return сумма четных чисел
+     */
     public int add(int start, int finish) {
         int sum = (start % 2 == 0) ?  start : start + 1;
         start = sum;
