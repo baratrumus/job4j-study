@@ -60,6 +60,6 @@ public class Triangle {
      * @return возвращает true - false можно ли построить треугольник
      */
     public boolean exist(double a, double c, double b) {
-        return (a + b) > c && (b + c) > a && (a + c) > b ? true : false;
+        return ((a + b) > c && (b + c) > a && (a + c) > b);
     }
 }
