@@ -1,5 +1,6 @@
 package ru.job4j.loop;
 
+
 /**
  * Class Класс рисования пирамиды  псевдосимволов
  * @author ivannikov
@@ -33,8 +34,6 @@ public class Paint {
             if (row < height - 1) {
                 screen.append(ln);
             }
-
-            //System.out.printf(screen.toString());
         }
         // Получаем результат.
         return screen.toString();
