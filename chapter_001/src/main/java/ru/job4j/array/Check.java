@@ -9,8 +9,8 @@ package ru.job4j.array;
 public class Check {
 
     /**
-     * 372f62f
-     * @param data  входящий массив
+     *
+     * @param data входящий массив
      * @return true or false
      */
 
