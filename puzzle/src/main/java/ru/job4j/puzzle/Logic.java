@@ -3,6 +3,7 @@ package ru.job4j.puzzle;
 import ru.job4j.puzzle.firuges.Cell;
 import ru.job4j.puzzle.firuges.Figure;
 
+
 /**
  * //TODO add comments.
  *
@@ -66,10 +67,47 @@ public class Logic {
         return rst;
     }
 
+
+    /**
+     *  В массиве int[][] table содержаться 0 и 1. Метод проверяет что в массиве единицы образуют
+     *  полный ряд по вертикали или горизонтали.
+     * @return возвращает true если такой ряд есть
+     */
     public boolean isWin() {
         int[][] table = this.convert();
-        return false;
+        boolean win = false;
+        int size = table.length;
+        for (int row = 0; row < size; row++) {
+            if (table[row][0] == 1) {               // проверка горизонтальной победы
+                win = true;
+                for (int col = 0; col < size - 1; col++) {
+                    if (table[row][col] != table[row][col + 1]) {
+                        win = false;
+                        break;
+                    }
+                }
+                if (win) {
+                    return win;
+                }
+            }
+
+            //если нет горизонтальной победы, проверяем вертикальную победу, row используем как коллонки, col ряды
+            if (table[0][row] == 1) {
+                win = true;
+                for (int col = 0; col < size - 1; col++) {
+                    if (table[col][row] != table[col + 1][row]) {
+                        win = false;
+                        break;
+                    }
+                }
+                if (win) {
+                    return win;
+                }
+            }
+        }
+        return win;
     }
+
 
     public int[][] convert() {
         int[][] table = new int[this.size][this.size];
