@@ -75,37 +75,31 @@ public class Logic {
      */
     public boolean isWin() {
         int[][] table = this.convert();
-        boolean win = false;
+        boolean horWin = false;
+        boolean vertWin = false;
         int size = table.length;
         for (int row = 0; row < size; row++) {
-            if (table[row][0] == 1) {               // проверка горизонтальной победы
-                win = true;
-                for (int col = 0; col < size - 1; col++) {
-                    if (table[row][col] != table[row][col + 1]) {
-                        win = false;
-                        break;
-                    }
-                }
-                if (win) {
-                    return win;
-                }
+            if (table[row][0] == 1) {
+                horWin = true;
+            }
+            if (table[0][row] == 1) {
+                vertWin = true;
             }
 
-            //если нет горизонтальной победы, проверяем вертикальную победу, row используем как коллонки, col ряды
-            if (table[0][row] == 1) {
-                win = true;
+            if ((table[row][0] == 1) || (table[0][row] == 1)) {
+
                 for (int col = 0; col < size - 1; col++) {
-                    if (table[col][row] != table[col + 1][row]) {
-                        win = false;
-                        break;
+                    if (table[row][col] != table[row][col + 1]) { // проверка горизонтальной победы
+                        horWin = false;
                     }
-                }
-                if (win) {
-                    return win;
+                    //проверяем вертикальную победу, row используем как коллонки, col ряды
+                    if (table[col][row] != table[col + 1][row]) {
+                        vertWin = false;
+                    }
                 }
             }
         }
-        return win;
+        return (horWin || vertWin);
     }
 
 
