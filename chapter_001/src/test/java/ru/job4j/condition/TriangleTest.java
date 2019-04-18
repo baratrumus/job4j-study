@@ -2,6 +2,8 @@ package ru.job4j.condition;
 
 
 import org.junit.Test;
+import ru.job4j.condition.Triangle;
+
 import static org.hamcrest.number.IsCloseTo.closeTo;
 import static org.junit.Assert.*;
 
@@ -23,8 +25,7 @@ public class TriangleTest {
     public void when5and2and20ThenExistsFalse() {
         Triangle triangle = new Triangle();
         boolean result = triangle.exist(5, 2, 20);
-        boolean expected = false;
-        assertEquals(result, expected);
+        assertFalse(result);
 
     }
 }
