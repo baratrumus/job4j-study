@@ -35,9 +35,7 @@ public class MatrixCheck {
                 diagonalAssembled = false;
             }
         }
-
         return diagonalAssembled;
-
     }
 }
 

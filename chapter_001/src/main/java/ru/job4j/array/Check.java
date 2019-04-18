@@ -13,7 +13,6 @@ public class Check {
      * @param data входящий массив
      * @return true or false
      */
-
     public boolean mono(boolean[] data) {
         boolean result = true;
         boolean tmp = data[0];

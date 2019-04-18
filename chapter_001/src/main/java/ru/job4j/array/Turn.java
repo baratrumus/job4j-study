@@ -18,7 +18,6 @@ public class Turn {
             tmp = array[array.length - i - 1];
             array[array.length - i - 1] = array[i];
             array[i] = tmp;
-
         }
         return array;
     }

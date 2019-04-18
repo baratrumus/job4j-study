@@ -12,13 +12,14 @@ public class ArrayMerge {
     /**
      * последовательно сравниваем элементы из левого и правого массива.
      * Если элемент меньше, то его помещаем в новый массив, при этом сдвигаем указатель
+     * Во втором и третьем while обрабатываем ситуации когда один массив
+     * закончился а второй нет
      * @param first  первый входной массив
      * @param second второй входной массив
      * @return результирующий массив
      */
 
     public int[] arrMerge(int[] first, int[] second) {
-
         int[] rezArr = new int[first.length + second.length];
         int rez = 0;
         int fst = 0;
@@ -26,15 +27,12 @@ public class ArrayMerge {
         while ((fst < first.length)  && (sec < second.length)) {
             rezArr[rez++] = (first[fst] < second[sec]) ? first[fst++] : second[sec++];
         }
-
         while (fst < first.length) {
-            rezArr[rez++] = first[fst++];          //обрабатываем ситуации когда один массив
+            rezArr[rez++] = first[fst++];
         }
-
-        while (sec < second.length) {                 //закончился а второй нет
+        while (sec < second.length) {
             rezArr[rez++] = second[sec++];
         }
-
         return rezArr;
     }
 }
