@@ -3,6 +3,8 @@ package ru.job4j.tracker;
 import java.util.Random;
 import java.util.Arrays;
 
+import static java.lang.System.arraycopy;
+
 /**
  * Обертка над строкой.
  * @author ivannikov
@@ -75,21 +77,21 @@ public class Tracker {
      */
 
     public Item[] findByName(String key) {
-        Item[] found = new Item[this.position - 1];
+        Item[] found = new Item[this.position];
         int j = 0;
         for (int i = 0; i < this.position; i++) {
             if (this.items[i] != null && this.items[i].getName().equals(key)) {
                 found[j++] = this.items[i];
             }
         }
-        return found;
+        return Arrays.copyOf(found, j);
     }
 
     /**
      * @return возвращает копию массива this.items без null элементов;
      */
     public Item[] findAll() {
-        return Arrays.copyOf(this.items, this.position - 1);
+        return Arrays.copyOf(this.items, this.position);
     }
 
 
@@ -108,6 +110,7 @@ public class Tracker {
         for (int i = 0; i < this.position; i++) {
             if (this.items[i].getId().equals(id)) {
                 this.items[i] = item;
+                this.items[i].setId(id); //ставим id, чтобы он не оказался null, если item берем не из массива
                 res = true;
                 break;
             }
@@ -123,20 +126,16 @@ public class Tracker {
      */
     public boolean delete(String id) {
         boolean res = false;
-        int index;
         if (id == null) {
             return res;
         }
-
         for (int i = 0; i < this.position; i++) {
             if (this.items[i].getId().equals(id)) {
-                res = true;
-            }
-            if (res && i < this.position - 1) {
-                this.items[i] = this.items[i + 1];
-            } else if (res) {        //последний не null эл. обнуляем
-                this.items[i] = null;
+                arraycopy(this.items, i + 1, this.items, i, this.items.length - i - 1);
+                this.items[this.items.length - 1] = null;
                 this.position--;
+                res = true;
+                break;
             }
         }
         return res;

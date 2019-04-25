@@ -62,16 +62,29 @@ public class TrackerTest {
     public void whenDeleteIdThenNoSuchId() {
         Tracker tracker = new Tracker();
         Item item = new Item("test1", "testDescription", 123L);
-        Item item1 = new Item("test1", "testDescription11", 1243L);
-        Item item2 = new Item("test2", "testDescription", 123456L);
+        Item item1 = new Item("test2", "testDescription11", 1243L);
+        Item item2 = new Item("test3", "testDescription", 123456L);
+        Item item3 = new Item("test4", "testDescription", 23456L);
         tracker.add(item);
         tracker.add(item1);
         tracker.add(item2);
+        tracker.add(item3);
         String saveId = item1.getId();
         tracker.delete(saveId);
         assertNull(tracker.findById(saveId));
     }
 
+    @Test
+    public void whenFindAllNewItemsThenTrackerArrayHasSameItems() {
+        Tracker tracker = new Tracker();
+        Item item = new Item("test1", "testDescription", 123L);
+        Item item1 = new Item("test1", "testDescription11", 1243L);
+        Item item2 = new Item("test2", "testDescription", 123456L);
+        tracker.add(item);
+        tracker.add(item1);
+        tracker.add(item2);
+        Item[] result = tracker.findAll();
+        assertThat(3, is(result.length));
 
-
+    }
 }
