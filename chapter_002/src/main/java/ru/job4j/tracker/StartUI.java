@@ -123,12 +123,10 @@ public class StartUI {
     private void showAll() {
         System.out.println("------------ Вывод всех заявок из хранилища --------------");
         for (Item item: this.tracker.findAll()) {
-            System.out.println("------------ Id : " + item.getId() + "-----------");
-            System.out.println("------------ Имя : " + item.getName() + "-----------");
-            System.out.println("------------ Описание : " + item.getDecs() + "-----------");
-            System.out.println("------------ Дата создания : " + item.getTime() + "-----------");
-            System.out.println(" ");
-            System.out.println(" ");
+            System.out.println("------------ Id : " + item.getId() + " ------------");
+            System.out.println("------------ Имя : " + item.getName() + " ------------");
+            System.out.println("------------ Описание : " + item.getDecs() + " ------------");
+            System.out.println("------------ Дата создания : " + item.getTime() + " ------------");
         }
     }
 
@@ -189,16 +187,16 @@ public class StartUI {
 
 
     private void findByName() {
-        System.out.println("------------ Поиск заявок по имени  --------------");
+        System.out.println("------------ Поиск заявок по имени --------------");
         String name = this.input.ask("Введите имя для поиска :");
         Item[] item = this.tracker.findByName(name);
         if (item.length != 0) {
             for (Item it: item) {
-                System.out.println("------------ Id : " + it.getId() + "-----------");
-                System.out.println("------------ Имя : " + it.getName() + "-----------");
-                System.out.println("------------ Описание : " + it.getDecs() + "-----------");
-                System.out.println("------------ Дата создания : " + it.getTime() + "-----------");
-                System.out.println(" ");
+                System.out.println("------------ Id : " + it.getId() + " ------------");
+                System.out.println("------------ Имя : " + it.getName() + " ------------");
+                System.out.println("------------ Описание : " + it.getDecs() + " ------------");
+                System.out.println("------------ Дата создания : " + it.getTime() + " ------------");
+                System.out.println("");
             }
         } else {
             System.out.println("------------ Заявок с таким именем не найдено -----------");

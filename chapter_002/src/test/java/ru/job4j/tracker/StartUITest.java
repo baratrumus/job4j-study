@@ -1,15 +1,64 @@
 package ru.job4j.tracker;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 public class StartUITest {
 
+    // получаем ссылку на стандартный вывод в консоль.
+    private final PrintStream stdout = System.out;
+    // Создаем буфер для хранения вывода.
+    private final ByteArrayOutputStream out = new ByteArrayOutputStream();
+    //Создаем объект трекер
+    Tracker tracker = new Tracker();
+    //Напрямую добавляем заявку
+    Item item = tracker.add(new Item("test name", "desc", 54635735));
+
+    //запоминаем шаблон вывода меню
+    StringBuilder menuSTRB =  new StringBuilder()
+            .append("Меню.")
+            .append(System.lineSeparator())
+            .append("0. Add new Item")
+            .append(System.lineSeparator())
+            .append("1. Show all items")
+            .append(System.lineSeparator())
+            .append("2. Edit item")
+            .append(System.lineSeparator())
+            .append("3. Delete item")
+            .append(System.lineSeparator())
+            .append("4. Find item by Id")
+            .append(System.lineSeparator())
+            .append("5. Find items by name")
+            .append(System.lineSeparator())
+            .append("6. Exit Program")
+            .append(System.lineSeparator());
+
+
+    @Before
+    public void loadOutput() {
+        System.out.println("before method - Заменяем стандартный вывод на вывод в память для тестирования");
+        System.setOut(new PrintStream(this.out));
+
+
+    }
+
+    @After
+    public void backOutput() {
+        System.setOut(this.stdout);
+        System.out.println("after method - возвращаем обратно стандартный вывод в консоль.");
+    }
+
+
     @Test
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
-        Tracker tracker = new Tracker();
         Input input = new StubInput(new String[]{"0", "test name", "desc", "6"});   //создаём StubInput с последовательностью действий
         new StartUI(input, tracker).init();     //   создаём StartUI и вызываем метод init()
         assertThat(tracker.findAll()[0].getName(), is("test name")); // проверяем, что нулевой элемент массива в трекере содержит имя, введённое при эмуляции.
@@ -17,9 +66,6 @@ public class StartUITest {
 
     @Test
     public void whenUpdateThenTrackerHasUpdatedValue() {
-        Tracker tracker = new Tracker();
-        //Напрямую добавляем заявку
-        Item item = tracker.add(new Item("test name", "desc", 54635735));
         //создаём StubInput с последовательностью действий(производим замену заявки)
         Input input = new StubInput(new String[]{"2", item.getId(), "test replace", "заменили заявку", "6"});
         // создаём StartUI и вызываем метод init()
@@ -30,8 +76,6 @@ public class StartUITest {
 
     @Test
     public void whenDeleteThenTrackerHasDeletedValue() {
-        Tracker tracker = new Tracker();
-        Item item = tracker.add(new Item("test name", "desc", 54635735));
         Input input = new StubInput(new String[]{"3", item.getId(), "6"});
         new StartUI(input, tracker).init();
         assertNull(tracker.findById(item.getId()));
@@ -39,12 +83,60 @@ public class StartUITest {
 
     @Test
     public void whenFindByIdThenTrackerHasThisId() {
-        Tracker tracker = new Tracker();
-        Item item = tracker.add(new Item("test name", "desc", 54635735));
         Input input = new StubInput(new String[]{"4", item.getId(), "6"});
         new StartUI(input, tracker).init();
         assertThat(tracker.findById(item.getId()).getId(), is(item.getId()));
     }
 
+    @Test
+    public void whenShowAllThenTrackerHasThisOutput() {
+        Input input = new StubInput(new String[]{"1", "6"});
+        new StartUI(input, tracker).init();
+        assertThat(
+                new String(out.toByteArray()),
+                is(
+                        new StringBuilder()
+                                .append(menuSTRB)
+                                .append("------------ Вывод всех заявок из хранилища --------------")
+                                .append(System.lineSeparator())
+                                .append("------------ Id : " + item.getId() + " ------------")
+                                .append(System.lineSeparator())
+                                .append("------------ Имя : test name ------------")
+                                .append(System.lineSeparator())
+                                .append("------------ Описание : desc ------------")
+                                .append(System.lineSeparator())
+                                .append("------------ Дата создания : " + item.getTime() + " ------------")
+                                .append(System.lineSeparator())
+                                .append(menuSTRB)
+                                .toString()
+                )
+        );
+    }
+
+    @Test
+    public void whenFindByNameThenTrackerHasThisOutput() {
+        Input input = new StubInput(new String[]{"5", "test name", "6"});
+        new StartUI(input, tracker).init();
+        assertThat(
+                new String(out.toByteArray()),
+                is(
+                        new StringBuilder()
+                                .append(menuSTRB)
+                                .append("------------ Поиск заявок по имени --------------")
+                                .append(System.lineSeparator())
+                                .append("------------ Id : " + item.getId() + " ------------")
+                                .append(System.lineSeparator())
+                                .append("------------ Имя : test name ------------")
+                                .append(System.lineSeparator())
+                                .append("------------ Описание : desc ------------")
+                                .append(System.lineSeparator())
+                                .append("------------ Дата создания : " + item.getTime() + " ------------")
+                                .append(System.lineSeparator())
+                                .append(System.lineSeparator())
+                                .append(menuSTRB)
+                                .toString()
+                )
+        );
+    }
 
 }
