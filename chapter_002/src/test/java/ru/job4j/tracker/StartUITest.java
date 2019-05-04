@@ -24,21 +24,19 @@ public class StartUITest {
 
     //запоминаем шаблон вывода меню
     StringBuilder menuSTRB =  new StringBuilder()
-            .append("Меню.")
+            .append("0. Добавление новой заявки")
             .append(System.lineSeparator())
-            .append("0. Add new Item")
+            .append("1. Вывод всех заявок из хранилища")
             .append(System.lineSeparator())
-            .append("1. Show all items")
+            .append("2. Редактирование заявки")
             .append(System.lineSeparator())
-            .append("2. Edit item")
+            .append("3. Удаление заявки")
             .append(System.lineSeparator())
-            .append("3. Delete item")
+            .append("4. Поиск по Id")
             .append(System.lineSeparator())
-            .append("4. Find item by Id")
+            .append("5. Поиск заявок по имени")
             .append(System.lineSeparator())
-            .append("5. Find items by name")
-            .append(System.lineSeparator())
-            .append("6. Exit Program")
+            .append("6. Выход из программы")
             .append(System.lineSeparator());
 
 
@@ -106,6 +104,7 @@ public class StartUITest {
                                 .append("------------ Описание : desc ------------")
                                 .append(System.lineSeparator())
                                 .append("------------ Дата создания : " + item.getTime() + " ------------")
+                                .append(System.lineSeparator())
                                 .append(System.lineSeparator())
                                 .append(menuSTRB)
                                 .toString()
