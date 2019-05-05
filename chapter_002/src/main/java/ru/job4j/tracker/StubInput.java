@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.List;
+
 public class StubInput implements Input {
     /**
      * Это поле содержит последовательность ответов пользователя.
@@ -23,15 +25,20 @@ public class StubInput implements Input {
     }
 
     /**
-     * Давайте рассмотрим, как работает этот метод.
      * у нас есть объект в котором содержатся заранее продуманные ответы.
      * При последовательном вызове метода ask нам надо возвращать соответствующие данные.
      * Как если бы мы симулировали поведение пользователя.
      * Для этого при каждом вызове метода ask мы увеличиваем счетчик и
      * при следующем вызове он вернет нам новое значение.
      */
-    @Override
+
     public String ask(String question) {
         return this.value[this.position++];
     }
+
+
+    public int ask(String question, List<Integer> range) {
+       /// throw new Exception("Unsupported operation");
+        return Integer.valueOf(this.value[this.position++]);
+    };
 }

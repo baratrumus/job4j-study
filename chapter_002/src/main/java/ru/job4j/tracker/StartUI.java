@@ -1,5 +1,8 @@
 package ru.job4j.tracker;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Меню - интерфейс  взаимодействия с пользователем
  * @author ivannikov
@@ -28,7 +31,7 @@ public class StartUI {
      */
     public static void main(String[] args) {
 
-        new StartUI(new ConsoleInput(), new Tracker()).init();
+        new StartUI(new ValidateInput(), new Tracker()).init();
     }
 
 
@@ -39,9 +42,13 @@ public class StartUI {
 
         MenuTracker menu = new MenuTracker(this.input, this.tracker);
         menu.fillActions();
+        List<Integer> menuRange = new ArrayList<>();
+        for (int i = 0; i < menu.getActionsLength(); i++) {
+            menuRange.add(i);
+        }
         do {
             menu.show();
-            menu.select(Integer.valueOf(input.ask("Введите пункт меню : ")));
+            menu.select(Integer.valueOf(input.ask("Введите пункт меню : ", menuRange)));
         } while (!menu.exit);
     }
 

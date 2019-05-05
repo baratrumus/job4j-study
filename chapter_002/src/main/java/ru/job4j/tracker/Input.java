@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.List;
+
 /**
  * Интерфейс - контракт для реализации классов ввода данных
  * @author ivannikov
@@ -9,5 +11,7 @@ package ru.job4j.tracker;
 public interface Input {
 
     String ask(String question);
+
+    int ask(String question, List<Integer> range);
 
 }

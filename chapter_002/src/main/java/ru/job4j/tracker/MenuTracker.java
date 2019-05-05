@@ -24,13 +24,6 @@ public class MenuTracker {
         this.tracker = tracker;
     }
 
-    /**
-     * Метод для получения списка меню.
-     * @return длину массива
-     */
-    public int getActionsLentgh() {
-        return this.actions.size();
-    }
 
     /**
      * Метод заполняет список.
@@ -40,9 +33,6 @@ public class MenuTracker {
      *
      * 2. ShowAll() сделан статическим классом и его объект создается через обращение к имени внешнего класса
      * MenuTracker
-     *
-     * 3. ExitProgram сделан через класс одного уровня с МenuTracker,
-     * поэтому вызываем объект просто new ExitProgram()
      */
     public void fillActions() {
         this.actions.add(this.new AddItem());
@@ -54,6 +44,13 @@ public class MenuTracker {
         this.actions.add(new ExitProgram());
 
 }
+
+    /**
+     * @return геттер длины списка
+     */
+    public int getActionsLength() {
+        return actions.size();
+    }
 
     /**
      * Метод в зависимости от указанного ключа, выполняет соотвествующие действие.

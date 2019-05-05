@@ -20,7 +20,7 @@ public class Tracker {
 
     /**
      * Указатель ячейки для новой заявки.
-     */
+*/
     private int position = 0;
     private static final Random RND = new Random();
 
