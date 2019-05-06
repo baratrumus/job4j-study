@@ -37,7 +37,18 @@ public class ValidateInputTest {
         list.add(1);
         input.ask("Enter", list);
         assertThat(this.mem.toString(),
-                is(
-                        String.format("Введите цифру, а не букву%n")));
+                is(String.format("Введите цифру, а не букву%n")));
+    }
+
+    @Test
+    public void whenInvalidDigitInput() {
+        ValidateInput input = new ValidateInput(
+                new StubInput(new String[] {"9", "1"})
+        );
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
+        input.ask("Enter", list);
+        assertThat(this.mem.toString(),
+                is(String.format("Выберите цифру из меню%n")));
     }
 }
