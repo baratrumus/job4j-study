@@ -15,7 +15,7 @@ public class MenuTracker {
 
     private Input input;
     private Tracker tracker;
-    public boolean exit = false;
+
 
     private List<UserAction> actions = new ArrayList<>();
 
@@ -30,19 +30,21 @@ public class MenuTracker {
      * 1. создание объекта внутреннего класса происходит через обращение к объекту внешнего класса
      * MenuTracker через this
      * this.new
-     *
+     * <p>
      * 2. ShowAll() сделан статическим классом и его объект создается через обращение к имени внешнего класса
      * MenuTracker
+     *
+     * 3. ExitProgram сделан через внешний класс
      */
-    public void fillActions() {
+    public void fillActions(StartUI ui) {
         this.actions.add(this.new AddItem(0, "Добавление новой заявки"));
         this.actions.add(new MenuTracker.ShowAll(1, "Вывод всех заявок из хранилища"));
         this.actions.add(this.new EditItem(2, "Редактирование заявки"));
         this.actions.add(this.new DeleteItem(3, "Удаление заявки"));
-        this.actions.add(new FindItemById(4, "Поиск по Id"));
+        this.actions.add(this.new FindItemById(4, "Поиск по Id"));
         this.actions.add(this.new FindItemsByName(5, "Поиск заявок по имени"));
-        this.actions.add(new ExitProgram(6, "Выход из программы"));
-        }
+        this.actions.add(new ExitProgram(6, "Выход из программы", ui));
+    }
 
 
     /**
@@ -50,12 +52,13 @@ public class MenuTracker {
      * Это позволяет реализовать принцип класс открыт для расширения через этот метод, но закрыт для изменения,
      * т.к. не надо редактировать внутренний код класса для добавления нового действия в меню.
      * Для расширения есть интерфейс доступа
+     *
      * @param action
      */
     public void addAction(UserAction action) {
-            this.actions.add(action);
+        this.actions.add(action);
 
-}
+    }
 
     /**
      * @return геттер длины списка
@@ -66,12 +69,10 @@ public class MenuTracker {
 
     /**
      * Метод в зависимости от указанного ключа, выполняет соотвествующие действие.
+     *
      * @param key ключ операции
      */
     public void select(int key) {
-        if (key == 6) {
-            this.exit = true;
-        }
         this.actions.get(key).execute(this.input, this.tracker);
     }
 
@@ -132,11 +133,10 @@ public class MenuTracker {
     }
 
 
-
     /**
      * Метод реализует Редактирование заявки по Id
      */
-    private class EditItem extends  BaseAction {
+    private class EditItem extends BaseAction {
 
         public EditItem(int key, String name) {
             super(key, name);
@@ -236,7 +236,7 @@ public class MenuTracker {
             String name = input.ask("Введите имя для поиска :");
             Item[] item = tracker.findByName(name);
             if (item.length != 0) {
-                for (Item it: item) {
+                for (Item it : item) {
                     System.out.println("------------ Id : " + it.getId() + " ------------");
                     System.out.println("------------ Имя : " + it.getName() + " ------------");
                     System.out.println("------------ Описание : " + it.getDecs() + " ------------");
@@ -251,19 +251,39 @@ public class MenuTracker {
 
     }
 
-    /**
-     * Выход из программы
-     */
-    private class ExitProgram extends BaseAction {
-
-        public ExitProgram(int key, String name) {
-            super(key, name);
-        }
-
-        @Override
-        public void execute(Input input, Tracker tracker) {
-        }
-
-    }
 }
+
+/**
+ * "Внешний" внутренний класс. Сделан через имплементацию, а не наследование,
+ * в отличие от других методов меню
+ * Выход из программы
+ */
+class ExitProgram implements UserAction {
+    private final StartUI ui;
+    private final int key;
+    private final String name;
+
+    public ExitProgram(int key, String name, StartUI ui) {
+        this.ui = ui;
+        this.key = key;
+        this.name = name;
+    }
+
+    @Override
+    public int key() {
+        return this.key;
+    }
+
+    @Override
+    public void execute(Input input, Tracker tracker) {
+        this.ui.stop();
+    }
+
+    @Override
+    public String info() {
+        return String.format("%s : %s", this.key, this.name);
+    }
+
+}
+
 
