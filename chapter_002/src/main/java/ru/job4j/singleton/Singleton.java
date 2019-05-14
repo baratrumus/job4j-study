@@ -1,5 +1,6 @@
 package ru.job4j.singleton;
 
+import ru.job4j.tracker.*;
 
 /**
  * static field. Lazy loading.
@@ -8,6 +9,7 @@ package ru.job4j.singleton;
  */
 class Singleton {
     private static Singleton instance;
+    Tracker tracker;
 
     private Singleton() {
     }
@@ -21,44 +23,11 @@ class Singleton {
 }
 
 
-/**
- * вариант singleton на перечислениях
- */
-enum  SingletonEnum {
-    INSTANCE
-}
 
 
-/**
- * Вариант static final field. Eager loading, при инициализации класса
- */
-class Singleton1 {
-    private static final Singleton1 INSTANCE = new Singleton1();
 
-    private Singleton1() {
-    }
 
-    public static Singleton1 getInstance() {
-        return INSTANCE;
-    }
-}
 
-/**
- * private static final class. Lazy loading
- * объект класса находиться в поле внутреннего класса.
- */
-class Singleton2 {
-    private Singleton2() {
-    }
-
-    public static Singleton2 getInstance() {
-        return Holder.INSTANCE;
-    }
-
-    private static final class Holder {
-        private static final Singleton2 INSTANCE = new Singleton2();
-    }
-}
 
 
 

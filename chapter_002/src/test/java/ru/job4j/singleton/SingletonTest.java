@@ -41,10 +41,10 @@ public class SingletonTest {
     }
 
     @Test
-    public void whenSingletonItsOne1() {
-        Singleton1[] singleton = new Singleton1[10];
+    public void whenSingletonEagerLoadingItsOne() {
+        SingletonEager[] singleton = new SingletonEager[10];
         for(int i = 0;i < 10;i++) {
-            singleton[i] = Singleton1.getInstance();
+            singleton[i] = SingletonEager.getInstance();
         }
         for(int i=9;i > 0;i--) {
             for(int j = 0;j < i;j++) {
@@ -56,9 +56,9 @@ public class SingletonTest {
 
     @Test
     public void whenSingletonItsOne2() {
-        Singleton2[] singleton = new Singleton2[10];
+        SingletonInner[] singleton = new SingletonInner[10];
         for(int i = 0;i < 10;i++) {
-            singleton[i] = Singleton2.getInstance();
+            singleton[i] = SingletonInner.getInstance();
         }
         for(int i=9;i > 0;i--) {
             for(int j = 0;j < i;j++) {
