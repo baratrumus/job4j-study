@@ -106,7 +106,6 @@ public class MenuTracker {
             tracker.add(item);
             System.out.println("------------ Добавлена новая заявка с Id : " + item.getId() + "-----------");
         }
-
     }
 
 
