@@ -1,5 +1,6 @@
 package ru.job4j.chess.firuges.white;
 
+import ru.job4j.chess.ImpossibleMoveException;
 import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure;
 
@@ -21,9 +22,26 @@ public class KnightWhite implements Figure {
         return this.position;
     }
 
+    /** Ходы коня
+     * @param source задает исходную ячейку
+     * @param dest задает ячейку, куда следует пойти
+     * @return  Если фигура может туда пойти - возвращает массив ячеек пути
+     * @throws ImpossibleMoveException
+     */
     @Override
-    public Cell[] way(Cell source, Cell dest) {
-        return new Cell[] { dest };
+    public Cell[] way(Cell source, Cell dest)  throws ImpossibleMoveException {
+        Cell[] steps = new Cell[0];
+        Cell[] allowedMoves = LOGIC.getKnightMoves(source);
+        for (Cell cell : allowedMoves) {
+            if ((cell.x == dest.x) && (cell.y == dest.y)) {
+                steps = new Cell[]{dest};
+                break;
+            }
+        }
+        if (steps.length == 0) {
+            throw new ImpossibleMoveException("Конь так не ходит");
+        }
+        return steps;
     }
 
     @Override

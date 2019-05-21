@@ -1,11 +1,14 @@
 package ru.job4j.chess.firuges.black;
 
+import ru.job4j.chess.ImpossibleMoveException;
 import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure;
 
+import java.util.Arrays;
+
 /**
  *
- * @author Petr Arsentev (parsentev@yandex.ru)
+ * @author Ilya Ivannikov
  * @version $Id$
  * @since 0.1
  */
@@ -21,9 +24,26 @@ public class KnightBlack implements Figure {
         return this.position;
     }
 
+    /** Ходы коня
+     * @param source задает исходную ячейку
+     * @param dest задает ячейку, куда следует пойти
+     * @return  Если фигура может туда пойти - возвращает массив ячеек пути
+     * @throws ImpossibleMoveException
+     */
     @Override
-    public Cell[] way(Cell source, Cell dest) {
-        return new Cell[] { dest };
+    public Cell[] way(Cell source, Cell dest)  throws ImpossibleMoveException {
+        Cell[] steps = new Cell[0];
+        Cell[] allowedMoves = LOGIC.getKnightMoves(source);
+        for (Cell cell : allowedMoves) {
+            if ((cell.x == dest.x) && (cell.y == dest.y)) {
+                steps = new Cell[]{dest};
+                break;
+            }
+        }
+        if (steps.length == 0) {
+            throw new ImpossibleMoveException("Конь так не ходит");
+        }
+        return steps;
     }
 
     @Override

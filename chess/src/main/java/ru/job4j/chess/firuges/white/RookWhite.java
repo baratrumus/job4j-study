@@ -39,7 +39,7 @@ public class RookWhite implements Figure {
         int deltaY = 0;
         int deltaMove = 0;
         int i = 0;
-        if (logic.isLine(source, dest)) {
+        if (LOGIC.isLine(source, dest)) {
             if (source.x == dest.x) {
                 if (source.y < dest.y) {                    //ход вертикально вниз
                     deltaY = 1;
@@ -61,7 +61,7 @@ public class RookWhite implements Figure {
             for (i = 0; i < deltaMove; i++) {
                 tmpX += deltaX;
                 tmpY += deltaY;
-                steps[i] = logic.findCellByXY(tmpX, tmpY);
+                steps[i] = LOGIC.findCellByXY(tmpX, tmpY);
                 System.out.println(i + "  " + steps[i].x + "  " + steps[i].y);
             }
         } else {

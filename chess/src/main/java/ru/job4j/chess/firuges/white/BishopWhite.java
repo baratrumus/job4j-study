@@ -38,7 +38,7 @@ public class BishopWhite implements Figure {
         int deltaX = 0;
         int deltaY = 0;
         int i = 0;
-        if (logic.isDiagonal(source, dest)) {
+        if (LOGIC.isDiagonal(source, dest)) {
             int deltaMove = Math.abs(dest.x - source.x);
             if ((source.x < dest.x) && (source.y > dest.y)) {                    //ход вправо вверх
                 deltaX = 1;
@@ -57,7 +57,7 @@ public class BishopWhite implements Figure {
             for (i = 0; i < deltaMove; i++) {
                 tmpX += deltaX;
                 tmpY += deltaY;
-                steps[i] = logic.findCellByXY(tmpX, tmpY);
+                steps[i] = LOGIC.findCellByXY(tmpX, tmpY);
                 System.out.println(i + "  " + steps[i].x + "  " + steps[i].y);
             }
         } else {

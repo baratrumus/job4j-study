@@ -37,33 +37,16 @@ public class RookBlack implements Figure {
         Cell[] steps = new Cell[7];
         int tmpX = source.x;
         int tmpY = source.y;
-        int deltaX = 0;
-        int deltaY = 0;
-        int deltaMove = 0;
         int i = 0;
-        if (logic.isLine(source, dest)) {
-            if (source.x == dest.x) {
-                if (source.y < dest.y) {                    //ход вертикально вниз
-                    deltaY = 1;
-                    deltaMove = dest.y - source.y;
-                } else if (source.y > dest.y) {              //ход вертикально вверх
-                    deltaY = -1;
-                    deltaMove = source.y - dest.y;
-                }
-            } else if (source.y == dest.y) {
-                if (source.x < dest.x) {                     //ход вправо
-                    deltaX = 1;
-                    deltaMove = dest.x - source.x;
-                } else if (source.x > dest.x) {              //ход влево
-                    deltaX = -1;
-                    deltaMove =  source.x - dest.x;
-                }
-            }
+        if (LOGIC.isLine(source, dest)) {
+            int deltaX = LOGIC.getHorizontalDeltas(source, dest)[0];
+            int deltaY = LOGIC.getHorizontalDeltas(source, dest)[1];
+            int deltaMove = LOGIC.getHorizontalDeltas(source, dest)[2];
 
             for (i = 0; i < deltaMove; i++) {
                 tmpX += deltaX;
                 tmpY += deltaY;
-                steps[i] = logic.findCellByXY(tmpX, tmpY);
+                steps[i] = LOGIC.findCellByXY(tmpX, tmpY);
                 System.out.println(i + "  " + steps[i].x + "  " + steps[i].y);
             }
         } else {

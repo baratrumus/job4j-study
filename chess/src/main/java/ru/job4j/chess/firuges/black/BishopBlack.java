@@ -36,35 +36,21 @@ public class BishopBlack implements Figure {
         Cell[] steps = new Cell[7];
         int tmpX = source.x;
         int tmpY = source.y;
-        int deltaX = 0;
-        int deltaY = 0;
         int i = 0;
-        if (logic.isDiagonal(source, dest)) {
-             int deltaMove = Math.abs(dest.x - source.x);
-             if ((source.x < dest.x) && (source.y > dest.y)) {                    //ход вправо вверх
-                 deltaX = 1;
-                 deltaY = -1;
-             } else if ((source.x < dest.x) && (source.y < dest.y)) {              //ход вправо вниз
-                 deltaX = 1;
-                 deltaY = 1;
-             } else if ((source.x > dest.x) && (source.y > dest.y)) {              //ход влево вверх
-                    deltaX = -1;
-                    deltaY = -1;
-             } else if ((source.x > dest.x) && (source.y < dest.y)) {              //ход влево вниз
-                    deltaX = -1;
-                    deltaY = 1;
-             }
+        if (LOGIC.isDiagonal(source, dest)) {
+            int deltaX = LOGIC.getDiagonalDeltas(source, dest)[0];
+            int deltaY = LOGIC.getDiagonalDeltas(source, dest)[1];
+            int deltaMove = LOGIC.getDiagonalDeltas(source, dest)[2];
 
             for (i = 0; i < deltaMove; i++) {
                 tmpX += deltaX;
                 tmpY += deltaY;
-                steps[i] = logic.findCellByXY(tmpX, tmpY);
+                steps[i] = LOGIC.findCellByXY(tmpX, tmpY);
                 System.out.println(i + "  " + steps[i].x + "  " + steps[i].y);
             }
         } else {
             throw new ImpossibleMoveException("Слон так не ходит");
         }
-
         return Arrays.copyOf(steps, i);
     }
 
