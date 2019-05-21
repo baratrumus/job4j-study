@@ -14,7 +14,7 @@ import java.util.Arrays;
  * @version $Id$
  * @since 0.1
  */
-public class RookBlack implements Figure{
+public class RookBlack implements Figure {
     private final Cell position;
 
     public RookBlack(final Cell position) {
@@ -37,43 +37,44 @@ public class RookBlack implements Figure{
         Cell[] steps = new Cell[7];
         int tmpX = source.x;
         int tmpY = source.y;
-        int i =0;
+        int deltaX = 0;
+        int deltaY = 0;
+        int deltaMove = 0;
+        int i = 0;
         if (logic.isLine(source, dest)) {
-            if(source.x == dest.x) {
+            if (source.x == dest.x) {
                 if (source.y < dest.y) {                    //ход вертикально вниз
-                    tmpY++;                    //убираем из массива исходную точку
-                    for(i = 0;tmpY <= dest.y;i++, tmpY++) {
-                        steps[i] = logic.findCellByXY(source.x, tmpY);
-                    }
-                }else if (source.y > dest.y) {              //ход вертикально вверх
-                    tmpY--;
-                    for(i = 0;tmpY >= dest.y;i++, tmpY--) {
-                        steps[i] = logic.findCellByXY(source.x, tmpY);
-                       // System.out.println(i + "  " + steps[i].x + "  " +steps[i].y);
-                    }
+                    deltaY = 1;
+                    deltaMove = dest.y - source.y;
+                } else if (source.y > dest.y) {              //ход вертикально вверх
+                    deltaY = -1;
+                    deltaMove = source.y - dest.y;
                 }
-            }else if(source.y == dest.y) {
+            } else if (source.y == dest.y) {
                 if (source.x < dest.x) {                     //ход вправо
-                    tmpX++;
-                    for (i = 0; tmpX <= dest.x; i++, tmpX++) {
-                        steps[i] = logic.findCellByXY(tmpX, source.y);
-                    }
+                    deltaX = 1;
+                    deltaMove = dest.x - source.x;
                 } else if (source.x > dest.x) {              //ход влево
-                    tmpX--;
-                    for (i = 0; tmpX >= dest.x; i++, tmpX--) {
-                        steps[i] = logic.findCellByXY(tmpX, source.y);
-                    }
+                    deltaX = -1;
+                    deltaMove =  source.x - dest.x;
                 }
             }
-        }else throw new ImpossibleMoveException("Тура так не ходит");
+
+            for (i = 0; i < deltaMove; i++) {
+                tmpX += deltaX;
+                tmpY += deltaY;
+                steps[i] = logic.findCellByXY(tmpX, tmpY);
+                System.out.println(i + "  " + steps[i].x + "  " + steps[i].y);
+            }
+        } else {
+            throw new ImpossibleMoveException("Тура так не ходит");
+        }
 
         return Arrays.copyOf(steps, i);
     }
 
-
-
-@Override
-public Figure copy(Cell dest) {
-    return new RookBlack(dest);
-}
+    @Override
+    public Figure copy(Cell dest) {
+        return new RookBlack(dest);
+    }
 }

@@ -30,12 +30,12 @@ public class Logic {
         }else return ret;
 
         if (source.y < dest.y) {
-            deltaX = 1;
+            deltaY = 1;
         }else if (source.y > dest.y) {
-            deltaX = -1;
+            deltaY = -1;
         }else return ret;
 
-        for(int i = 0;i < 7;i++) {
+        for (int i = 0; i < 7; i++) {
             tmpX += deltaX;
             tmpY += deltaY;
             if (tmpX == dest.x && tmpY == dest.y) {
