@@ -1,6 +1,6 @@
 package ru.job4j.chess.firuges.white;
 
-import ru.job4j.chess.ImpossibleMoveException;
+import ru.job4j.chess.exception.ImpossibleMoveException;
 import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure;
 
@@ -13,9 +13,11 @@ import ru.job4j.chess.firuges.Figure;
  */
 public class PawnWhite implements Figure {
     private final Cell position;
+    private final String figureName;
 
     public PawnWhite(final Cell position) {
         this.position = position;
+        figureName = "Пешка";
     }
 
     @Override
@@ -37,5 +39,10 @@ public class PawnWhite implements Figure {
     @Override
     public Figure copy(Cell dest) {
         return new PawnWhite(dest);
+    }
+
+    @Override
+    public void moveInfo(Cell source, Cell dest) {
+        System.out.format("%s пошла %s - %s", figureName, source, dest);
     }
 }

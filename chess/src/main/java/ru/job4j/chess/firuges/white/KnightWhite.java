@@ -1,6 +1,7 @@
 package ru.job4j.chess.firuges.white;
 
-import ru.job4j.chess.ImpossibleMoveException;
+import ru.job4j.chess.exception.ImpossibleMoveException;
+import ru.job4j.chess.GetKnightMoves;
 import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure;
 
@@ -12,9 +13,13 @@ import ru.job4j.chess.firuges.Figure;
  */
 public class KnightWhite implements Figure {
     private final Cell position;
+    private final String figureName;
+
+    private final GetKnightMoves knightMoves = new GetKnightMoves();
 
     public KnightWhite(final Cell position) {
         this.position = position;
+        figureName = "Конь";
     }
 
     @Override
@@ -31,7 +36,7 @@ public class KnightWhite implements Figure {
     @Override
     public Cell[] way(Cell source, Cell dest)  throws ImpossibleMoveException {
         Cell[] steps = new Cell[0];
-        Cell[] allowedMoves = LOGIC.getKnightMoves(source);
+        Cell[] allowedMoves = knightMoves.getKnightMoves(source);
         for (Cell cell : allowedMoves) {
             if ((cell.x == dest.x) && (cell.y == dest.y)) {
                 steps = new Cell[]{dest};
@@ -47,5 +52,10 @@ public class KnightWhite implements Figure {
     @Override
     public Figure copy(Cell dest) {
         return new KnightWhite(dest);
+    }
+
+    @Override
+    public void moveInfo(Cell source, Cell dest) {
+        System.out.format("%s пошёл %s - %s", figureName, source, dest);
     }
 }

@@ -1,6 +1,6 @@
 package ru.job4j.chess.firuges.white;
 
-import ru.job4j.chess.ImpossibleMoveException;
+import ru.job4j.chess.exception.ImpossibleMoveException;
 import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure;
 
@@ -14,9 +14,11 @@ import java.util.Arrays;
  */
 public class QeenWhite implements Figure {
     private final Cell position;
+    private final String figureName;
 
     public QeenWhite(final Cell position) {
         this.position = position;
+        figureName = "Ферзь";
     }
 
     @Override
@@ -39,14 +41,14 @@ public class QeenWhite implements Figure {
         int deltaY = 0;
         int deltaMove = 0;
         int i;
-        if (LOGIC.isDiagonal(source, dest)) {
-            deltaX = LOGIC.getDiagonalDeltas(source, dest)[0];
-            deltaY = LOGIC.getDiagonalDeltas(source, dest)[1];
-            deltaMove = LOGIC.getDiagonalDeltas(source, dest)[2];
-        } else if (LOGIC.isLine(source, dest)) {
-            deltaX = LOGIC.getHorizontalDeltas(source, dest)[0];
-            deltaY = LOGIC.getHorizontalDeltas(source, dest)[1];
-            deltaMove = LOGIC.getHorizontalDeltas(source, dest)[2];
+        if (LINE_TYPE.isDiagonal(source, dest)) {
+            deltaX = DELTAS.getDiagonalDeltas(source, dest)[0];
+            deltaY = DELTAS.getDiagonalDeltas(source, dest)[1];
+            deltaMove = DELTAS.getDiagonalDeltas(source, dest)[2];
+        } else if (LINE_TYPE.isLine(source, dest)) {
+            deltaX = DELTAS.getHorizontalDeltas(source, dest)[0];
+            deltaY = DELTAS.getHorizontalDeltas(source, dest)[1];
+            deltaMove = DELTAS.getHorizontalDeltas(source, dest)[2];
         } else {
             throw new ImpossibleMoveException("Ферзь так не ходит");
         }
@@ -54,7 +56,7 @@ public class QeenWhite implements Figure {
             tmpX += deltaX;
             tmpY += deltaY;
             steps[i] = LOGIC.findCellByXY(tmpX, tmpY);
-            System.out.println(i + "  " + steps[i].x + "  " + steps[i].y);
+            //System.out.println(i + "  " + steps[i].x + "  " + steps[i].y);
         }
         return Arrays.copyOf(steps, i);
     }
@@ -62,5 +64,10 @@ public class QeenWhite implements Figure {
     @Override
     public Figure copy(Cell dest) {
         return new QeenWhite(dest);
+    }
+
+    @Override
+    public void moveInfo(Cell source, Cell dest) {
+        System.out.format("%s пошёл %s - %s", figureName, source, dest);
     }
 }

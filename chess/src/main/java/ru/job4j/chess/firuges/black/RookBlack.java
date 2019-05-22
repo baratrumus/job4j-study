@@ -1,6 +1,6 @@
 package ru.job4j.chess.firuges.black;
 
-import ru.job4j.chess.ImpossibleMoveException;
+import ru.job4j.chess.exception.ImpossibleMoveException;
 import ru.job4j.chess.firuges.*;
 import ru.job4j.chess.firuges.Cell;
 
@@ -16,9 +16,12 @@ import java.util.Arrays;
  */
 public class RookBlack implements Figure {
     private final Cell position;
+    private final String figureName;
+
 
     public RookBlack(final Cell position) {
         this.position = position;
+        figureName = "Тура";
     }
 
     @Override
@@ -38,16 +41,16 @@ public class RookBlack implements Figure {
         int tmpX = source.x;
         int tmpY = source.y;
         int i = 0;
-        if (LOGIC.isLine(source, dest)) {
-            int deltaX = LOGIC.getHorizontalDeltas(source, dest)[0];
-            int deltaY = LOGIC.getHorizontalDeltas(source, dest)[1];
-            int deltaMove = LOGIC.getHorizontalDeltas(source, dest)[2];
+        if (LINE_TYPE.isLine(source, dest)) {
+            int deltaX = DELTAS.getHorizontalDeltas(source, dest)[0];
+            int deltaY = DELTAS.getHorizontalDeltas(source, dest)[1];
+            int deltaMove = DELTAS.getHorizontalDeltas(source, dest)[2];
 
             for (i = 0; i < deltaMove; i++) {
                 tmpX += deltaX;
                 tmpY += deltaY;
                 steps[i] = LOGIC.findCellByXY(tmpX, tmpY);
-                System.out.println(i + "  " + steps[i].x + "  " + steps[i].y);
+                //System.out.println(i + "  " + steps[i].x + "  " + steps[i].y);
             }
         } else {
             throw new ImpossibleMoveException("Тура так не ходит");
@@ -59,5 +62,10 @@ public class RookBlack implements Figure {
     @Override
     public Figure copy(Cell dest) {
         return new RookBlack(dest);
+    }
+
+    @Override
+    public void moveInfo(Cell source, Cell dest) {
+        System.out.format("%s пошла %s - %s  \n", figureName, source, dest);
     }
 }

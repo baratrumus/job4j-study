@@ -1,14 +1,21 @@
 package ru.job4j.chess.firuges;
 
-import ru.job4j.chess.ImpossibleMoveException;
+import ru.job4j.chess.exception.ImpossibleMoveException;
+import ru.job4j.chess.GetDeltas;
+import ru.job4j.chess.GetLineType;
 import ru.job4j.chess.Logic;
 
 public interface Figure {
+
+    Logic LOGIC = new Logic();
+    GetDeltas DELTAS = new GetDeltas();
+    GetLineType LINE_TYPE = new GetLineType();
+
+
     /**
      * @return Ячейку фигуры
      */
     Cell position();
-    Logic LOGIC = new Logic();
 
     /**
      * @param source задает исходную ячейку
@@ -26,4 +33,6 @@ public interface Figure {
     }
 
     Figure copy(Cell dest);
+
+    void moveInfo(Cell source, Cell dest);
 }

@@ -1,6 +1,6 @@
 package ru.job4j.chess.firuges.black;
 
-import ru.job4j.chess.ImpossibleMoveException;
+import ru.job4j.chess.exception.ImpossibleMoveException;
 import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure;
 
@@ -14,9 +14,12 @@ import java.util.Arrays;
  */
 public class BishopBlack implements Figure {
     private final Cell position;
+    private final String figureName;
+
 
     public BishopBlack(final Cell position) {
         this.position = position;
+        figureName = "Слон";
     }
 
     @Override
@@ -36,17 +39,17 @@ public class BishopBlack implements Figure {
         Cell[] steps = new Cell[7];
         int tmpX = source.x;
         int tmpY = source.y;
-        int i = 0;
-        if (LOGIC.isDiagonal(source, dest)) {
-            int deltaX = LOGIC.getDiagonalDeltas(source, dest)[0];
-            int deltaY = LOGIC.getDiagonalDeltas(source, dest)[1];
-            int deltaMove = LOGIC.getDiagonalDeltas(source, dest)[2];
+        int i;
+        if (LINE_TYPE.isDiagonal(source, dest)) {
+            int deltaX = DELTAS.getDiagonalDeltas(source, dest)[0];
+            int deltaY = DELTAS.getDiagonalDeltas(source, dest)[1];
+            int deltaMove = DELTAS.getDiagonalDeltas(source, dest)[2];
 
             for (i = 0; i < deltaMove; i++) {
                 tmpX += deltaX;
                 tmpY += deltaY;
                 steps[i] = LOGIC.findCellByXY(tmpX, tmpY);
-                System.out.println(i + "  " + steps[i].x + "  " + steps[i].y);
+                //System.out.println(i + "  " + steps[i].x + "  " + steps[i].y);
             }
         } else {
             throw new ImpossibleMoveException("Слон так не ходит");
@@ -58,5 +61,10 @@ public class BishopBlack implements Figure {
     @Override
     public Figure copy(Cell dest) {
         return new BishopBlack(dest);
+    }
+
+    @Override
+    public void moveInfo(Cell source, Cell dest) {
+        System.out.format("%s пошёл %s - %s \n", figureName, source, dest);
     }
 }

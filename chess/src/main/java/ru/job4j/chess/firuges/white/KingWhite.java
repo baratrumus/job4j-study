@@ -1,6 +1,6 @@
 package ru.job4j.chess.firuges.white;
 
-import ru.job4j.chess.ImpossibleMoveException;
+import ru.job4j.chess.exception.ImpossibleMoveException;
 import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure;
 
@@ -12,8 +12,10 @@ import ru.job4j.chess.firuges.Figure;
  */
 public class KingWhite implements Figure {
     private final Cell position;
+    private final String figureName;
 
     public KingWhite(final Cell position) {
+        figureName = "Король";
         this.position = position;
     }
 
@@ -39,5 +41,10 @@ public class KingWhite implements Figure {
     @Override
     public Figure copy(Cell dest) {
         return new KingWhite(dest);
+    }
+
+    @Override
+    public void moveInfo(Cell source, Cell dest) {
+        System.out.format("%s пошёл %s - %s", figureName, source, dest);
     }
 }
