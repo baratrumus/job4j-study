@@ -28,11 +28,10 @@ public class PawnWhite implements Figure {
     @Override
     public Cell[] way(Cell source, Cell dest) throws ImpossibleMoveException {
         Cell[] steps = new Cell[0];
-        if (source.y == dest.y - 1 && source.x == dest.x) {
-            steps = new Cell[] {dest};
-        } else {
+        if (!(source.y == dest.y - 1 && source.x == dest.x)) {
             throw new ImpossibleMoveException("Пешка так не ходит");
         }
+        steps = new Cell[] {dest};
         return steps;
     }
 
@@ -43,6 +42,6 @@ public class PawnWhite implements Figure {
 
     @Override
     public void moveInfo(Cell source, Cell dest) {
-        System.out.format("%s пошла %s - %s", figureName, source, dest);
+        System.out.format("%s пошла %s - %s \n", figureName, source, dest);
     }
 }

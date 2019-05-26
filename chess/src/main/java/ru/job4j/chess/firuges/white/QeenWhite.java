@@ -68,6 +68,6 @@ public class QeenWhite implements Figure {
 
     @Override
     public void moveInfo(Cell source, Cell dest) {
-        System.out.format("%s пошёл %s - %s", figureName, source, dest);
+        System.out.format("%s пошёл %s - %s \n", figureName, source, dest);
     }
 }

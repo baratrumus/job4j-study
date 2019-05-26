@@ -9,6 +9,7 @@ public abstract class BaseAction implements UserAction {
         this.name = name;
     }
 
+
     @Override
     public int key() {
         return this.key;

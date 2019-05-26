@@ -37,22 +37,20 @@ public class RookWhite implements Figure {
         Cell[] steps = new Cell[7];
         int tmpX = source.x;
         int tmpY = source.y;
-        int i;
-        if (LINE_TYPE.isLine(source, dest)) {
-            int deltaX = DELTAS.getHorizontalDeltas(source, dest)[0];
-            int deltaY = DELTAS.getHorizontalDeltas(source, dest)[1];
-            int deltaMove = DELTAS.getHorizontalDeltas(source, dest)[2];
-
-            for (i = 0; i < deltaMove; i++) {
-                tmpX += deltaX;
-                tmpY += deltaY;
-                steps[i] = LOGIC.findCellByXY(tmpX, tmpY);
-                //System.out.println(i + "  " + steps[i].x + "  " + steps[i].y);
-            }
-        } else {
+        int i = 0;
+        if (!LINE_TYPE.isLine(source, dest)) {
             throw new ImpossibleMoveException("Тура так не ходит");
         }
+        int deltaX = DELTAS.getHorizontalDeltas(source, dest)[0];
+        int deltaY = DELTAS.getHorizontalDeltas(source, dest)[1];
+        int deltaMove = DELTAS.getHorizontalDeltas(source, dest)[2];
 
+        for (i = 0; i < deltaMove; i++) {
+            tmpX += deltaX;
+            tmpY += deltaY;
+            steps[i] = LOGIC.findCellByXY(tmpX, tmpY);
+            //System.out.println(i + "  " + steps[i].x + "  " + steps[i].y);
+        }
         return Arrays.copyOf(steps, i);
     }
 
@@ -63,6 +61,6 @@ public class RookWhite implements Figure {
 
     @Override
     public void moveInfo(Cell source, Cell dest) {
-        System.out.format("%s пошла %s - %s", figureName, source, dest);
+        System.out.format("%s пошла %s - %s \n", figureName, source, dest);
     }
 }

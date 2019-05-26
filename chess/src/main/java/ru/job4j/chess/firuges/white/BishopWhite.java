@@ -38,19 +38,16 @@ public class BishopWhite implements Figure {
         int tmpX = source.x;
         int tmpY = source.y;
         int i;
-        if (LINE_TYPE.isDiagonal(source, dest)) {
-            int deltaX = DELTAS.getDiagonalDeltas(source, dest)[0];
-            int deltaY = DELTAS.getDiagonalDeltas(source, dest)[1];
-            int deltaMove = DELTAS.getDiagonalDeltas(source, dest)[2];
-
-            for (i = 0; i < deltaMove; i++) {
-                tmpX += deltaX;
-                tmpY += deltaY;
-                steps[i] = LOGIC.findCellByXY(tmpX, tmpY);
-                //System.out.println(i + "  " + steps[i].x + "  " + steps[i].y);
-            }
-        } else {
+        if (!LINE_TYPE.isDiagonal(source, dest)) {
             throw new ImpossibleMoveException("Слон так не ходит");
+        }
+        int deltaX = DELTAS.getDiagonalDeltas(source, dest)[0];
+        int deltaY = DELTAS.getDiagonalDeltas(source, dest)[1];
+        int deltaMove = DELTAS.getDiagonalDeltas(source, dest)[2];
+        for (i = 0; i < deltaMove; i++) {
+            tmpX += deltaX;
+            tmpY += deltaY;
+            steps[i] = LOGIC.findCellByXY(tmpX, tmpY);
         }
         return Arrays.copyOf(steps, i);
     }
@@ -63,6 +60,6 @@ public class BishopWhite implements Figure {
 
     @Override
     public void moveInfo(Cell source, Cell dest) {
-        System.out.format("%s пошёл %s - %s", figureName, source, dest);
+        System.out.format("%s пошёл %s - %s \n", figureName, source, dest);
     }
 }

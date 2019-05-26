@@ -5,7 +5,6 @@ import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure;
 
 /**
- *
  * @author Ilya Ivannikov
  * @version $Id$
  * @since 0.1
@@ -13,7 +12,6 @@ import ru.job4j.chess.firuges.Figure;
 public class KingBlack implements Figure {
     private final Cell position;
     private final String figureName;
-
 
     public KingBlack(final Cell position) {
         this.position = position;
@@ -28,14 +26,17 @@ public class KingBlack implements Figure {
     @Override
     public Cell[] way(Cell source, Cell dest) throws ImpossibleMoveException {
         Cell[] steps = new Cell[0];
-        if ((source.y == dest.y + 1)
-                || (source.y == dest.y - 1)
-                || (source.x == dest.x + 1)
-                || (source.x == dest.x - 1)) {
-            steps = new Cell[]{dest};
-        } else {
+        if (!((source.y - 1 == dest.y && source.x - 1 == dest.x)
+                || (source.y - 1 == dest.y && source.x == dest.x)
+                || (source.y - 1 == dest.y && source.x + 1 == dest.x)
+                || (source.y == dest.y && source.x + 1 == dest.x)
+                || (source.y + 1 == dest.y && source.x + 1 == dest.x)
+                || (source.y + 1 == dest.y && source.x - 1 == dest.x)
+                || (source.y + 1 == dest.y && source.x == dest.x)
+                || (source.y == dest.y && source.x - 1 == dest.x))) {
             throw new ImpossibleMoveException("Король так не ходит");
         }
+        steps = new Cell[]{dest};
         return steps;
     }
 

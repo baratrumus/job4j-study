@@ -17,39 +17,28 @@ public class Logic {
     private final Figure[] figures = new Figure[32];
     private int index = 0;
 
-
-
-
-
-
-
-
     public void add(Figure figure) {
         this.figures[this.index++] = figure;
     }
 
-
     /**
-     *
      * @param steps массив ячеек, через которые идет фигура, без начальной, но с конечной
      *              у пешки, короля, коня будет одна - конечная
      * @return  может ли она пройти
      * @throws OccupiedWayException
      */
-    private boolean isWayFree(Cell[] steps) throws OccupiedWayException {
+    private boolean isWayFree(Cell[] steps) throws OccupiedWayException{
         boolean res = true;
         for (Cell cell : steps) {
            for (Figure fig : figures) {
                if ((cell.x == fig.position().x) && (cell.y == fig.position().y)) {
-                    res = false;
-                    throw new OccupiedWayException("Так пойти нельзя. Путь занят.");
+                   res = false;
+                   throw new OccupiedWayException("Так пойти нельзя. Путь занят.");
                }
            }
         }
         return res;
     }
-
-
 
     /**
      * Если фигура в ячейке есть получаем массив ячеек пути.
@@ -59,19 +48,16 @@ public class Logic {
      * @param dest
      * @return
      */
-    public boolean move(Cell source, Cell dest) {
+    public boolean move(Cell source, Cell dest)  {
         boolean rst = false;
         Cell[] steps;
         try {
             int index = this.findBy(source);
             if (index != -1) {
                 steps = this.figures[index].way(source, dest);
-
                 /*System.out.println(steps.length);
                 for (Cell cell : steps) {
-                    System.out.println(cell);
-                }*/
-
+                    System.out.println(cell);}*/
                 if (isWayFree(steps)) {
                     if (steps.length > 0 && steps[steps.length - 1].equals(dest)) {
                         rst = true;
@@ -80,15 +66,9 @@ public class Logic {
                     }
                 }
             }
-
-        } catch (ImpossibleMoveException ime) {
-            System.out.println(ime.getMessage());
-        } catch (FigureNotFoundException ffe) {
-            System.out.println(ffe.getMessage());
-        } catch (OccupiedWayException owe) {
-            System.out.println(owe.getMessage());
+        } catch (ImpossibleMoveException | FigureNotFoundException | OccupiedWayException ex) {
+            System.out.println(ex.getMessage());
         }
-
         return rst;
     }
 
@@ -103,7 +83,6 @@ public class Logic {
     }
 
     /**
-     *
      * @param cell получает ячейку
      * @return индекс фигуры в массиве
      */

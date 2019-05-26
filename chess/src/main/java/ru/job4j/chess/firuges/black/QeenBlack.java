@@ -16,7 +16,6 @@ public class QeenBlack implements Figure {
     private final Cell position;
     private final String figureName;
 
-
     public QeenBlack(final Cell position) {
         this.position = position;
         figureName = "Ферзь";

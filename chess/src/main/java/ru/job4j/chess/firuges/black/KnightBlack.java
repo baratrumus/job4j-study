@@ -14,8 +14,6 @@ import ru.job4j.chess.firuges.Figure;
 public class KnightBlack implements Figure {
     private final Cell position;
     private final String figureName;
-
-
     private final GetKnightMoves knightMoves = new GetKnightMoves();
 
     public KnightBlack(final Cell position) {

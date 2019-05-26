@@ -17,7 +17,6 @@ public class GetLineType {
         } else {
             return ret;
         }
-
         if (source.y < dest.y) {
             deltaY = 1;
         } else if (source.y > dest.y) {
@@ -25,7 +24,6 @@ public class GetLineType {
         } else {
             return ret;
         }
-
         for (int i = 0; i < 7; i++) {
             tmpX += deltaX;
             tmpY += deltaY;

@@ -11,7 +11,6 @@ public interface Figure {
     GetDeltas DELTAS = new GetDeltas();
     GetLineType LINE_TYPE = new GetLineType();
 
-
     /**
      * @return Ячейку фигуры
      */
@@ -23,13 +22,12 @@ public interface Figure {
      * @return  Если фигура может туда пойти - возвращает массив ячеек пути
      * @throws ImpossibleMoveException
      */
-    Cell[] way(Cell source, Cell dest) throws ImpossibleMoveException;
+    Cell[] way(Cell source, Cell dest)  throws ImpossibleMoveException;
 
     default String icon() {
         return String.format(
                 "%s.png", this.getClass().getSimpleName()
         );
-
     }
 
     Figure copy(Cell dest);

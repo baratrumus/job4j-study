@@ -7,14 +7,13 @@ import ru.job4j.chess.firuges.Figure;
 
 /**
  *
- * @author Petr Arsentev (parsentev@yandex.ru)
+ * @author Ilya Ivannikov
  * @version $Id$
  * @since 0.1
  */
 public class KnightWhite implements Figure {
     private final Cell position;
     private final String figureName;
-
     private final GetKnightMoves knightMoves = new GetKnightMoves();
 
     public KnightWhite(final Cell position) {
@@ -56,6 +55,6 @@ public class KnightWhite implements Figure {
 
     @Override
     public void moveInfo(Cell source, Cell dest) {
-        System.out.format("%s пошёл %s - %s", figureName, source, dest);
+        System.out.format("%s пошёл %s - %s \n", figureName, source, dest);
     }
 }
