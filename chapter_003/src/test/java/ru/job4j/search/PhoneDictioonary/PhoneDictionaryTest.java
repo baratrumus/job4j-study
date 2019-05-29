@@ -1,6 +1,8 @@
-package ru.job4j.search;
+package ru.job4j.search.PhoneDictioonary;
 
 import org.junit.Test;
+import ru.job4j.search.PhoneDictioonary.Person;
+import ru.job4j.search.PhoneDictioonary.PhoneDictionary;
 
 import java.util.Iterator;
 import java.util.List;
