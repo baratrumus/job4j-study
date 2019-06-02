@@ -1,6 +1,4 @@
-package ru.job4j.search.PhoneDictioonary;
-
-import ru.job4j.search.PhoneDictioonary.Person;
+package ru.job4j.search.phoneDictionary;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -24,12 +22,12 @@ public class PhoneDictionary {
         List<Person> result = new ArrayList<>();
         Iterator<Person> iter = persons.iterator();
         Person per;
-        while(iter.hasNext()){
+        while (iter.hasNext()) {
             per = iter.next();
-            if (per.getName().contains(key) ||
-                    per.getSurname().contains(key) ||
-                    per.getPhone().contains(key) ||
-                    per.getAddress().contains(key)) {
+            if (per.getName().contains(key)
+                    || per.getSurname().contains(key)
+                    || per.getPhone().contains(key)
+                    || per.getAddress().contains(key)) {
                 result.add(per);
             }
         }

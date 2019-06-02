@@ -1,4 +1,4 @@
-package ru.job4j.search.PriorityQueue;
+package ru.job4j.search.priorityQueue;
 
 import java.util.LinkedList;
 import java.util.ListIterator;

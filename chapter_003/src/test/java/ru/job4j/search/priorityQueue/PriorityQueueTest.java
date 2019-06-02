@@ -1,4 +1,4 @@
-package ru.job4j.search.PriorityQueue;
+package ru.job4j.search.priorityQueue;
 
 import org.junit.Test;
 import static org.hamcrest.core.Is.is;
