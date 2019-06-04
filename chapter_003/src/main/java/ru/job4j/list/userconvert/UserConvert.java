@@ -14,12 +14,14 @@ public class UserConvert {
      * @param list
      * @return
      */
+
     public HashMap<Integer, User> process(List<User> list) {
         HashMap<Integer, User> result = new HashMap<Integer, User>();
         ListIterator<User> literator = list.listIterator();
         int i = 1;
         while (literator.hasNext()) {
-            result.put(i++, literator.next());
+            User user = literator.next();
+            result.put(user.getId(), user);
         }
         return result;
     }

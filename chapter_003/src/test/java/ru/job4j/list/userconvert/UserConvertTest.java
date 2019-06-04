@@ -22,16 +22,16 @@ public class UserConvertTest {
         List<User> list = new ArrayList<User>();
         User bob = new User(22, "Bob", "Oslo");
         User pit = new User(33, "Pit", "Magadan");
-        User lera = new User(22, "Lera", "Chelabinsk");
+        User lera = new User(66, "Lera", "Chelabinsk");
         list.add(bob);
         list.add(pit);
         list.add(lera);
         HashMap<Integer, User> result = userConvert.process(list);
 
         HashMap<Integer, User> expect = new HashMap<Integer, User>();
-        expect.put(1, bob);
-        expect.put(2, pit);
-        expect.put(3, lera);
+        expect.put(22, bob);
+        expect.put(33, pit);
+        expect.put(66, lera);
 
         assertThat(result, is(expect));
 

@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Arrays;
 
@@ -17,7 +19,7 @@ public class Tracker {
      * Массив для хранение заявок.
      */
     private final Item[] items = new Item[100];
-
+    //private final List<Item> items = new ArrayList<Item>(100);
     /**
      * Указатель ячейки для новой заявки.
 */
@@ -36,7 +38,7 @@ public class Tracker {
     public Item add(Item item) {
         item.setId(this.generateId());
         this.items[this.position] = item;
-        if (this.position < this.items.length - 1) {
+        if (this.position < this.items.size() - 1) {
             this.position++;
         }
         return item;
