@@ -233,8 +233,8 @@ public class MenuTracker {
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Поиск заявок по имени --------------");
             String name = input.ask("Введите имя для поиска :");
-            Item[] item = tracker.findByName(name);
-            if (item.length != 0) {
+            List<Item> item = tracker.findByName(name);
+            if (item.size() != 0) {
                 for (Item it : item) {
                     System.out.println("------------ Id : " + it.getId() + " ------------");
                     System.out.println("------------ Имя : " + it.getName() + " ------------");

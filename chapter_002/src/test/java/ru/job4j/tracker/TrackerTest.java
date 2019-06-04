@@ -2,6 +2,9 @@ package ru.job4j.tracker;
 
 
 import org.junit.Test;
+
+import java.util.List;
+
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.*;
@@ -52,7 +55,7 @@ public class TrackerTest {
         tracker.add(item);
         tracker.add(item1);
         tracker.add(item2);
-        Item[] result = tracker.findByName(item.getName());
+        List<Item> result = tracker.findByName(item.getName());
         for (Item it: result) {
             assertThat(it.getName(), is(item.getName()));
         }
@@ -83,8 +86,8 @@ public class TrackerTest {
         tracker.add(item);
         tracker.add(item1);
         tracker.add(item2);
-        Item[] result = tracker.findAll();
-        assertThat(3, is(result.length));
+        List<Item> result = tracker.findAll();
+        assertThat(3, is(result.size()));
 
     }
 }

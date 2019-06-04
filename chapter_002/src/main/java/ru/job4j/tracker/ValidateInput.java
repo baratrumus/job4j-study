@@ -38,7 +38,7 @@ public class ValidateInput implements Input {
                 value = this.input.ask(question, range);
                 invalid = false;
             } catch (MenuOutException moe) {
-                moe.printStackTrace();                       //Вывод стека exception
+                //moe.printStackTrace();                       //Вывод стека exception
                 System.out.println("Выберите цифру из меню");
             } catch (NumberFormatException nfe) {            //сюда попадем если введем буквы
                 System.out.println("Введите цифру, а не букву");
