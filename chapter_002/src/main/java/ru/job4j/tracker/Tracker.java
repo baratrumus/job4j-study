@@ -1,10 +1,6 @@
 package ru.job4j.tracker;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.ListIterator;
-
+import java.util.*;
 
 
 /**
@@ -84,9 +80,10 @@ public class Tracker {
         if (id == null || item == null) {
             return res;
         }
-        for (Item it : items) {
+        for (ListIterator<Item> literator = items.listIterator(); literator.hasNext(); ) {
+            index = literator.nextIndex();
+            Item it = literator.next();
             if (it.getId().equals(id)) {
-                index = items.indexOf(it);
                 items.set(index, item);
                 res = true;
                 items.get(index).setId(id);//ставим id, чтобы он не оказался null, если item берем не из массива
