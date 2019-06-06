@@ -3,6 +3,7 @@ package ru.job4j.sorting;
 public class User implements Comparable<User> {
     private final String name;
     private final int age;
+    static int i = 0;
 
     public String getName() {
         return name;
@@ -25,11 +26,10 @@ public class User implements Comparable<User> {
     @Override
     public int compareTo(User o) {
         int result = Integer.compare(this.age, o.age);
-        //Integer.valueOf(this.age).compareTo(Integer.valueOf(o.age));
         if (result == 0) {
             result = this.name.compareTo(o.name);
         }
+        i = 1;
         return result;
     }
-
 }

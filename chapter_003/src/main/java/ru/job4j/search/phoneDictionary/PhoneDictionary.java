@@ -6,7 +6,7 @@ import java.util.List;
 
 public class PhoneDictionary {
 
-    private List<Person> persons = new ArrayList<Person>();
+    private List<Person> persons = new ArrayList<>();
 
     public void add(Person person) {
         this.persons.add(person);

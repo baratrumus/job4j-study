@@ -28,7 +28,7 @@ public class PriorityQueue {
                 break;
             }
         }
-        if(!indexFound) {
+        if (!indexFound) {
             this.tasks.add(task);
         }
 

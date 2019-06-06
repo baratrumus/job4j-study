@@ -1,11 +1,9 @@
 package ru.job4j.list.userconvert;
 
-import ru.job4j.search.priorityQueue.Task;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Map;
 
 public class UserConvert {
     /**
@@ -16,7 +14,7 @@ public class UserConvert {
      */
 
     public HashMap<Integer, User> process(List<User> list) {
-        HashMap<Integer, User> result = new HashMap<Integer, User>();
+        HashMap<Integer, User> result = new HashMap<>();
         ListIterator<User> literator = list.listIterator();
         int i = 1;
         while (literator.hasNext()) {
