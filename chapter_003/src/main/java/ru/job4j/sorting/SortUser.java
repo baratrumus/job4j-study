@@ -34,12 +34,12 @@ public class SortUser {
      * Компаратор определен во внешнем методе
      */
     public static List<User> sortByAllFields(List<User> users) {
-        users.sort(NameAndAge);
+        users.sort(nameAndAge);
         return users;
     }
 
 
-    public static Comparator<User> NameAndAge = new Comparator<>() {
+    public static Comparator<User> nameAndAge = new Comparator<>() {
         @Override
         public int compare(User u1, User u2) {
             int ret = u1.getName().compareTo(u2.getName());
