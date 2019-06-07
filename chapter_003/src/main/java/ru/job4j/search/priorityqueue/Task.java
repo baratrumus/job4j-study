@@ -1,4 +1,4 @@
-package ru.job4j.search.priorityQueue;
+package ru.job4j.search.priorityqueue;
 
 public class Task {
     private String desc;

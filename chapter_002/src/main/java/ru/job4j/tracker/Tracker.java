@@ -52,7 +52,7 @@ public class Tracker {
 
     public List<Item> findByName(String key) {
         List<Item> found = new ArrayList<>();
-        for(Item item : items) {
+        for (Item item : items) {
             if (item.getName().equals(key)) {
                 found.add(item);
             }
@@ -80,13 +80,13 @@ public class Tracker {
         if (id == null || item == null) {
             return res;
         }
-        for (ListIterator<Item> literator = items.listIterator(); literator.hasNext(); ) {
+        for (ListIterator<Item> literator = items.listIterator(); literator.hasNext();) {
             index = literator.nextIndex();
             Item it = literator.next();
             if (it.getId().equals(id)) {
                 items.set(index, item);
                 res = true;
-                items.get(index).setId(id);//ставим id, чтобы он не оказался null, если item берем не из массива
+                items.get(index).setId(id); //ставим id, чтобы он не оказался null, если item берем не из массива
             }
         }
         return res;

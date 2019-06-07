@@ -1,14 +1,13 @@
-package ru.job4j.KofeMachine;
+package ru.job4j.kofemachine;
 
 import org.junit.Test;
-import ru.job4j.condition.Point;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 public class KofeMachineTest {
     @Test
-    public void when50and33TheRestIs10_5_2() {
+    public void when50and33TheRestIs10and5and2() {
         KofeMachine km = new KofeMachine(50, 33);
         assertThat(km.changes(), is(new int[]{10, 5, 2}));
     }

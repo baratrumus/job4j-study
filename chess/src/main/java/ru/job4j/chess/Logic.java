@@ -27,7 +27,7 @@ public class Logic {
      * @return  может ли она пройти
      * @throws OccupiedWayException
      */
-    private boolean isWayFree(Cell[] steps) throws OccupiedWayException{
+    private boolean isWayFree(Cell[] steps) throws OccupiedWayException {
         boolean res = true;
         for (Cell cell : steps) {
            for (Figure fig : figures) {

@@ -1,4 +1,4 @@
-package ru.job4j.KofeMachine;
+package ru.job4j.kofemachine;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,7 +18,7 @@ public class KofeMachine {
     private final int value;
     private final int price;
 
-    KofeMachine (int value, int price) {
+    KofeMachine(int value, int price) {
         this.value = value;
         this.price = price;
     }
@@ -27,7 +27,7 @@ public class KofeMachine {
         List<Integer> rt = new ArrayList<Integer>();
         int[] monets = new int[]{10, 5, 2, 1};
         int rest = this.value - this.price;
-        for(int mon: monets) {
+        for (int mon: monets) {
             while (rest >= mon) {
                 rest -= mon;
                 rt.add(mon);
