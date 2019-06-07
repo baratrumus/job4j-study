@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/baratrumus/job4j.svg?branch=master)](https://travis-ci.org/baratrumus/job4j)
+[![codecov](https://codecov.io/gh/baratrumus/job4j/branch/master/graph/badge.svg)](https://codecov.io/gh/baratrumus/job4j)
+
+
 # Репозиторий  Иванникова Ильи
 
 Я прохожу обучение по курсу job4j. Планирую закончить его в начале осени 2019 года. Ниже находятся наиболее интересные проекты, которые я реализовал во время обучения.

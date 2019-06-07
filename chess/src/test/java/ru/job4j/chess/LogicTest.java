@@ -1,15 +1,48 @@
-package ru.job4j;
+package ru.job4j.chess;
 
 import org.junit.Test;
-import ru.job4j.chess.Logic;
+import static org.junit.Assert.*;
+
 import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.black.*;
 import ru.job4j.chess.firuges.white.*;
 
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertFalse;
 
-public class LogicTests {
+public class LogicTest {
+    @Test
+    public void whenMoveB8C6ThenTrue() {
+        addFigures();
+        logic.move(Cell.D7, Cell.D6);   //убираем пешку с пути
+        boolean result = logic.move(Cell.C8, Cell.E6);
+        assertTrue(result);
+    }
+
+
+    @Test
+    public void whenMoveC8E5ThenFalse() {
+        addFigures();
+        boolean result = logic.move(Cell.C8, Cell.E5);
+        assertFalse(result);
+    }
+
+    /**
+     * isWayFree
+      */
+    @Test
+    public void whenisWayFreeBishopC8E6ThenFalse() {
+        addFigures();
+        boolean result = logic.move(Cell.C8, Cell.E6);
+        assertFalse(result);
+    }
+
+    @Test
+    public void whenisWayFreeBishopC8E6ThenTrue() {
+        addFigures();
+        logic.move(Cell.D7, Cell.D6);   //убираем пешку с пути
+        boolean result = logic.move(Cell.C8, Cell.E6);
+        assertTrue(result);
+    }
+
     Logic logic = new Logic();
 
     public void addFigures() {
@@ -47,49 +80,4 @@ public class LogicTests {
         logic.add(new KnightWhite(Cell.G1));
         logic.add(new RookWhite(Cell.H1));
     }
-
-
-    /**
-     * Тест метода move
-     */
-    @Test
-    public void whenMoveB8C6ThenTrue() {
-        addFigures();
-        logic.move(Cell.D7, Cell.D6);   //убираем пешку с пути
-        boolean result = logic.move(Cell.C8, Cell.E6);
-        assertTrue(result);
-    }
-
-
-    @Test
-    public void whenMoveC8E5ThenFalse() {
-        addFigures();
-        boolean result = logic.move(Cell.C8, Cell.E5);
-        assertFalse(result);
-    }
-
-    /**
-     * isWayFree
-      */
-    @Test
-    public void whenisWayFreeBishopC8E6ThenFalse() {
-        addFigures();
-        boolean result = logic.move(Cell.C8, Cell.E6);
-        assertFalse(result);
-    }
-
-    @Test
-    public void whenisWayFreeBishopC8E6ThenTrue() {
-        addFigures();
-        logic.move(Cell.D7, Cell.D6);   //убираем пешку с пути
-        boolean result = logic.move(Cell.C8, Cell.E6);
-        assertTrue(result);
-    }
-
-
-
-
-
-
-
 }

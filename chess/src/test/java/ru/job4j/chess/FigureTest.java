@@ -1,4 +1,4 @@
-package ru.job4j;
+package ru.job4j.chess;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -28,7 +28,7 @@ import ru.job4j.chess.firuges.black.*;
 import ru.job4j.chess.firuges.white.*;
 
 
-public class FigureTests {
+public class FigureTest {
     Logic logic = new Logic();
 
     public void addFigures() {
