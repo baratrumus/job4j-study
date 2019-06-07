@@ -23,8 +23,8 @@ public class ListCompare implements Comparator<String> {
                 break;
             }
         }
-        if ((res == 0) && (arLeft.length != arRight.length)) {
-            res = ((arLeft.length - arRight.length) > 0) ? 1 : -1;
+        if (res == 0)  {
+            res = Integer.compare(arLeft.length, arRight.length);
         }
     return res;
     }
