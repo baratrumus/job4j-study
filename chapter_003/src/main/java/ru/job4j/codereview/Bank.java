@@ -10,6 +10,8 @@ import java.util.TreeMap;
  * Не описан класс User в этом пакете.
  * Т.е. не переопределен метод equals,  compareTo и TreeMap не отсортирует себя по ключу.
  * Вообще не откомпилируется.  В остальном все вроде хорошо.
+ *
+ *
  */
 
 public class Bank {
@@ -56,5 +58,14 @@ public class Bank {
 
     public String toString() {
         return "Bank{" + "accounts=" + treemap + "}";
+    }
+
+    public static  void main(String[] args) {
+        Bank bnk = new Bank();
+        User usr = new User("GH", 12);
+        Account acc = new Account(232, "ggg");
+        bnk.addUser(usr);
+        bnk.add(usr, acc);
+
     }
 }
