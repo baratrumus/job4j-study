@@ -28,6 +28,7 @@ public class Bank {
 
     /**
      * Здесь из this.treemap.get(user) мы получаем  ArrayList<>()
+     * если usera нет то этот код вернет null и если у него потом дернуть  get() будет npe
      * @param user
      * @param account
      */
@@ -57,7 +58,7 @@ public class Bank {
     }
 
     public String toString() {
-        return "Bank{" + "accounts=" + treemap + "}";
+        return "bank{" + "accounts=" + treemap + "}";
     }
 
     public static  void main(String[] args) {
@@ -66,6 +67,6 @@ public class Bank {
         Account acc = new Account(232, "ggg");
         bnk.addUser(usr);
         bnk.add(usr, acc);
-
+        bnk.getAccounts(usr);
     }
 }
