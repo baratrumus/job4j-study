@@ -9,8 +9,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class StringsCompareTest {
     @Test
     public void whenStringsAreEqualThenZero() {
-        ListCompare compare = new ListCompare();
-        int rst = compare.compare(
+        ListCompare lc = new ListCompare();
+        int rst = lc.compare(
                 "Ivanov",
                 "Ivanov"
         );
@@ -19,8 +19,8 @@ public class StringsCompareTest {
 
     @Test
     public void whenLeftLessThanRightResultShouldBeNegative() {
-        ListCompare compare = new ListCompare();
-        int rst = compare.compare(
+        ListCompare lc = new ListCompare();
+        int rst = lc.compare(
                 "Ivanov",
                 "Ivanova"
         );

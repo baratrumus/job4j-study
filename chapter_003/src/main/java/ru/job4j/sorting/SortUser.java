@@ -2,12 +2,14 @@ package ru.job4j.sorting;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.SortedMap;
 import java.util.TreeSet;
 
 public class SortUser {
     /**
      * @return TreeSet пользователей, отсортированных по возрасту в порядке возрастания.
      */
+
     public static TreeSet<User> sort(List<User> luser) {
         TreeSet<User> ret = new TreeSet<>();
         ret.addAll(luser);
