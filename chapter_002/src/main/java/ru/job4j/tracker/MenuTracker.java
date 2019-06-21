@@ -2,7 +2,7 @@ package ru.job4j.tracker;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.function.Consumer;
 
 
 /**
@@ -15,15 +15,15 @@ public class MenuTracker {
 
     private Input input;
     private Tracker tracker;
-
+    private Consumer<String> output;
 
     private List<UserAction> actions = new ArrayList<>();
 
-    public MenuTracker(Input input, Tracker tracker) {
+    public MenuTracker(Input input, Tracker tracker, Consumer<String> output) {
         this.input = input;
         this.tracker = tracker;
+        this.output = output;
     }
-
 
     /**
      * Метод заполняет список.
@@ -32,13 +32,13 @@ public class MenuTracker {
      * this.new
      * <p>
      * 2. ShowAll() сделан статическим классом и его объект создается через обращение к имени внешнего класса
-     * MenuTracker
+     * MenuTracker. уже нет.
      *
      * 3. ExitProgram сделан через внешний класс
      */
     public void fillActions(StartUI ui) {
         this.actions.add(this.new AddItem(0, "Добавление новой заявки"));
-        this.actions.add(new MenuTracker.ShowAll(1, "Вывод всех заявок из хранилища"));
+        this.actions.add(this.new ShowAll(1, "Вывод всех заявок из хранилища"));
         this.actions.add(this.new EditItem(2, "Редактирование заявки"));
         this.actions.add(this.new DeleteItem(3, "Удаление заявки"));
         this.actions.add(this.new FindItemById(4, "Поиск по Id"));
@@ -82,7 +82,7 @@ public class MenuTracker {
     public void show() {
         for (UserAction action : this.actions) {
             if (action != null) {
-                System.out.println(action.info());
+                output.accept(action.info());
             }
         }
     }
@@ -98,13 +98,13 @@ public class MenuTracker {
 
         @Override
         public void execute(Input input, Tracker tracker) {
-            System.out.println("------------ Добавление новой заявки --------------");
+            output.accept("------------ Добавление новой заявки --------------");
             String name = input.ask("Введите имя заявки :");
             String desc = input.ask("Введите описание заявки :");
             long created = System.currentTimeMillis();
             Item item = new Item(name, desc, created);
             tracker.add(item);
-            System.out.println("------------ Добавлена новая заявка с Id : " + item.getId() + "-----------");
+            output.accept(String.format("------------ Добавлена новая заявка с Id : %s-----------", item.getId()));
         }
     }
 
@@ -112,7 +112,7 @@ public class MenuTracker {
     /**
      * Метод выводит все заявки из хранилища
      */
-    private static class ShowAll extends BaseAction {
+    private class ShowAll extends BaseAction {
 
         public ShowAll(int key, String name) {
             super(key, name);
@@ -120,13 +120,13 @@ public class MenuTracker {
 
         @Override
         public void execute(Input input, Tracker tracker) {
-            System.out.println("------------ Вывод всех заявок из хранилища --------------");
+            output.accept("------------ Вывод всех заявок из хранилища --------------");
             for (Item item : tracker.findAll()) {
-                System.out.println("------------ Id : " + item.getId() + " ------------");
-                System.out.println("------------ Имя : " + item.getName() + " ------------");
-                System.out.println("------------ Описание : " + item.getDecs() + " ------------");
-                System.out.println("------------ Дата создания : " + item.getTime() + " ------------");
-                System.out.println("");
+                output.accept(String.format("------------ Id : %s ------------\r\n"
+                                + "------------ Имя : %s ------------\r\n"
+                                + "------------ Описание : %s ------------\r\n"
+                                + "------------ Дата создания : %s ------------\r\n",
+                        item.getId(), item.getName(), item.getDecs(), item.getTime()));
             }
         }
     }
@@ -143,24 +143,29 @@ public class MenuTracker {
 
         @Override
         public void execute(Input input, Tracker tracker) {
-            System.out.println("------------ Редактирование заявки --------------");
+            output.accept("------------ Редактирование заявки --------------");
             String id = input.ask("Введите Id заявки для редактирования :");
             Item item = tracker.findById(id);
-            System.out.println("------------ Редактируем заявку с именем : " + item.getName() + "-----------");
-            System.out.println("------------ Описание : " + item.getDecs() + "-----------");
-            System.out.println("------------ Дата создания(будет заменена на текущую) : " + item.getTime() + "-----------");
-            String newName = input.ask("Введите новое имя :");
-            String newDesc = input.ask("Введите новое описание :");
-            long created = System.currentTimeMillis();
-            Item newItem = new Item(newName, newDesc, created);
-            if (tracker.replace(item.getId(), newItem)) {
-                newItem = tracker.findById(id);
-                System.out.println("------------ Успешно изменена заявка с Id : " + newItem.getId() + "-----------");
-                System.out.println("------------ Имя : " + newItem.getName() + "-----------");
-                System.out.println("------------ Описание : " + newItem.getDecs() + "-----------");
-                System.out.println("------------ Дата создания : " + newItem.getTime() + "-----------");
+            if (item != null) {
+                output.accept(String.format("------------ Редактируем заявку с именем : %s-----------", item.getName()));
+                output.accept(String.format("------------ Описание : %s-----------", item.getDecs()));
+                output.accept(String.format("------------ Дата создания(будет заменена на текущую) : %s-----------", item.getTime()));
+                String newName = input.ask("Введите новое имя :");
+                String newDesc = input.ask("Введите новое описание :");
+                long created = System.currentTimeMillis();
+                Item newItem = new Item(newName, newDesc, created);
+                if (tracker.replace(item.getId(), newItem)) {
+                    newItem = tracker.findById(id);
+                    output.accept(String.format("------------ Успешно изменена заявка с Id : %s-----------\n"
+                                    + "------------ Имя : %s-----------\n"
+                                    + "------------ Описание : %s-----------\n"
+                                    + "------------ Дата создания : %s-----------\n",
+                            newItem.getId(), newItem.getName(), newItem.getDecs(), newItem.getTime()));
+                } else {
+                    output.accept("------------ Редактирование не удалось -----------");
+                }
             } else {
-                System.out.println("------------ Редактирование не удалось -----------");
+                output.accept("------------ Заявок с таким Id не найдено -----------");
             }
         }
 
@@ -178,14 +183,19 @@ public class MenuTracker {
 
         @Override
         public void execute(Input input, Tracker tracker) {
-            System.out.println("------------ Удаление заявки --------------");
+            output.accept("------------ Удаление заявки --------------");
             String id = input.ask("Введите Id заявки для удаления :");
             Item item = tracker.findById(id);
-            if (tracker.delete(item.getId())) {
-                System.out.println("------------ Заявка успешно удалена ");
+            if (item != null) {
+                if (tracker.delete(item.getId())) {
+                    output.accept("------------ Заявка успешно удалена ");
+                } else {
+                    output.accept("------------ Удаление не удалось -----------");
+                }
             } else {
-                System.out.println("------------ Удаление не удалось -----------");
+                output.accept("------------ Заявок с таким Id не найдено -----------");
             }
+
 
         }
 
@@ -203,16 +213,17 @@ public class MenuTracker {
 
         @Override
         public void execute(Input input, Tracker tracker) {
-            System.out.println("------------ Поиск по Id --------------");
+            output.accept("------------ Поиск по Id --------------");
             String id = input.ask("Введите Id заявки для поиска :");
             Item item = tracker.findById(id);
             if (item != null) {
-                System.out.println("------------ Id : " + item.getId() + "-----------");
-                System.out.println("------------ Имя : " + item.getName() + "-----------");
-                System.out.println("------------ Описание : " + item.getDecs() + "-----------");
-                System.out.println("------------ Дата создания : " + item.getTime() + "-----------");
+                output.accept(String.format("------------ Id : %s-----------\n"
+                + "------------ Имя : %s-----------\n"
+                + "------------ Описание : %s-----------\n"
+                + "------------ Дата создания : %s-----------\n",
+                        item.getId(), item.getName(), item.getDecs(), item.getTime()));
             } else {
-                System.out.println("------------ Заявок с таким Id не найдено -----------");
+                output.accept("------------ Заявок с таким Id не найдено -----------");
             }
 
         }
@@ -231,19 +242,19 @@ public class MenuTracker {
 
         @Override
         public void execute(Input input, Tracker tracker) {
-            System.out.println("------------ Поиск заявок по имени --------------");
+            output.accept("------------ Поиск заявок по имени --------------");
             String name = input.ask("Введите имя для поиска :");
             List<Item> item = tracker.findByName(name);
             if (item.size() != 0) {
                 for (Item it : item) {
-                    System.out.println("------------ Id : " + it.getId() + " ------------");
-                    System.out.println("------------ Имя : " + it.getName() + " ------------");
-                    System.out.println("------------ Описание : " + it.getDecs() + " ------------");
-                    System.out.println("------------ Дата создания : " + it.getTime() + " ------------");
-                    System.out.println("");
+                    output.accept(String.format("------------ Id : %s ------------\r\n"
+                    + "------------ Имя : %s ------------\r\n"
+                    + "------------ Описание : %s ------------\r\n"
+                    + "------------ Дата создания : %s ------------",
+                            it.getId(), it.getName(), it.getDecs(), it.getTime()));
                 }
             } else {
-                System.out.println("------------ Заявок с таким именем не найдено -----------");
+                output.accept("------------ Заявок с таким именем не найдено -----------");
             }
 
         }
