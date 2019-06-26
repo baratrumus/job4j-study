@@ -21,7 +21,7 @@ public class StartUI {
      * Конструктор инициализирующий поля.
      * @param input ввод данных.
      * @param tracker хранилище заявок.
-     *                Вывод программы сделан через Consumer<String> output
+     * @param output   Вывод программы сделан через Consumer<String>
      */
     public StartUI(Input input, Tracker tracker, boolean exit, Consumer<String> output) {
         this.input = input;
