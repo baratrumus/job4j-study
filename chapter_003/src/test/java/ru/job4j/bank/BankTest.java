@@ -2,11 +2,9 @@ package ru.job4j.bank;
 
 import org.junit.Assert;
 import org.junit.Test;
-
 import java.util.List;
-
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+
 
 public class BankTest {
     Bank bnk = new Bank();
@@ -46,7 +44,7 @@ public class BankTest {
         bnk.addAccountToUser("tt", new Account(200, "ggg"));
         bnk.addAccountToUser("kkkk", new Account(100, "fff"));
         List<Account> result = bnk.getUserAccounts("tt");
-        boolean res = bnk.transferMoney("tt", "ggg", "kkkk", "fff", 60);
+        boolean res = bnk.transferMoney("t", "ggg", "kkkk", "fff", 60);
         Assert.assertTrue(res);
         Assert.assertThat(bnk.getUserAccounts("tt").get(0).getValues(), is(140.0));
         Assert.assertThat(bnk.getUserAccounts("kkkk").get(0).getValues(), is(160.0));
