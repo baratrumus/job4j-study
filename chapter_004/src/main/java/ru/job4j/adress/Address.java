@@ -15,6 +15,10 @@ public class Address {
         this.apartment = apartment;
     }
 
+    public String getStreet() {
+        return this.street;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

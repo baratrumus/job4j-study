@@ -2,6 +2,7 @@ package ru.job4j.adress;
 
 
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,6 +25,8 @@ public class Profile {
         return profiles
                 .stream()
                 .map(Profile::getAddress)
+                .distinct()
+                .sorted(Comparator.comparing(Address::getStreet))
                 .collect(Collectors.toList());
     }
 
