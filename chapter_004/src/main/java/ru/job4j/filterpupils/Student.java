@@ -3,8 +3,16 @@ package ru.job4j.filterpupils;
 import java.util.Objects;
 
 public class Student {
-    public String name;
-    public int score;
+    private String name;
+    private int score;
+
+    public String getName() {
+        return name;
+    }
+
+    public int getScore() {
+        return score;
+    }
 
     public Student(String name, int score) {
         this.name = name;
@@ -27,6 +35,14 @@ public class Student {
     @Override
     public int hashCode() {
         return Objects.hash(name, score);
+    }
+
+    @Override
+    public String toString() {
+        return "Student{"
+                + "name='" + name + '\''
+                + ", score=" + score
+                + '}';
     }
 }
 

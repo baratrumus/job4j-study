@@ -1,6 +1,8 @@
 package ru.job4j.filterpupils;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -21,5 +23,17 @@ public class School {
                 .stream()
                 .filter(predict)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Преобразовать список учеников в Map
+     * ключа фамилия ученика
+     * значение объект ученика
+     */
+    public Map<String, Student> studentMap(List<Student> students) {
+        return students
+                .stream()
+                .sorted(Comparator.comparing(Student::getName))
+                .collect(Collectors.toMap(Student::getName, s -> s));
     }
 }
