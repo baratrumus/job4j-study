@@ -17,8 +17,8 @@ public class PriorityQueue {
     public void put(Task task) {
         ListIterator<Task> literator = this.tasks.listIterator();
         Task currentTask;
-        boolean indexFound = false;
-        int taskPriority = task.getPriority();
+        var indexFound = false;
+        var taskPriority = task.getPriority();
         while (literator.hasNext()) {
             currentTask = literator.next();
             if (currentTask.getPriority() > taskPriority) {
