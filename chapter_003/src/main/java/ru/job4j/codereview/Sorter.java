@@ -16,13 +16,12 @@ public class Sorter {
     }
 
     Set<User> sort(List<User> list) {
-        TreeSet<User> sortedList = new TreeSet<>();
-        sortedList.addAll(list);
+        TreeSet<User> sortedList = new TreeSet<>(list);
         return sortedList;
     }
 
     List<User> sortnamelength(List<User> list) {
-        Comparator<User> compar = new Comparator<User>() {
+        Comparator<User> compar = new Comparator<>() {
             @Override
             public int compare(User o1, User o2) {
                 return o1.getName().length() - o2.getName().length();

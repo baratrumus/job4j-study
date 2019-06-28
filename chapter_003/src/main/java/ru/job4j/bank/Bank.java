@@ -7,7 +7,7 @@ public class Bank {
     private Map<User, ArrayList<Account>> bankAccounts = new TreeMap<>();
 
     public void addUser(User user) {
-        this.bankAccounts.put(user, new ArrayList<Account>());
+        this.bankAccounts.put(user, new ArrayList<>());
     }
 
     public void deleteUser(User user) {
@@ -39,7 +39,7 @@ public class Bank {
         if (user != null) {
             accList = this.bankAccounts.get(user);
             if (accList == null) {
-                accList = new ArrayList<Account>();
+                accList = new ArrayList<>();
             }
         }
         return accList;
@@ -82,14 +82,5 @@ public class Bank {
                 .filter(user -> user.getPassport().equals(passport))
                 .collect(Collectors.toList());
         return retUsers.isEmpty() ? null : retUsers.get(0);
-
-       /* User retUser = null;
-        for (User user : this.bankAccounts.keySet()) {
-            if (passport.equals(user.getPassport())) {
-                retUser = user;
-                break;
-            }
-        }
-        return retUser;*/
     }
 }
