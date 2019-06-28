@@ -1,10 +1,9 @@
 package ru.job4j.filterpupils;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+
 
 /**
  * В школе пришло требование разделить 9А класс на три класса.
@@ -35,5 +34,28 @@ public class School {
                 .stream()
                 .sorted(Comparator.comparing(Student::getName))
                 .collect(Collectors.toMap(Student::getName, s -> s));
+    }
+
+
+    /**
+     * Метод должен вернуть список студентов у которых балл аттестата больше bound.
+     *
+     * Во входящем списки могут быть null элементы.
+     * Порядок действий.
+     *  - Отсортировать список.
+     *  - Используя метод flatMap убрать null
+     *  - Используя метод takeWhile получить нужный поток.
+     *  - Сохранить поток в List.
+     * @param students
+     * @param bound
+     * @return
+     */
+    public List<Student> levelOf(List<Student> students, int bound) {
+        return students
+                .stream()
+                .flatMap(o -> Optional.ofNullable(o).stream())
+                .sorted((o1, o2) -> o2.getScore() - o1.getScore())
+                .takeWhile(o -> o.getScore() > bound)
+                .collect(Collectors.toList());
     }
 }

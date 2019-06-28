@@ -3,6 +3,8 @@ package ru.job4j.filterpupils;
 
 import org.junit.Test;
 import ru.job4j.filterpupils.*;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -63,6 +65,23 @@ public class SchoolTest {
                 "Student #5", new Student("Student #5", 80),
                 "Student #6", new Student("Student #6", 90));
         result.forEach((k, v) -> System.out.println(k + ": " + v));
+        assertThat(result, is(expected));
+    }
+
+    @Test
+    public void whenScoreMoreThenBound() {
+        School sch = new School();
+        List<Student> std = new ArrayList<>();
+        std.add(new Student("Student #1", 10));
+        std.add(null);
+        std.add(new Student("Student #2", 70));
+        std.add(new Student("Student #3", 85));
+        std.add(new Student("Student #4", 40));
+        List<Student> result = sch.levelOf(std, 60);
+        List<Student> expected = List.of(
+                new Student("Student #3", 85),
+                new Student("Student #2", 70));
+        result.forEach(System.out::println);
         assertThat(result, is(expected));
     }
 
