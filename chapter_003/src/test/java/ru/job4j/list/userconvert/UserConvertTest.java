@@ -4,6 +4,8 @@ package ru.job4j.list.userconvert;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.junit.Test;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -21,6 +23,8 @@ public class UserConvertTest {
         list.add(bob);
         list.add(pit);
         list.add(lera);
+
+
         HashMap<Integer, User> result = userConvert.process(list);
 
         HashMap<Integer, User> expect = new HashMap<>();
@@ -28,9 +32,9 @@ public class UserConvertTest {
         expect.put(33, pit);
         expect.put(66, lera);
 
+
         assertThat(result, is(expect));
 
     }
 }
 
-//hashMap.put("/stylesheets", new ArrayList(Arrays.asList("/stylesheets", new Public())));
