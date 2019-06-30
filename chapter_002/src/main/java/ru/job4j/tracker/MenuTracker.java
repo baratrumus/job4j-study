@@ -122,11 +122,11 @@ public class MenuTracker {
         public void execute(Input input, Tracker tracker) {
             output.accept("------------ Вывод всех заявок из хранилища --------------");
             for (Item item : tracker.findAll()) {
-                output.accept(String.format("------------ Id : %s ------------\r\n"
-                                + "------------ Имя : %s ------------\r\n"
-                                + "------------ Описание : %s ------------\r\n"
-                                + "------------ Дата создания : %s ------------\r\n",
-                        item.getId(), item.getName(), item.getDecs(), item.getTime()));
+                System.out.println("------------ Id : " + item.getId() + " ------------");
+                System.out.println("------------ Имя : " + item.getName() + " ------------");
+                System.out.println("------------ Описание : " + item.getDecs() + " ------------");
+                System.out.println("------------ Дата создания : " + item.getTime() + " ------------");
+                System.out.println("");
             }
         }
     }
@@ -247,11 +247,11 @@ public class MenuTracker {
             List<Item> item = tracker.findByName(name);
             if (item.size() != 0) {
                 for (Item it : item) {
-                    output.accept(String.format("------------ Id : %s ------------\r\n"
-                    + "------------ Имя : %s ------------\r\n"
-                    + "------------ Описание : %s ------------\r\n"
-                    + "------------ Дата создания : %s ------------",
-                            it.getId(), it.getName(), it.getDecs(), it.getTime()));
+                    System.out.println("------------ Id : " + it.getId() + " ------------");
+                    System.out.println("------------ Имя : " + it.getName() + " ------------");
+                    System.out.println("------------ Описание : " + it.getDecs() + " ------------");
+                    System.out.println("------------ Дата создания : " + it.getTime() + " ------------");
+                    System.out.println("");
                 }
             } else {
                 output.accept("------------ Заявок с таким именем не найдено -----------");
