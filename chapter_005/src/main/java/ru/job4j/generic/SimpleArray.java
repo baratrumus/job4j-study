@@ -84,5 +84,4 @@ public class SimpleArray<T> implements Iterable<T> {
         return (T) this.array[ind];
     }
 
-
 }
