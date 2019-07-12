@@ -77,7 +77,7 @@ public class DynamicArray<T> implements Iterable<T> {
         arraycopy(container, 0, newContainer, 0, size);
         size *= 2;
         container = new Object[size];
-        arraycopy(newContainer, 0, container, 0, size);
+        container = newContainer;
     }
 
 

@@ -20,6 +20,7 @@ public class SimpleArrayList<E> {
     public E delete() {
         Node<E> ret = this.first;
         this.first = this.first.next;
+        ret.next = null;
         this.size--;
         return ret.data;
     }
