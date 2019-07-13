@@ -29,11 +29,10 @@ public class DynamicArray<T> implements Iterable<T> {
     }
 
 
-
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
-            int ind;
+            int ind = 0;
             int expectedModCount = modCount;
 
             @Override
