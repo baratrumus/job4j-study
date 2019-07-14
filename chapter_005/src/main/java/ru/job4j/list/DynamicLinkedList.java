@@ -4,11 +4,13 @@ import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-
+/**
+ * контейнер на базе связанного списка
+ */
 public class DynamicLinkedList<E> implements Iterable<E> {
-    private Node<E> first;
-    private Node<E> last;
-    private int size = 0;
+    protected Node<E> first;
+    protected Node<E> last;
+    protected int size = 0;
     private int modCount = 0;
 
     public DynamicLinkedList() {
@@ -18,7 +20,7 @@ public class DynamicLinkedList<E> implements Iterable<E> {
     public Iterator<E> iterator() {
         return new Iterator<E>() {
             Node<E> pointer = first;
-            Node<E> ret;
+            Node<E> current;
             int ind = 0;
             int expectedModCount = modCount;
 
@@ -36,15 +38,14 @@ public class DynamicLinkedList<E> implements Iterable<E> {
                     throw new ConcurrentModificationException("Недопустимые изменения");
                 }
                 ind++;
-                ret = pointer;
+                current = pointer;
                 pointer =  pointer.next;
-                return ret.data;
+                return current.data;
             }
 
             @Override
             public void remove() {
-
-
+                throw new UnsupportedOperationException("remove");
             }
         };
     }
@@ -65,12 +66,10 @@ public class DynamicLinkedList<E> implements Iterable<E> {
         size++;
     }
 
-
-
     /**
      * Метод получения элемента по индексу.
      */
-    public E get(int ind) {
+    public Node<E> get(int ind) {
         if (ind >= size) {
             throw new IndexOutOfBoundsException("Такого индекса нет");
         }
@@ -78,13 +77,19 @@ public class DynamicLinkedList<E> implements Iterable<E> {
         for (int i = 0; i < ind; i++) {
             result = result.next;
         }
-        return result.data;
+        return result;
     }
+
+
+    public E getData(Node<E> node) {
+        return node.data;
+    }
+
 
     /**
      * Класс предназначен для хранения данных.
      */
-    private static class Node<E> {
+    protected static class Node<E> {
         E data;
         Node<E> next;
         Node(E data) {

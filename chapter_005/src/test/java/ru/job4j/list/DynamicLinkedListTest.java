@@ -20,14 +20,14 @@ public class DynamicLinkedListTest {
 
     @Test
     public void whenAddThreeThenAdded() {
-        assertThat(list.get(0), is(1));
-        assertThat(list.get(1), is(2));
-        assertThat(list.get(2), is(3));
+        assertThat(list.getData(list.get(0)), is(1));
+        assertThat(list.getData(list.get(1)), is(2));
+        assertThat(list.getData(list.get(2)), is(3));
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void whenGetFourThenIndexOutOfBoundsException() {
-        assertThat(list.get(4), is(1));
+        assertThat(list.getData(list.get(4)), is(1));
     }
 
     @Test(expected = ConcurrentModificationException.class)

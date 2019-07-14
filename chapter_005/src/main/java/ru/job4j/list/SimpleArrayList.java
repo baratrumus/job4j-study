@@ -1,5 +1,8 @@
 package ru.job4j.list;
 
+/**
+ * Создать метод delete для односвязного списка
+ */
 public class SimpleArrayList<E> {
     private int size;
     private Node<E> first;
