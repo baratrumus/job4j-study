@@ -70,7 +70,7 @@ public class DynamicLinkedList<E> implements Iterable<E> {
      * Метод получения элемента по индексу.
      */
     public Node<E> get(int ind) {
-        if (ind >= size) {
+        if ((ind >= size) || (ind < 0)) {
             throw new IndexOutOfBoundsException("Такого индекса нет");
         }
         Node<E> result = this.first;

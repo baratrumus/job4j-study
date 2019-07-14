@@ -12,9 +12,15 @@ public class SimpleStack<E> extends DynamicLinkedList {
      */
     public E poll() {
         E res = null;
-        if (size != 0) {
+        if (size == 1) {
+            res = (E) this.first.data;
+            this.first.data = null;
+            size = 0;
+        }
+        if (size > 1) {
             Node<E> n = this.last;
             res = n.data;
+            n.data = null;
             this.last = get(size - 2);
             this.last.next = null;
             this.size--;

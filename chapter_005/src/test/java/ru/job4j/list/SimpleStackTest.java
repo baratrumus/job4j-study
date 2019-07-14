@@ -10,7 +10,6 @@ public class SimpleStackTest {
 
     @Before
     public void beforeTest() {
-        stack = new SimpleStack<>();
         stack.push(1);
         stack.push(2);
         stack.push(3);
