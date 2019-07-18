@@ -18,11 +18,11 @@ public class SimpleStackTest {
     @Test
     public void whenPopThenPopped() {
         assertThat(stack.poll(), is(3));
-        assertThat(stack.size, is(2));
+        assertThat(stack.getSize(), is(2));
         assertThat(stack.poll(), is(2));
-        assertThat(stack.size, is(1));
+        assertThat(stack.getSize(), is(1));
         assertThat(stack.poll(), is(1));
-        assertThat(stack.size, is(0));
+        assertThat(stack.getSize(), is(0));
     }
 
 }

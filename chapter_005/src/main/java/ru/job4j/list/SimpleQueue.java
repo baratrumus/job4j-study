@@ -12,8 +12,8 @@ public class SimpleQueue<T> {
     */
     public T poll() {
         T ret = null;
-        if (outStack.size == 0) {
-            while (inStack.size != 0) {
+        if (outStack.getSize() == 0) {
+            while (inStack.getSize() != 0) {
                 ret = inStack.poll();
                 outStack.push(ret);
             }

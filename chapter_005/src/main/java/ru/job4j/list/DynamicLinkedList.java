@@ -87,6 +87,29 @@ public class DynamicLinkedList<E> implements Iterable<E> {
 
 
     /**
+     * Метод удаляет последнюю ноду в списке и возвращает значение
+     */
+     public E removeLast() {
+         if (size == 0) {
+             return null;
+         }
+         E res = last.data;
+         if (size > 1) {
+             last.data = null;
+             Node<E> previous = get(size - 2);
+             previous.next = null;
+             last = previous;
+         } else if (size == 1) {
+             last = null;
+             first = null;
+         }
+         modCount++;
+         size--;
+         return res;
+     }
+
+
+    /**
      * Класс предназначен для хранения данных.
      */
     protected static class Node<E> {

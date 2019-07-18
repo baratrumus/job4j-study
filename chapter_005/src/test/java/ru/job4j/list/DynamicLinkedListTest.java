@@ -48,4 +48,11 @@ public class DynamicLinkedListTest {
         assertThat(it.hasNext(), is(false));
     }
 
+    @Test
+    public void whenRemoveLastItsWorking() {
+        list.removeLast();
+        assertThat(list.last.data, is(2));
+        assertThat(list.size, is(2));
+    }
+
 }
