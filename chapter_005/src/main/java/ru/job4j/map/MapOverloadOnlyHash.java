@@ -11,7 +11,6 @@ import java.util.Objects;
  */
 
 public class MapOverloadOnlyHash {
-
     public class User {
         String name;
         int children;
@@ -23,12 +22,10 @@ public class MapOverloadOnlyHash {
             this.birthday = birthday;
         }
 
-
         @Override
         public int hashCode() {
             return Objects.hash(name, children, birthday);
         }
-
     }
 }
 
