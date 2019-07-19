@@ -1,7 +1,6 @@
 package ru.job4j.map;
 
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 /**
  * Не перекрывать equals hashCode
