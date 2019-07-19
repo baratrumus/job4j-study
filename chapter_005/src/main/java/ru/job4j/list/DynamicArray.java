@@ -19,13 +19,13 @@ import static java.lang.System.arraycopy;
 
 public class DynamicArray<T> implements Iterable<T> {
     private Object[] container;
-    private int size;
-    private int index = 0;
+    private int maxSize = 0;
+    private int indexSize = 0;
     private int modCount = 0;
 
-    public DynamicArray(int size) {
-        this.size = size;
-        this.container = new Object[size];
+    public DynamicArray(int maxSize) {
+        this.maxSize = maxSize;
+        this.container = new Object[maxSize];
     }
 
 
@@ -37,7 +37,7 @@ public class DynamicArray<T> implements Iterable<T> {
 
             @Override
             public boolean hasNext() {
-                return ind < size;
+                return ind < indexSize;
             }
 
             @Override
@@ -63,19 +63,19 @@ public class DynamicArray<T> implements Iterable<T> {
      * добавляет указанный элемент в первую свободную ячейку;
      */
     public  void add(T value) {
-        if (index >= size) {
+        if (indexSize >= maxSize) {
             increaseSize();
         }
-        container[index++] = value;
+        container[indexSize++] = value;
         modCount++;
     }
 
 
     private void increaseSize() {
-        Object[] newContainer = new Object[size * 2];
-        arraycopy(container, 0, newContainer, 0, size);
-        size *= 2;
-        container = new Object[size];
+        Object[] newContainer = new Object[maxSize * 2];
+        arraycopy(container, 0, newContainer, 0, maxSize);
+        maxSize *= 2;
+        container = new Object[maxSize];
         container = newContainer;
     }
 
@@ -84,7 +84,7 @@ public class DynamicArray<T> implements Iterable<T> {
      * возвращает элемент, расположенный по указанному индексу;
      */
     public T get(int ind) {
-        if (ind >= size) {
+        if (ind >= indexSize) {
             throw new IndexOutOfBoundsException("Такого индекса нет");
         }
         return (T) this.container[ind];
@@ -94,7 +94,7 @@ public class DynamicArray<T> implements Iterable<T> {
      * Метод получения размера коллекции.
      */
     public int getSize() {
-        return this.size;
+        return this.indexSize;
     }
 
 }
