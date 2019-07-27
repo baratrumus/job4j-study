@@ -6,7 +6,7 @@ public class HashMapByArray<K, V> implements Iterable<V> {
     private Entry[] container;
     private int maxSize;
     private final static double LOADFACTOR = 0.75;
-    private int realSize = 0;
+    //private int realSize = 0;
     private int modCount = 0;
 
     public HashMapByArray(int maxSize) {
@@ -22,7 +22,7 @@ public class HashMapByArray<K, V> implements Iterable<V> {
     private boolean capacityOk() {
         boolean res = true;
         double t = maxSize * LOADFACTOR;
-        if (realSize > maxSize * LOADFACTOR) {
+        if (modCount > maxSize * LOADFACTOR) {
             res = false;
         }
         return res;
@@ -31,8 +31,9 @@ public class HashMapByArray<K, V> implements Iterable<V> {
     /**
      * добавляет пару.
      * Методы разрешения коллизий реализовывать не надо.
-     * Если место пустое - записываем новую пару.
-     * Если хеш указывает на ту же позицию и ключи равны, то возвращать false.
+     * Если место пустое, null - записываем новую пару.
+     * Если хеш указывает на ту же позицию и ключи равны, то заменяем значение.
+     * Ситуацию коллизии, когда хеш одинаковый, но ключи разные не вставляем, возвращаем false
      */
     public boolean insert(K key, V value) {
         if (!capacityOk()) {
@@ -43,19 +44,23 @@ public class HashMapByArray<K, V> implements Iterable<V> {
         Entry<K, V> oldEntry = container[position];
         if (oldEntry == null) {
             container[position] = new Entry<>(key, value);
-            realSize++;
+            modCount++;
+            res = true;
+        } else if (key.equals(oldEntry.getKey())) {
+            container[position].value = value;
             res = true;
         }
-        modCount++;
         return res;
     }
 
     public boolean delete(K key) {
         boolean res = false;
         int position = hash(key);
-        if (container[position] != null) {
+        boolean equals = key.equals(container[position].getKey());
+        if ((container[position] != null) && equals) {
             container[position] = null;
             res = true;
+            modCount--;
         }
         return res;
     }
@@ -104,24 +109,35 @@ public class HashMapByArray<K, V> implements Iterable<V> {
     @Override
     public Iterator<V> iterator() {
         return new Iterator<V>() {
-            int ind = 0;
+            int nextIndex = 0;
             int expectedModCount = modCount;
 
             @Override
             public boolean hasNext() {
-                return ind < realSize;
+                if (modCount == 0) {
+                    return false;
+                }
+                boolean indexExists = false;
+                while (!indexExists && (nextIndex < maxSize)) {
+                    if (container[nextIndex] != null) {
+                         indexExists = true;
+                    } else {
+                        nextIndex++;
+                    }
+                }
+                return indexExists;
             }
 
             @Override
             public V next() {
                 if (!hasNext()) {
-                    throw new NoSuchElementException("Массив закончился");
+                    throw new NoSuchElementException("Данные закончились");
                 }
 
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException("Недопустимые изменения массива");
                 }
-                return (V) container[ind++].value;
+                return (V) container[nextIndex++].value;
             }
 
             @Override
@@ -137,13 +153,17 @@ public class HashMapByArray<K, V> implements Iterable<V> {
      * Класс пары ключ - значение
      */
      protected class Entry<K, V> {
-        final K key;
+        private final K key;
         V value;
        // Entry<K, V> next;
 
         Entry(K key, V value) {
             this.key = key;
             this.value = value;
+        }
+
+        public K getKey() {
+            return this.key;
         }
 
 
