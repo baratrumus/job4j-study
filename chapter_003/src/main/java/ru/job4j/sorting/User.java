@@ -18,7 +18,6 @@ public class User implements Comparable<User> {
         this.age = age;
     }
 
-
     public String toString() {
         return "User{" + "name=\"" + this.name + "\"" + "age=\"" + this.age + "}";
     }
