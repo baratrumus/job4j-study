@@ -19,13 +19,30 @@ public class SimpleTree<E extends Comparable<E>> implements STree<E>  {
     public boolean add(E parent, E child) {
         boolean res = false;
         Optional<Node<E>>  parentNode = findBy(parent);
-        if (!parentNode.isEmpty()) {
+        if (!parentNode.isEmpty() && isUnique(child)) {
             parentNode.get().add(new Node<E>(child));
             res = true;
             modCount++;
         }
         return res;
     };
+
+    /**
+     * проверка что ребёнок уникален для всего дерева
+     */
+    private boolean isUnique(E el) {
+        boolean unique = true;
+        Iterator it  = this.iterator();
+        E elem;
+        while (it.hasNext()) {
+            elem = (E) it.next();
+            if (elem.equals(el)) {
+                unique = false;
+                break;
+            }
+        }
+        return unique;
+    }
 
 
     /**
@@ -111,7 +128,7 @@ public class SimpleTree<E extends Comparable<E>> implements STree<E>  {
                     throw new ConcurrentModificationException("Недопустимые изменения массива");
                 }
                 nextEl = data.poll();
-                return nextEl.getValue();
+                return (E) nextEl.getValue();
             }
         };
     }

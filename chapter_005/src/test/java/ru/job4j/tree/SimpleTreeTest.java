@@ -81,4 +81,12 @@ public class SimpleTreeTest {
         Iterator<Integer> it = tree.iterator();
         assertFalse(tree.isBinary());
     }
+
+    @Test
+    public void whenNotUniqueChildItsNotAdded() {
+        SimpleTree<Integer> tree = new SimpleTree<>(1);
+        tree.add(1, 2);
+        tree.add(1, 3);
+        assertFalse(tree.add(2, 3));
+    }
 }
