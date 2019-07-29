@@ -2,7 +2,7 @@ package ru.job4j.tree;
 
 import java.util.Optional;
 
-public interface STree<E> extends Iterable<E> {
+public interface STree<E extends Comparable<E>> extends Iterable<E> {
 
     boolean add(E parent, E child);
 

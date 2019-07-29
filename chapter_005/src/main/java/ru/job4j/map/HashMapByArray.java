@@ -6,7 +6,6 @@ public class HashMapByArray<K, V> implements Iterable<V> {
     private Entry[] container;
     private int maxSize;
     private final static double LOADFACTOR = 0.75;
-    //private int realSize = 0;
     private int modCount = 0;
 
     public HashMapByArray(int maxSize) {

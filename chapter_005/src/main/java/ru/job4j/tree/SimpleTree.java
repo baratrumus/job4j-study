@@ -7,14 +7,25 @@ import java.util.*;
 public class SimpleTree<E extends Comparable<E>> implements STree<E>  {
     private Node<E> root = null;
     private boolean balanced = true;
+    private int modCount = 0;
 
+    public  SimpleTree(E rootValue) {
+        this.root = new Node<E>(rootValue);
+    }
 
     /**
      * Добавить элемент child в parent.
      * Parent может иметь список child.
      */
     public boolean add(E parent, E child) {
-        return true;
+        boolean res = false;
+        Optional<Node<E>>  parentNode = findBy(parent);
+        if (!parentNode.isEmpty()) {
+            parentNode.get().add(new Node<E>(child));
+            res = true;
+            modCount++;
+        }
+        return res;
     };
 
 
@@ -44,14 +55,44 @@ public class SimpleTree<E extends Comparable<E>> implements STree<E>  {
     @Override
     public Iterator<E> iterator() {
         return new Iterator<E>() {
+            Node<E> nextEl = root;
+            Queue<Node<E>> data = new LinkedList<>();
+            int expectedModCount = modCount;
+            boolean firstMove = true;
+
+            private void fillData(Node<E> el) {
+                data.offer(el);
+                for (Node<E> child : el.leaves()) {
+                    fillData(child);
+                }
+            }
+
+
             @Override
             public boolean hasNext() {
-                return false;
+                boolean nodeExists = false;
+                if (firstMove) {
+                    fillData(nextEl);
+                    firstMove = false;
+                }
+
+                if (!data.isEmpty()) {
+                    nodeExists = true;
+                }
+                return nodeExists;
             }
 
             @Override
             public E next() {
-                return null;
+                if (!hasNext()) {
+                    throw new NoSuchElementException("Данные закончились");
+                }
+
+                if (expectedModCount != modCount) {
+                    throw new ConcurrentModificationException("Недопустимые изменения массива");
+                }
+                nextEl = data.poll();
+                return nextEl.getValue();
             }
         };
     }
