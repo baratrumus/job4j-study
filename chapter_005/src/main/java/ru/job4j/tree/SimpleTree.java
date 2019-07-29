@@ -5,8 +5,7 @@ import java.util.*;
 //E extends Comparable<E> означает: тип E, который может сравниваться с другими объектами того же типа E.
 
 public class SimpleTree<E extends Comparable<E>> implements STree<E>  {
-    private Node<E> root = null;
-    private boolean balanced = true;
+    private Node<E> root;
     private int modCount = 0;
 
     public  SimpleTree(E rootValue) {
@@ -52,6 +51,27 @@ public class SimpleTree<E extends Comparable<E>> implements STree<E>  {
         return rsl;
     }
 
+
+    /**
+      * Метод должен проверять количество дочерних элементов в дереве. Если их <= 2 - то дерево бинарное.
+     */
+    public boolean isBinary() {
+        boolean binary = true;
+        Queue<Node<E>> data = new LinkedList<>();
+        data.offer(this.root);
+        while (!data.isEmpty()) {
+            Node<E> el = data.poll();
+            if (el.leaves().size() > 2) {
+                binary = false;
+                break;
+            }
+            for (Node<E> child : el.leaves()) {
+                data.offer(child);
+            }
+        }
+        return binary;
+    }
+
     @Override
     public Iterator<E> iterator() {
         return new Iterator<E>() {
@@ -66,7 +86,6 @@ public class SimpleTree<E extends Comparable<E>> implements STree<E>  {
                     fillData(child);
                 }
             }
-
 
             @Override
             public boolean hasNext() {
