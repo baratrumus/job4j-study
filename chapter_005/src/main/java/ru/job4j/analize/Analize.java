@@ -1,7 +1,10 @@
 package ru.job4j.analize;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Analize {
 
@@ -10,9 +13,13 @@ public class Analize {
      */
     public Info diff(List<Users> previous, List<Users> current) {
         Info res = new Info();
-        res.changed = checkChange(previous,  current);
-        res.added = checkAdd(previous,  current);
-        res.deleted = checkDelete(previous,  current);
+        Map<Integer, String> prevMap = new HashMap<Integer, String>();
+        prevMap = previous.stream().collect(Collectors.toMap(Users :: getId, Users ::getName));
+        Map<Integer, String> curMap = new HashMap<Integer, String>();
+        curMap = current.stream().collect(Collectors.toMap(Users :: getId, Users ::getName));
+        res.changed = checkChange(previous,  curMap);
+        res.added = checkAdd(prevMap,  current);
+        res.deleted = checkDelete(previous,  curMap);
 
         return res;
     }
@@ -22,20 +29,14 @@ public class Analize {
     /**
      * Сколько удалено пользователей. Удаленным считается объект из старого, который отсутствует в новом списке.
      */
-    private int checkDelete(List<Users> previous, List<Users> current) {
+    private int checkDelete(List<Users> previous, Map<Integer, String> currentMap) {
         int res = 0;
-        boolean deleted;
         for (Users prevUser : previous) {
-            deleted = true;
-            for (Users curUser : current) {
-                if (prevUser.equals(curUser)) {
-                   deleted = false;
-                   break;
-                }
+            String f = currentMap.get(prevUser.id);
+            if (!Objects.equals(currentMap.get(prevUser.id), prevUser.name)) {
+               res++;
             }
-            if (deleted) {
-                res++;
-            }
+
         }
         return res;
     }
@@ -43,14 +44,13 @@ public class Analize {
     /**
      * Сколько изменено пользователей. Изменённым считается объект в котором изменилось имя. а id осталось прежним.
      */
-    private int checkChange(List<Users> previous, List<Users> current) {
+    private int checkChange(List<Users> previous, Map<Integer, String> currentMap) {
         int res = 0;
         for (Users prevUser : previous) {
-            for (Users curUser : current) {
-                if ((prevUser.id == curUser.id) && (!prevUser.name.equals(curUser.name))) {
+                if (currentMap.get(prevUser.id) != null && (!Objects.equals(currentMap.get(prevUser.id), prevUser.name))) {
                     res++;
                 }
-            }
+
         }
         return res;
     }
@@ -58,20 +58,12 @@ public class Analize {
     /**
      * Сколько добавлено пользователей. Добавленным считается объект в котором id не присутствующее в старом списке.
      */
-    private int checkAdd(List<Users> previous, List<Users> current) {
+    private int checkAdd(Map<Integer, String> prevMap, List<Users> current) {
         int res = 0;
-        boolean exist;
         for (Users curUser : current) {
-            exist = false;
-            for (Users prevUser : previous) {
-                if (prevUser.id == curUser.id) {
-                    exist = true;
-                    break;
+            if (prevMap.get(curUser.id) == null) {
+                    res++;
                 }
-            }
-            if (!exist) {
-                res++;
-            }
         }
         return res;
     }
@@ -83,6 +75,14 @@ public class Analize {
         Users(int id, String name) {
             this.id = id;
             this.name = name;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public String getName() {
+            return name;
         }
 
         @Override
