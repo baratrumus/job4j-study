@@ -27,16 +27,15 @@ public class Analize {
 
 
     /**
-     * Сколько удалено пользователей. Удаленным считается объект из старого, который отсутствует в новом списке.
+     * Сколько удалено пользователей.
+     * если в текущей коллекции нет пользователя с таким id а в прошлой есть то он был удален
      */
     private int checkDelete(List<Users> previous, Map<Integer, String> currentMap) {
         int res = 0;
         for (Users prevUser : previous) {
-            String f = currentMap.get(prevUser.id);
-            if (!Objects.equals(currentMap.get(prevUser.id), prevUser.name)) {
+            if (currentMap.get(prevUser.id) == null) {
                res++;
             }
-
         }
         return res;
     }

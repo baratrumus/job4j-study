@@ -28,7 +28,7 @@ public class AnalizeTest {
 
         assertThat(result.changed, is(2));
         assertThat(result.added, is(3));
-        assertThat(result.deleted, is(3));
+        assertThat(result.deleted, is(1));
     }
 
 
