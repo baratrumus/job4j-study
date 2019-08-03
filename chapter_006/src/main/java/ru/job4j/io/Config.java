@@ -21,14 +21,14 @@ public class Config {
    public void load() {
        StringJoiner out = new StringJoiner(System.lineSeparator());
        try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
-           read.lines().forEach(line -> handleLine(line));
+           read.lines().forEach(line -> analizeLine(line));
        } catch (Exception e) {
            e.printStackTrace();
        }
    }
 
-    private  void handleLine(String line) {
-       char [] chars = line.toCharArray ();
+    private  void analizeLine(String line) {
+       char[] chars = line.toCharArray();
        String key = "";
        String value = "";
        boolean keyFull = false;
