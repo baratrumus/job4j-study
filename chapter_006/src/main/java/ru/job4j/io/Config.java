@@ -6,6 +6,11 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.StringJoiner;
 
+/**
+ * Наша программа должна запускаться в различном окружении. Например, разные базы данных, разные пути хранения.
+ *Все эти настройки нужно хранить вне кода программы. Это позволяет изменять настройки и не трогать собранную программу.
+ *Файл настроек должен содержать пары ключ-знания. Ключ-значения должны быть разделены символом равно
+ */
 public class Config {
     private final String path;
     private final Map<String, String> values = new HashMap<String, String>();

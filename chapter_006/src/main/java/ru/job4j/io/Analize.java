@@ -41,16 +41,9 @@ public class Analize {
     }
 
     private void writeToTarget(String target) {
-        int i = 1;
-        String tmp = "";
         try (PrintWriter out = new PrintWriter(new FileOutputStream(target))) {
             while (!times.isEmpty()) {
-                tmp += times.poll() + ';';
-                if ((i % 2) == 0) {
-                    out.println(tmp);
-                    tmp = "";
-                }
-                i++;
+                out.println(times.poll());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -60,25 +53,16 @@ public class Analize {
     private void handleLine(String line) {
         char[] chars = line.toCharArray();
         if (!line.equals("")) {
-            if (beginTime.equals("") && ((chars[0] == '4') || (chars[0] == '5'))) {
-                for (int i = 4; i < line.length(); i++) {
-                    beginTime += Character.toString(chars[i]);
-                }
-            } else if (!beginTime.equals("") && ((chars[0] == '2') || (chars[0] == '3'))) {
-                for (int i = 4; i < line.length(); i++) {
-                    endTime += Character.toString(chars[i]);
-                }
+            if (beginTime.equals("") && (line.contains("500") || line.contains("400"))) {
+                beginTime = line.substring(4);
+            } else if (!beginTime.equals("") && (line.contains("200") || line.contains("300"))) {
+                endTime = line.substring(4);
             }
             if (!beginTime.equals("") && !endTime.equals("")) {
-                putTimesToQueue();
+                times.offer(beginTime + ";" + endTime + ";");
+                beginTime = "";
+                endTime = "";
             }
         }
-    }
-
-    private void putTimesToQueue() {
-        times.offer(beginTime);
-        times.offer(endTime);
-        beginTime = "";
-        endTime = "";
     }
 }
