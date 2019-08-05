@@ -33,20 +33,15 @@ public class Search {
         return resFiles;
     }
 
+
+    /**
+     * метод проверяет входит ли расширение файла в список интересующих нас
+     */
     private boolean correctExtention(String filename, List<String> exts) {
         boolean res = false;
-        boolean getExt = false;
-        String extention = "";
-        char[] chars = filename.toCharArray();
-        for (char ch : chars) {
-            if (ch == '.') {
-                getExt = true;
-                continue;
-            } else if (getExt) {
-                extention += Character.toString(ch);
-            }
-        }
-        if (exts.contains(extention)) {
+        String[] extention;
+        extention = filename.split("\\.");
+        if (exts.contains(extention[1])) {
             res = true;
         }
         return res;

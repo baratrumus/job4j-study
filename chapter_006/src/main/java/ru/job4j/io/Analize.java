@@ -51,7 +51,6 @@ public class Analize {
     }
 
     private void handleLine(String line) {
-        char[] chars = line.toCharArray();
         if (!line.equals("")) {
             if (beginTime.equals("") && (line.contains("500") || line.contains("400"))) {
                 beginTime = line.substring(4);
