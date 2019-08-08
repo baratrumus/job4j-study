@@ -31,10 +31,17 @@ public class Scripts {
      * Проводим поиск зависимостей через сет чтобы избежать дубликатов
      */
     void getLoadsSet(Integer scriptId) {
-        for (Integer dependValues : dependencies.get(scriptId)) {
-            depForValue.add(dependValues);
-            getLoadsSet(dependValues);
+        Queue<Integer> data = new LinkedList<>();
+        Integer scriptValue;
+        data.offer(scriptId);
+        while (!data.isEmpty()) {
+            scriptValue = data.poll();
+            depForValue.add(scriptValue);
+            for (Integer dependValues : dependencies.get(scriptValue)) {
+                data.offer(dependValues);
+            }
         }
+        depForValue.remove(scriptId);
     }
 
 }

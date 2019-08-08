@@ -4,10 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import java.util.List;
 import java.util.Map;
-
 import static junit.framework.TestCase.assertTrue;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 
 public class ScriptsTest {
 
