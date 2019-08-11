@@ -43,8 +43,8 @@ public class SearchTest {
             System.out.println(ex.getMessage());
         }
 
-        List<File> files = search.files(tmpDir, exts);
-        List<File> template = List.of(file1, file3, file6);
+        List<File> files = search.filterExtentions(tmpDir, exts);
+        List<File> template = List.of(file2, file4, file5);
         assertThat(files, is(template));
 
     }

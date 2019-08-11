@@ -5,13 +5,13 @@ import java.util.*;
 
 public class Search {
     /**
-     *  метод, который возвращает список всех файлов с конкретным расширением.
+     *  метод, возвращает список всех файлов из диpектории
      *  Метод должен заходить во всех каталоги.
      * Для этого нужно использовать алгоритм обхода дерева в ширину.
      * @param parent путь до каталога, с которого нужно осуществлять поиск.
-     * @param exts  это расширения файлов, которые мы ходим получить.
      */
-    List<File> files(String parent, List<String> exts) {
+
+    private List<File> files(String parent) {
         List<File> resFiles = new ArrayList<>();
         File dir = new File(parent);
         Queue<File> data = new LinkedList<>();
@@ -19,12 +19,9 @@ public class Search {
         data.offer(dir);
         while (!data.isEmpty()) {
             File fileOrDir = data.poll();
-            if (!fileOrDir.isDirectory()) {
-                filename = fileOrDir.getName();
-                if (correctExtention(filename, exts)) {
-                    resFiles.add(fileOrDir);
-                }
-            } else {
+            if ((fileOrDir != null) && (!fileOrDir.isDirectory())) {
+               resFiles.add(fileOrDir);
+            } else if (fileOrDir != null) {
                 for (File item : fileOrDir.listFiles()) {
                     data.offer(item);
                 }
@@ -35,14 +32,23 @@ public class Search {
 
 
     /**
-     * метод проверяет входит ли расширение файла в список интересующих нас
+     * метод фильтрует расширения файлов по списку
      */
-    private boolean correctExtention(String filename, List<String> exts) {
-        boolean res = false;
-        String[] extention;
-        extention = filename.split("\\.");
-        if (exts.contains(extention[1])) {
-            res = true;
+    public List<File> filterExtentions(String source, List<String> excludeExts) {
+        List<File> res = new ArrayList<>();
+        List<File> fileStructure = files(source);
+        boolean allowedFile;
+        for (File f : fileStructure) {
+            allowedFile = true;
+            for (String str : excludeExts) {
+                if (f.getName().contains(str)) {
+                    allowedFile = false;
+                    break;
+                }
+            }
+            if (allowedFile) {
+                res.add(f);
+            }
         }
         return res;
     }
