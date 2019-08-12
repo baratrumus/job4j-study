@@ -44,7 +44,6 @@ public class Search {
         for (File f : fileStructure) {
             allowedFile = true;
             for (String str : excludeExts) {
-                String fg = f.getName();
                 if (f.getName().contains(str)) {
                     allowedFile = false;
                     break;

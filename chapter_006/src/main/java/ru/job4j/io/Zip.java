@@ -24,12 +24,12 @@ public class Zip {
     public void pack(Args args) {
         List<File> zipList = search.filterExtentions(args.directory(),  args.exclude());
         File target = new File(args.output());
-        int directory_length = args.directory().length();
+        int directoryLength = args.directory().length() + 1;
         try (ZipOutputStream zip = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(target)), UTF_8)) {
 
             for (File file : zipList) {
                 String asbPath = file.getAbsolutePath();
-                String path = asbPath.substring(directory_length);
+                String path = asbPath.substring(directoryLength);
                 zip.putNextEntry(new ZipEntry(path));
                 try (BufferedInputStream out = new BufferedInputStream(new FileInputStream(file))) {
                     zip.write(out.readAllBytes());

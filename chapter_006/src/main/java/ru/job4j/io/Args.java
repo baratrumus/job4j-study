@@ -39,7 +39,7 @@ public class Args {
         options.addOption(optionEx);
         CommandLineParser parser = new DefaultParser();
 
-        CommandLine cmd = parser.parse(options, this.args);;
+        CommandLine cmd = parser.parse(options, this.args);
 
 
         if (cmd.hasOption("d")) {
