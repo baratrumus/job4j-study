@@ -32,7 +32,10 @@ public class Search {
 
 
     /**
-     * метод фильтрует расширения файлов по списку
+     *  метод фильтрует расширения файлов по списку
+     * @param source  имя папки
+     * @param excludeExts список расширений на исключение
+     * @return
      */
     public List<File> filterExtentions(String source, List<String> excludeExts) {
         List<File> res = new ArrayList<>();
@@ -41,6 +44,7 @@ public class Search {
         for (File f : fileStructure) {
             allowedFile = true;
             for (String str : excludeExts) {
+                String fg = f.getName();
                 if (f.getName().contains(str)) {
                     allowedFile = false;
                     break;
