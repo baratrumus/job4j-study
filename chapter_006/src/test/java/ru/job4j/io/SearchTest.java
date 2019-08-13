@@ -14,11 +14,10 @@ public class SearchTest {
     public void whenConfigFileIsItsRead() {
         Search search = new Search();
         List<String> exts = List.of("txt", "php");
-        String tmpDir = System.getProperty("java.io.tmpdir");
+        String tmpDir = System.getProperty("java.io.tmpdir") + "TESTDIR";
 
-        File dir = new File(tmpDir + "TESTDIR");
+        File dir = new File(tmpDir);
         boolean created = dir.mkdir();
-        tmpDir += "TESTDIR";
         File dir1 = new File(tmpDir + "/dir1");
         created = dir1.mkdir();
         File dir2 = new File(tmpDir + "/dir2");

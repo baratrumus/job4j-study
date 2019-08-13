@@ -12,6 +12,7 @@ import java.io.IOException;
 public class ZipTest {
 
     @Test
+    @Ignore
     public void zipTest()  throws ParseException {
 
         String tmpdir = System.getProperty("java.io.tmpdir");

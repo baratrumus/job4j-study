@@ -30,7 +30,6 @@ public class StartUI {
         this.output = output;
     }
 
-
     /**
      * Запуск программы.
      * @param args
