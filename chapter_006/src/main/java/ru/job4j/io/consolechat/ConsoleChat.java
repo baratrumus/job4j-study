@@ -12,7 +12,6 @@ import java.util.*;
  */
 public class ConsoleChat {
     private final Input input;
-    private Queue<String> chatLines = new LinkedList<>();
     private List<String> answers = new ArrayList<>();
     private String chatSource;
     private String chatLog;
