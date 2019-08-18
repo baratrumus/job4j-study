@@ -14,25 +14,27 @@ public class SearchTest {
     @Test
     @Ignore
     public void whenConfigFileIsItsRead() {
+
+        String separator = File.separator; // символ /
         Search search = new Search();
         List<String> exts = List.of("txt", "php");
-        String tmpDir = System.getProperty("java.io.tmpdir") + "TESTDIR";
+        String tmpDir = System.getProperty("java.io.tmpdir") + separator + "TESTDIR";
 
         File dir = new File(tmpDir);
         boolean created = dir.mkdir();
-        File dir1 = new File(tmpDir + "/dir1");
+        File dir1 = new File(tmpDir + separator + "dir1");
         created = dir1.mkdir();
-        File dir2 = new File(tmpDir + "/dir2");
+        File dir2 = new File(tmpDir + separator + "dir2");
         created = dir2.mkdir();
-        File dir3 = new File(tmpDir + "/dir2/dir3");
+        File dir3 = new File(tmpDir + separator + "dir2" + separator + "dir3");
         created = dir3.mkdir();
 
-        File file1 = new File(tmpDir + "/dir1/file1.txt");
-        File file2 = new File(tmpDir + "/dir1/file2.bmp");
-        File file3 = new File(tmpDir + "/dir2/file3.php");
-        File file4 = new File(tmpDir + "/dir2/file4.jpg");
-        File file5 = new File(tmpDir + "/dir2/dir3/file5.odd");
-        File file6 = new File(tmpDir + "/dir2/dir3/file6.php");
+        File file1 = new File(tmpDir + separator + "dir1" + separator + "file1.txt");
+        File file2 = new File(tmpDir + separator + "dir1" + separator + "file2.bmp");
+        File file3 = new File(tmpDir + separator + "dir2" + separator + "file3.php");
+        File file4 = new File(tmpDir + separator + "dir2" + separator + "file4.jpg");
+        File file5 = new File(tmpDir + separator + "dir2" + separator + "dir3" + separator + "file5.odd");
+        File file6 = new File(tmpDir + separator + "dir2" + separator + "dir3" + separator + "file6.php");
         try {
             created = file1.createNewFile();
             created = file2.createNewFile();

@@ -1,4 +1,8 @@
-package ru.job4j.io;
+package ru.job4j.io.files;
+
+import ru.job4j.io.Args;
+import ru.job4j.io.Search;
+import ru.job4j.io.Zip;
 
 import java.io.*;
 import java.util.List;
@@ -7,7 +11,21 @@ import java.util.zip.ZipOutputStream;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-public class Zip {
+/**
+ * 1. Создать программу для поиска файла.
+ * 2. Программа должна искать данные в заданном каталоге и подкаталогах.
+ * 3. Имя файла может задаваться, целиком, по маске, по регулярному выражение(не обязательно).
+ * 4. Программа должна собираться в jar и запускаться через java -jar find.jar -d c:/ -n *.txt -m -o log.txt
+ *    Ключи
+ *    -d - директория в которая начинать поиск.
+ *    -n - имя файл, маска, либо регулярное выражение.
+ *    -m - искать по макс, либо -f - полное совпадение имени. -r регулярное выражение.
+ *    -o - результат записать в файл.
+ * 5. Программа должна записывать результат в файл.
+ * 6. В программе должна быть валидация ключей и подсказка.
+ */
+
+public class FileSearch {
     private Search search = new Search();;
 
     /**
@@ -31,7 +49,7 @@ public class Zip {
                 zip.putNextEntry(new ZipEntry(path));
                 try (BufferedInputStream out = new BufferedInputStream(new FileInputStream(file))) {
                     zip.write(out.readAllBytes());
-            }
+                }
 
             }
         } catch (IOException e) {

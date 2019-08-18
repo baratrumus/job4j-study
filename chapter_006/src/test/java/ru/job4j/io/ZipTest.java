@@ -1,10 +1,10 @@
 package ru.job4j.io;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import org.apache.commons.cli.ParseException;
-import org.junit.Ignore;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,17 +12,18 @@ import java.io.IOException;
 public class ZipTest {
 
     @Test
-    @Ignore
+    //@Ignore
     public void zipTest()  throws ParseException {
 
+        String separator = File.separator; // символ /
         String tmpdir = System.getProperty("java.io.tmpdir");
         File tempFile = null;
         File tempFile2 = null;
         File tempFile3 = null;
         File tempFile4 = null;
-        File directory = new File(tmpdir + "/ForZip");
+        File directory = new File(tmpdir + separator + "ForZip");
         boolean created = directory.mkdir();
-        File directory1 = new File(tmpdir + "/ResZip");
+        File directory1 = new File(tmpdir + separator + "ResZip");
         created = directory1.mkdir();
 
         try {
@@ -36,12 +37,12 @@ public class ZipTest {
             ex.printStackTrace();
         }
 
-        String log = tmpdir + "ResZip/ZipTest.zip";
+        String log = tmpdir  + separator + "ResZip" + separator + "ZipTest.zip";
         var parameters = new String[7];
         parameters[0] = "-d";
-        parameters[1] = tmpdir + "ForZip";
+        parameters[1] = tmpdir + separator + "ForZip";
         parameters[2] = "-o";
-        parameters[3] = tmpdir + "ResZip/ZipTest.zip";
+        parameters[3] = tmpdir + separator + "ResZip" + separator + "ZipTest.zip";
         parameters[4] = "-e";
         parameters[5] = "java";
         parameters[6] = "php";

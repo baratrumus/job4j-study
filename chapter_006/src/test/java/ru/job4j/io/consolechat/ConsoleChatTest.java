@@ -1,6 +1,6 @@
 package ru.job4j.io.consolechat;
 
-import org.junit.Ignore;
+
 import org.junit.Test;
 
 import java.io.*;
@@ -13,8 +13,9 @@ import static org.junit.Assert.assertThat;
 public class ConsoleChatTest {
 
     @Test
-    @Ignore
     public void whenChatBeginsLogCreated() {
+
+        String separator = File.separator; // символ /
         String[] aiFrase =  {"У тебя все в порядке ?",
                             "Кажется дождик начинается",
                             "Пойдем гулять",
@@ -27,12 +28,12 @@ public class ConsoleChatTest {
                 "договорились",
                 "finish"};
 
-        String logFilePath = System.getProperty("java.io.tmpdir") + "chat.log";
+        String logFilePath = System.getProperty("java.io.tmpdir") + separator + "chat.log";
         File log = new File(logFilePath);
         if (log.exists()) {
             log.delete();
         }
-        String chatSource = System.getProperty("java.io.tmpdir") + "chatsource.txt";
+        String chatSource = System.getProperty("java.io.tmpdir") + separator + "chatsource.txt";
         try (PrintWriter out = new PrintWriter(new FileOutputStream(chatSource))) {
             for (String str : aiFrase) {
                 out.println(str);

@@ -1,13 +1,10 @@
-package ru.job4j.io;
+package ru.job4j.io.files;
 
 import org.apache.commons.cli.*;
-import java.text.ParseException;
+
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Класс - парсер аргументов командной  строки для класса архивации проекта Zip
- */
 public class Args {
     private String directory;
     private String output;
