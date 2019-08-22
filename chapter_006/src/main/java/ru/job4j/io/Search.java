@@ -11,7 +11,7 @@ public class Search {
      * @param parent путь до каталога, с которого нужно осуществлять поиск.
      */
 
-    private List<File> files(String parent) {
+    public List<File> files(String parent) {
         List<File> resFiles = new ArrayList<>();
         File dir = new File(parent);
         Queue<File> data = new LinkedList<>();

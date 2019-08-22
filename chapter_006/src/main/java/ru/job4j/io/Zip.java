@@ -7,6 +7,9 @@ import java.util.zip.ZipOutputStream;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
+/**
+ * Программа архивации указанной папки с фильтрацией по расширению
+ */
 public class Zip {
     private Search search = new Search();;
 
