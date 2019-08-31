@@ -1,6 +1,7 @@
 package ru.job4j.io.files;
 
 import org.apache.commons.cli.ParseException;
+import org.junit.Ignore;
 import org.junit.Test;
 import ru.job4j.io.files.Args;
 
@@ -18,7 +19,7 @@ public class FileSearchTest {
     private static final String LS = System.getProperty("line.separator");
 
     @Test
-    //@Ignore
+    @Ignore
     public void fileSearchTest()  throws ParseException, IOException {
 
         String separator = File.separator; // символ /
