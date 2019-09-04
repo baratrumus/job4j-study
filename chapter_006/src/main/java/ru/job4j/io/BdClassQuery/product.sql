@@ -53,10 +53,8 @@ select COUNT(type_id) FROM product WHERE type_id = 3;
 select * from product where type_id = 1 or type_id = 2;
 
 --7. Написать запрос, который выводит тип продуктов, которых осталось меньше 10 штук.
-select t.name from product as p inner join type as t on t.id = p.type_id where
-        type_id IN(SELECT type_id FROM product
-                   GROUP BY type_id
-                   HAVING count(type_id) < 10);
+select count(*), t.name from type as t  inner join product as p on t.id = p.type_id
+GROUP BY t.name having count(type_id) < 3;
 
 --8. Вывести все продукты и их тип.
 select p.name as product, t.name as type from product as p inner join type as t on t.id = p.type_id;
