@@ -20,7 +20,7 @@ public class SqlInsert {
         try {
             conn = DriverManager.getConnection(url, username, password);
             PreparedStatement st = conn.prepareStatement(
-                    "insert into product(name, type_id, expired_date, price) values (?, ?, ?, ?)");
+                    "insert into product(name, type_id, expired_date, price) values (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             st.setString(1, "TEST");
             st.setInt(2, 2);
             st.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
