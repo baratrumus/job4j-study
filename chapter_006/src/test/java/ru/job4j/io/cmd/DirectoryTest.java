@@ -10,7 +10,7 @@ public class DirectoryTest {
     //@Ignore
     public void cmdTest() {
         final Shell shell = new Shell();
-        String directory = shell.directory;
+        String directory = shell.getDirectory();
         String separator = File.separator;
 
         File dirUsr = new File(directory + separator + "usr");
@@ -25,11 +25,11 @@ public class DirectoryTest {
         assert shell.path().equals("/");
 
         shell.cd("usr/..");
-         r = shell.path();
+        r = shell.path();
         assert shell.path().equals("/");
 
         shell.cd("usr").cd("local");
-         r = shell.path();
+        r = shell.path();
         shell.cd("../local").cd("./");
         r = shell.path();
         assert shell.path().equals("/usr/local");
@@ -42,3 +42,12 @@ public class DirectoryTest {
         assert shell.path().equals("/lib");
     }
 }
+
+/*
+
+1. нужно везде добавить модификаторы доступ.
+
+        2. как сделать действия  в стиле ооп?
+
+        3. как быть если я хочу добавить новое поведение в твой код?
+*/

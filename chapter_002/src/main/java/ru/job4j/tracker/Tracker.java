@@ -10,7 +10,7 @@ import java.util.*;
  * @since 0.1
  */
 
-public class Tracker {
+public class Tracker implements ITracker {
     /**
      * Список для хранение заявок.
      */

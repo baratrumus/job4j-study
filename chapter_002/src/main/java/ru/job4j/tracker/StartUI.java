@@ -14,7 +14,7 @@ import java.util.function.Consumer;
 public class StartUI {
 
     private final Input input;
-    private final Tracker tracker;
+    private final ITracker tracker;
     private boolean exit;
     private final Consumer<String> output;
     /**
@@ -23,7 +23,7 @@ public class StartUI {
      * @param tracker хранилище заявок.
      * @param output   Вывод программы сделан через Consumer<String>
      */
-    public StartUI(Input input, Tracker tracker, boolean exit, Consumer<String> output) {
+    public StartUI(Input input, ITracker tracker, boolean exit, Consumer<String> output) {
         this.input = input;
         this.tracker = tracker;
         this.exit = exit;

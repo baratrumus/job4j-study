@@ -10,19 +10,22 @@ import java.io.File;
  * Code can be compiled with javac Directory.java
  * Code should be executed as: java -ea Directory (-ea option it's to enabled the assert)
  */
+
+/**
+ * pathtest относительный путь в формате линукс для прохождения теста
+ */
 public class Shell {
-    String separator = File.separator;
-    String directory = System.getProperty("java.io.tmpdir") + "Directory";
-    int directoryLength = directory.length();
-    File directoryFile = new File(directory);
-    boolean created = directoryFile.mkdir();
+    private final String separator = File.separator;
+    private final String directory = System.getProperty("java.io.tmpdir") + "Directory";
+    private int directoryLength = directory.length();
+    private File directoryFile = new File(directory);
+    private boolean created = directoryFile.mkdir();
     private String pathTest = "/";
-    private String fullPath = directory + separator;
+    private String fullPath = directory;
 
     Shell cd(final String pathGot) {
         if ("/".equals(pathGot)) {
-            this.pathTest = "/";
-            this.fullPath = directory + separator;
+           goRoot();
         } else if (pathGot.contains("//")) {
             goUp();
             String dir = pathGot.replaceAll("/", "");
@@ -34,27 +37,27 @@ public class Shell {
                 if ("..".equals(str)) {
                    goUp();
                 } else if (!".".equals(str)) {
-                    if ("/".equals(pathTest)) {
-                        this.pathTest += str;
-                        this.fullPath += str;
-                    } else if (!str.isEmpty()) {
-                        this.pathTest += "/" + str;
-                        this.fullPath += separator + str;
-                    }
+                   goIn(str);
                 }
             }
         } else {
-            if ("/".equals(pathTest)) {
-                this.pathTest += pathGot;
-                this.fullPath += separator + pathGot;
-            } else if ("..".equals(pathGot)) {
-               goUp();
+            if ("..".equals(pathGot)) {
+                goUp();
             } else {
-                this.pathTest += "/" + pathGot;
-                this.fullPath += separator + pathGot;
+                goIn(pathGot);
             }
         }
         return this;
+    }
+
+    private void goIn(String str) {
+        if ("/".equals(pathTest)) {
+            this.pathTest += str;
+            this.fullPath += separator + str;
+        } else if (!str.isEmpty()) {
+            this.pathTest += "/" + str;
+            this.fullPath += separator + str;
+        }
     }
 
     private void goUp() {
@@ -67,9 +70,18 @@ public class Shell {
         }
     }
 
+    private void goRoot() {
+        this.pathTest = "/";
+        this.fullPath = directory + separator;
+    }
+
     public String path() {
         //String rt = this.path.replaceAll("\\\\", "\\");
         return this.pathTest;
+    }
+
+    public String getDirectory() {
+        return this.directory;
     }
 
 }
