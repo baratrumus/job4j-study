@@ -7,7 +7,7 @@ import java.sql.*;
 
 public class SqlInsert {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SqlSelect.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SqlInsert.class);
 
 
     public static void main(String[] args) {

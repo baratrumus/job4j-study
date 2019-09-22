@@ -13,6 +13,9 @@ public class TrackerSQL  implements ITracker, AutoCloseable {
     private Connection connection;
     private static final Logger LOG = LoggerFactory.getLogger(TrackerSQL.class);
 
+    public TrackerSQL(Connection connection) {
+        this.connection = connection;
+    }
 
     public TrackerSQL() {
         this.init();

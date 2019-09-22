@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import java.sql.*;
 
 public class SqlUpdate {
-    private static final Logger LOG = LoggerFactory.getLogger(SqlSelect.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SqlUpdate.class);
 
 
     public static void main(String[] args) {
