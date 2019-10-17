@@ -21,11 +21,12 @@ public class SqlInsert {
             conn = DriverManager.getConnection(url, username, password);
             PreparedStatement st = conn.prepareStatement(
                     "insert into product(name, type_id, expired_date, price) values (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-            st.setString(1, "TEST");
+            st.setString(1, "TEST28");
             st.setInt(2, 2);
             st.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
             st.setInt(4, 55);
             st.executeUpdate();
+            LOG.warn("load query...");
             ResultSet generatedKeys = st.getGeneratedKeys(); //получение перв ключа добавленной записи
             if (generatedKeys.next()) {
                 System.out.println(generatedKeys.getInt(1));

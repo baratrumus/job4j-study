@@ -14,7 +14,7 @@ public class TestRun {
         StoreSQL storeSQL = new StoreSQL(new Config());
         storeSQL.generate(50000);
 
-        //создаем исходный xml и наполняем из из базы через список
+        //создаем исходный xml и наполняем из базы через список
         File storeXmlFile = makeFile("StoreXmlFile.xml");
         StoreXml storeXML = new StoreXml(storeXmlFile);
         storeXML.save(storeSQL.load());
