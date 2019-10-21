@@ -32,7 +32,7 @@ public class RunParsing {
     private Config config = new Config();
     private String cronExpression = config.get("cron.time");
     private final static Logger LOGGER = LogManager.getLogger(StoreSQL.class);
-    private static boolean propertiesFromArgs = true;
+    private static boolean propertiesFromArgs = false;
 
 
     public void sheduleParsing() throws SchedulerException {

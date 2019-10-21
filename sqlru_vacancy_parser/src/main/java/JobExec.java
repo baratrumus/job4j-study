@@ -11,11 +11,13 @@ import java.sql.SQLException;
 public class JobExec implements Job {
     private static final Logger LOGGER = LogManager.getLogger(RunParsing.class);
     private Config config = new Config();
-    private SiteParser sqlRuParser = new SiteParser(this.connectDatabase());
+    protected SiteParser sqlRuParser;
+    private StoreSQL storeSQL = new StoreSQL(this.connectDatabase());
 
     @Override
     public void execute(JobExecutionContext jobExecutionContext) {
         this.LOGGER.warn("Parsing process started");
+        sqlRuParser = new SiteParser(this.connectDatabase(), storeSQL);
         this.sqlRuParser.parsing();
         this.LOGGER.warn("Parsing process stopped");
     }

@@ -59,7 +59,7 @@ public class StoreSQL implements AutoCloseable {
                 .prepareStatement("SELECT max(actual_date) as date FROM vacancies")) {
             ResultSet rs = pst.executeQuery();
             if (rs.next() && rs.getTimestamp("date") != null) {
-                LOGGER.info(rs.getTimestamp("date"));
+                LOGGER.info("Lastparsing date: " + rs.getTimestamp("date"));
                 lastDate = rs.getTimestamp("date").toLocalDateTime();
             }
         } catch (SQLException e) {

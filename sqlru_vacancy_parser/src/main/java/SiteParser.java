@@ -29,8 +29,8 @@ public class SiteParser {
     private String sitePage;
     LocalDateTime lastParseDate;
 
-    public SiteParser(Connection connection) {
-        this.storeSQL = new StoreSQL(connection);
+    public SiteParser(Connection connection, StoreSQL storeSQL) {
+        this.storeSQL = storeSQL;
         this.sitePage = this.config.get("SitePage");
     }
 
