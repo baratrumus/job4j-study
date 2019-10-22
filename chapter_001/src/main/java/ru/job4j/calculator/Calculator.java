@@ -50,6 +50,8 @@ public class Calculator {
         return res;
     }
 
-
+    public void setRes(Double res) {
+        this.res = res;
+    }
 
 }
