@@ -22,7 +22,7 @@ public class Node<E> {
     }
 
     /**
-     * алгоритм зайца и черепахи
+     * алгоритм зайца и черепахи hair
      */
     boolean hasCycle(Node<E> first) {
         boolean res = false;

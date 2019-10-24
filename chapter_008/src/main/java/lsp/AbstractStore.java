@@ -3,21 +3,18 @@ package lsp;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AbstractStore implements Store {
+public abstract class AbstractStore implements Store {
     private List<Food> foods;
     public String name;
 
     public AbstractStore(String name) {
         this.name = name;
+        this.foods = new ArrayList<>();
     }
 
     @Override
     public String toString() {
         return this.name;
-    }
-
-    public AbstractStore() {
-        this.foods = new ArrayList<>();
     }
 
     @Override

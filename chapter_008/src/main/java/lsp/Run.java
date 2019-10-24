@@ -10,7 +10,6 @@ public class Run {
         Food bread = new Food("Bread", LocalDate.of(2019, 5, 25), LocalDate.of(2018, 7, 01), 20, 2);
         Food milk = new Food("Milk", LocalDate.of(2020, 05, 10), LocalDate.of(2019, 10, 01), 20, 2);
 
-
       //  "Bread in %s, Banana in %s, Milk in %s"
         ControllQuality cq = new ControllQuality();
         cq.checkQuality(banana);
