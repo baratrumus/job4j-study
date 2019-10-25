@@ -1,6 +1,7 @@
 package lsp;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 
 public class Run {
 
@@ -10,13 +11,16 @@ public class Run {
         Food bread = new Food("Bread", LocalDate.of(2019, 5, 25), LocalDate.of(2018, 7, 01), 20, 2);
         Food milk = new Food("Milk", LocalDate.of(2020, 05, 10), LocalDate.of(2019, 10, 01), 20, 2);
 
-      //  "Bread in %s, Banana in %s, Milk in %s"
-        ControllQuality cq = new ControllQuality();
-        cq.checkQuality(banana);
-        cq.checkQuality(bread);
-        cq.checkQuality(milk);
-        System.out.println(banana);
-        System.out.println(bread);
-        System.out.println(milk);
+       Store warehouse = new Warehouse("warehouse");
+       Store shop = new Shop("shop");
+       Store trash = new Trash("trash");
+
+        ControllQuality cq = new ControllQuality(Arrays.asList(new Store[] {warehouse, shop, trash}));
+        cq.control(banana);
+        cq.control(bread);
+        cq.control(milk);
+        System.out.println(warehouse);
+        System.out.println(shop);
+        System.out.println(trash);
     }
 }

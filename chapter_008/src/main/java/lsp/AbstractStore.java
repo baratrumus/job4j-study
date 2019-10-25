@@ -1,20 +1,32 @@
 package lsp;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
 public abstract class AbstractStore implements Store {
+
+
     private List<Food> foods;
     public String name;
+    private LocalDate actualDate;
 
     public AbstractStore(String name) {
         this.name = name;
         this.foods = new ArrayList<>();
+        actualDate = LocalDate.now();
     }
 
     @Override
     public String toString() {
-        return this.name;
+        StringBuilder sb = new StringBuilder();
+        sb.append("Store{" + "name='" + name + '\'' + "} :");
+        for (Food food : foods) {
+            sb.append(food + ", ");
+        }
+        return sb.toString();
     }
 
     @Override
@@ -26,6 +38,19 @@ public abstract class AbstractStore implements Store {
     public Food getFromStorage(Food food) {
         foods.remove(food);
         return food;
+    }
+
+    @Override
+    public boolean accept(Food food) {
+     return true;
+    }
+
+    public Integer getActualityPercent(Food food) {
+        Long lengthOfLife = DAYS.between(food.getCreateDate(), food.getExpireDate());
+        Long daysElapsed = DAYS.between(food.getCreateDate(), actualDate);
+
+        Double actualityPercent =  daysElapsed.doubleValue() / lengthOfLife.doubleValue() * 100;
+        return actualityPercent.intValue();
     }
 
 }

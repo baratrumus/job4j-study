@@ -1,7 +1,6 @@
 package lsp;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 /**
  *
@@ -21,7 +20,6 @@ public class Food { //контекст
     private LocalDate createDate;
     private int price;
     private int discount;
-    private Store whereIsProduct;
 
     public Food(String name, LocalDate expireDate, LocalDate createDate, int price, int discount) {
         this.name = name;
@@ -33,15 +31,7 @@ public class Food { //контекст
 
     @Override
     public String toString() {
-        return "Food{" + "name='" + name + '\'' + ", whereIsProduct=" + whereIsProduct + '}';
-    }
-
-    public Store getWhereIsProduct() {
-        return this.whereIsProduct;
-    }
-
-    public void setWhereIsProduct(Store store) {
-        this.whereIsProduct = store;
+        return "Food_name='" + name + '\'';
     }
 
     public String getName() {
