@@ -3,6 +3,9 @@ package isp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.TreeMap;
+import java.util.function.Supplier;
+import java.util.function.UnaryOperator;
 
 /**
  * Menu node class
@@ -13,24 +16,35 @@ import java.util.Optional;
  *
  * number - номер на этом уровне меню - 1
  * FullNumber - номер, включающий в себя структуру дерева 1.2.2.  Заполняется при создании меню.
+ * inputKey - строка, при вводе которой пользователем выполняется action этого элемента
+ * action - класс, реализующий интерфейс Action
  */
 public class MenuElement implements Comparable<MenuElement> {
     private String name;
-    private int number;
-    private String FullNumber;
-    private Optional<MenuElement> parent;
-    private List<MenuElement> childrens;
+    private String fullNumber;
+    private Optional<String> parentNumber;
+    private TreeMap<String, MenuElement> childrens;
+    private String inputKey;
+    private Action action;
 
-    public MenuElement(String name,  MenuElement parent) {
+    public MenuElement(String name,  String parentNumber,  String inputKey, Action action) {
         this.name = name;
-        this.parent = Optional.ofNullable(parent);
-        this.childrens = new ArrayList<>();
+        this.parentNumber = Optional.ofNullable(parentNumber);
+        this.childrens = new TreeMap<String, MenuElement>();
+        this.inputKey = inputKey;
+        this.action = action;
     }
 
-    public MenuElement(String name) {
+    public MenuElement(String name, String inputKey, Action action) {
         this.name = name;
-        this.parent = Optional.empty();
-        this.childrens = new ArrayList<>();
+        this.parentNumber = Optional.empty();
+        this.childrens = new TreeMap<String, MenuElement>();
+        this.inputKey = inputKey;
+        this.action = action;
+    }
+
+    public void execute() {
+        this.action.doAction();
     }
 
     public String getName() {
@@ -41,42 +55,36 @@ public class MenuElement implements Comparable<MenuElement> {
         this.name = name;
     }
 
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
     public String getFullNumber() {
-        return FullNumber;
+        return fullNumber;
     }
 
     public void setFullNumber(String fullNumber) {
-        FullNumber = fullNumber;
+        this.fullNumber = fullNumber;
     }
 
-    public  Optional<MenuElement> getParent() {
-        return parent;
+    public  Optional<String> getParent() {
+        return parentNumber;
     }
 
-    public void setParent(MenuElement parent) {
-        this.parent = Optional.of(parent);
+    public void setParent(String parent) {
+        this.parentNumber = Optional.of(parent);
     }
 
-    public List<MenuElement> getChildrens() {
-        return childrens;
+    public TreeMap<String, MenuElement> getChildrens() {
+        return this.childrens;
     }
 
-    public void setChildrens(List<MenuElement> childrens) {
+    public void setChildrens(TreeMap<String, MenuElement> childrens) {
         this.childrens = childrens;
     }
 
+    public String getInputKey() {
+        return this.inputKey;
+    }
 
-    public int compareTo(MenuElement m){
-
-        return this.FullNumber.compareTo(m.getFullNumber());
+    public int compareTo(MenuElement m) {
+        return this.fullNumber.compareTo(m.getFullNumber());
     }
 
 }

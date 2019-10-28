@@ -80,7 +80,7 @@ public class InteractCalc {
         chooseFunction.put("+", (a, b) -> calculator.add(a, b));
         chooseFunction.put("-", (a, b) -> calculator.subtract(a, b));
         chooseFunction.put("/", (a, b) -> calculator.div(a, b));
-        chooseFunction.put("*", (a, b) -> calculator.multiple(a, b));
+        chooseFunction.put("*", calculator::multiple);
     }
 
     protected void addOperation(String op, BiConsumer<Double, Double> func) {
