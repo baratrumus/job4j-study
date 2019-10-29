@@ -1,7 +1,6 @@
 package srp;
 
 import java.util.HashMap;
-import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.Scanner;
 import java.util.function.BiConsumer;
@@ -89,8 +88,7 @@ public class InteractCalc {
 
 
     private Matcher checkPattern(String input) {
-        Matcher matcher = pattern.matcher(input);
-        return matcher;
+        return pattern.matcher(input);
     }
 
     public static void main(String[] args) {

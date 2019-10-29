@@ -2,7 +2,6 @@ package lsp.carstorage;
 
 import org.junit.Test;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 
 public class ParkTest {
@@ -19,7 +18,7 @@ public class ParkTest {
         Car tr1 = new Truck(3);
         park.putCar(tr1);
         assertThat(park.truckPark.getLoad(), is(1));
-        assertThat(park.passPark.getLoad(), is(3));
+
     }
 
     @Test
