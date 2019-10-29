@@ -10,8 +10,8 @@ public class LaunchParking {
     Parking truckPark;
     Parking passPark;
 
-    public LaunchParking(int trSize, int passSize) {
-        truckPark = new TruckPark(trSize);
+    public LaunchParking(int truckSize, int passSize) {
+        truckPark = new TruckPark(truckSize);
         passPark = new PassPark(passSize);
     }
 
@@ -19,17 +19,12 @@ public class LaunchParking {
         boolean ret = false;
         int carSize =  car.getCarSize();
         if (carSize == 1) {                     //легковая
-            if (passPark.checkPlaces(carSize)) {
-                passPark.putOnParking(car);
-                ret = true;
-            }
+            ret = passPark.putOnParking(car);
         } else {                                 //грузовая
             if (truckPark.checkPlaces(carSize)) {
-                truckPark.putOnParking(car);
-                ret = true;
+                ret = truckPark.putOnParking(car);
             } else if (passPark.checkPlaces(carSize)) {
-                passPark.putOnParking(car);
-                ret = true;
+                ret = passPark.putOnParking(car);
             }
         }
         if (ret) {
