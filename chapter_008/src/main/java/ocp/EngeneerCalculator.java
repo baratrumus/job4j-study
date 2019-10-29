@@ -3,9 +3,6 @@ package ocp;
 import ru.job4j.calculator.Calculator;
 import srp.InteractCalc;
 
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-
 /**
  *  На базе задания из занятия SRP расширить калькулятор.
  *  Сделать инженерный калькулятор. Добавить вычисления например тригонометрии.

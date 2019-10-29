@@ -12,13 +12,22 @@ public class TruckPark implements Parking {
     }
 
     @Override
-    public void putOnParking(Car car) {
-        this.truckLoad += 1;
+    public boolean putOnParking(Car car) {
+        boolean ret;
+        int size = car.getCarSize();
+        if (this.checkPlaces(size)) {
+            this.truckLoad += 1;
+            ret = true;
+        } else {
+            ret = false;
+        }
+        return ret;
     }
 
     @Override
-    public void getFromParking(Car car) {
+    public Car getFromParking(Car car) {
         this.truckLoad -= 1;
+        return car;
     }
 
     @Override

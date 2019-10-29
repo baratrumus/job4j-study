@@ -2,6 +2,7 @@ package isp;
 
 import java.util.Optional;
 
+@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 public interface Menu {
-    public String addElement(String name, Optional<String> parentNumber, String inputKey, Action action);
+    String addElement(String name, Optional<String> parentNumber, String inputKey, Action action);
 }

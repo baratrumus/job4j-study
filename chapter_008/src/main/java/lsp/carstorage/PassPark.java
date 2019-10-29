@@ -12,13 +12,22 @@ public class PassPark implements Parking {
     }
 
     @Override
-    public void putOnParking(Car car) {
-        this.passengerLoad += car.getCarSize();
+    public boolean putOnParking(Car car) {
+        boolean ret;
+        int size = car.getCarSize();
+        if (this.checkPlaces(size)) {
+            this.passengerLoad += size;
+            ret = true;
+        } else {
+            ret = false;
+        }
+        return ret;
     }
 
     @Override
-    public void getFromParking(Car car) {
+    public Car getFromParking(Car car) {
         this.passengerLoad -= car.getCarSize();
+        return car;
     }
 
     @Override

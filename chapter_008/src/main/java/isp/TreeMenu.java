@@ -24,7 +24,7 @@ public class TreeMenu implements ShowMenu, Menu {
     private TreeMap<String, MenuElement> rootMenu;
 
     public TreeMenu() {
-        this.rootMenu = new TreeMap<String, MenuElement>();
+        this.rootMenu = new TreeMap<>();
     }
 
 
@@ -65,7 +65,8 @@ public class TreeMenu implements ShowMenu, Menu {
      * @param name Name of element
      * @param parentNumber Number in menu, like 2.5.1  This number is key, when value of parent is MenuElement
      * @param inputKey key for input in console by user
-     *  return FullNumber of elem, that is key in his tree. Return need check for null
+     *  return FullNumber of elem, that is key in his tree.
+     *      Return need check for null.
      */
     @Override
     public String addElement(String name, Optional<String> parentNumber, String inputKey, Action action) {

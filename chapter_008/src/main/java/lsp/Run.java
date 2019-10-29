@@ -15,7 +15,7 @@ public class Run {
        Store shop = new Shop("shop");
        Store trash = new Trash("trash");
 
-        ControllQuality cq = new ControllQuality(Arrays.asList(new Store[] {warehouse, shop, trash}));
+        ControllQuality cq = new ControllQuality(Arrays.asList(warehouse, shop, trash));
         cq.control(banana);
         cq.control(bread);
         cq.control(milk);

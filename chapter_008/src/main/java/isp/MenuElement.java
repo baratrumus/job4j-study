@@ -1,11 +1,9 @@
 package isp;
 
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.Optional;
 import java.util.TreeMap;
-import java.util.function.Supplier;
-import java.util.function.UnaryOperator;
+
 
 /**
  * Menu node class
@@ -30,7 +28,7 @@ public class MenuElement implements Comparable<MenuElement> {
     public MenuElement(String name,  String parentNumber,  String inputKey, Action action) {
         this.name = name;
         this.parentNumber = Optional.ofNullable(parentNumber);
-        this.childrens = new TreeMap<String, MenuElement>();
+        this.childrens = new TreeMap<>();
         this.inputKey = inputKey;
         this.action = action;
     }
@@ -38,7 +36,7 @@ public class MenuElement implements Comparable<MenuElement> {
     public MenuElement(String name, String inputKey, Action action) {
         this.name = name;
         this.parentNumber = Optional.empty();
-        this.childrens = new TreeMap<String, MenuElement>();
+        this.childrens = new TreeMap<>();
         this.inputKey = inputKey;
         this.action = action;
     }

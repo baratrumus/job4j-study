@@ -9,9 +9,9 @@ import static java.time.temporal.ChronoUnit.DAYS;
 public abstract class AbstractStore implements Store {
 
 
-    private List<Food> foods;
-    public String name;
-    private LocalDate actualDate;
+    private final List<Food> foods;
+    public final String name;
+    private final LocalDate actualDate;
 
     public AbstractStore(String name) {
         this.name = name;
@@ -22,7 +22,7 @@ public abstract class AbstractStore implements Store {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Store{" + "name='" + name + '\'' + "} :");
+        sb.append("Store{" + "name='").append(name).append('\'').append("} :");
         for (Food food : foods) {
             sb.append(food + ", ");
         }
