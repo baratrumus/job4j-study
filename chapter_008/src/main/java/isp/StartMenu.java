@@ -21,9 +21,13 @@ import java.util.Optional;
  */
 
 public class StartMenu {
-    Boolean exit = false;
-    TreeMenu menu = new TreeMenu();
+    private Boolean exit = false;
+    private TreeMenu menu = new TreeMenu();
     private ConsoleInput input = new ConsoleInput();
+
+    public TreeMenu getMenu() {
+        return menu;
+    }
 
     public void init() {
         String elNum = menu.addElement("To add element push 1", Optional.empty(),
