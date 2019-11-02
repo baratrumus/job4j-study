@@ -35,7 +35,6 @@ public class TreeMenu implements ShowMenu, Menu {
     }
 
     private void printElement(MenuElement el) {
-        final String ln = System.lineSeparator();
         StringBuilder sb = new StringBuilder();
         String number =  el.getFullNumber();
         String[] srtArr  = number.split("\\.");
@@ -43,7 +42,6 @@ public class TreeMenu implements ShowMenu, Menu {
         sb.append(repeated);
         sb.append(number).append(" ");
         sb.append(el.getName());
-        //sb.append(ln);
         System.out.println(sb);
     }
 
