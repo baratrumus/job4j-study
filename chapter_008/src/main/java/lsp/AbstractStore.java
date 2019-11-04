@@ -35,11 +35,26 @@ public abstract class AbstractStore implements Store {
     }
 
     @Override
-    public Food getFromStorage(Food food) {
+    public Food getFromStore(Food food) {
         foods.remove(food);
         return food;
     }
 
+    @Override
+    public List<Food> showFood() {
+        return foods;
+    }
+
+    @Override
+    public void emptyStore() {
+        foods.clear();
+    }
+
+    /**
+     * Проверяет подходит ли продукт в конкретное хранилище
+     * @param food
+     * @return
+     */
     @Override
     public boolean accept(Food food) {
      return true;

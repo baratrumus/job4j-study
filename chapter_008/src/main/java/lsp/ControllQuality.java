@@ -4,7 +4,7 @@ import java.util.List;
 
 public class ControllQuality {
 
-    List<Store> stores;
+    private List<Store> stores;
 
     public ControllQuality(List<Store> stores) {
         this.stores = stores;
@@ -16,5 +16,9 @@ public class ControllQuality {
                 str.putToStore(food);
             }
         }
+    }
+
+    public List<Store> getStores() {
+        return stores;
     }
 }
