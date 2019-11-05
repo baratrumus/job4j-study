@@ -2,6 +2,7 @@ package di;
 
 
 import lsp.*;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -25,6 +26,7 @@ public class ResortTest {
 
 
     @Test
+    @Ignore
     public void whenResortFoodItsResorted() {
         cq.control(banana);
         cq.control(bread);

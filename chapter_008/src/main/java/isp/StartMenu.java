@@ -22,11 +22,11 @@ import java.util.Optional;
 
 public class StartMenu {
     private Boolean exit = false;
-    private TreeMenu menu = new TreeMenu();
+    public TreeMenu menu;
     private ConsoleInput input = new ConsoleInput();
 
-    public TreeMenu getMenu() {
-        return menu;
+    public StartMenu(TreeMenu menu) {
+        this.menu = menu;
     }
 
     public void init() {
@@ -72,7 +72,7 @@ public class StartMenu {
     }
 
     public static void main(String[] args) {
-        StartMenu sm = new StartMenu();
+        StartMenu sm = new StartMenu(new TreeMenu());
         sm.init();
     }
 }
