@@ -1,3 +1,5 @@
+package crosszerogame;
+
 import java.util.Random;
 
 /**
