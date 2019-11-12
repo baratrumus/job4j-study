@@ -116,7 +116,7 @@ public class Departments {
     }
 
     /**
-     * Сортировка по убыванию через Comparator
+     * Сортировка по убыванию через comparator
      */
     public List<Org> sortDesc(List<Org> orgs) {
         orgs.sort(
