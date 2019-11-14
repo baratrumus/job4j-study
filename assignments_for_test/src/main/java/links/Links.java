@@ -31,7 +31,9 @@ import java.io.IOException;
 */
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class Links {
     List<TripleString> inputList = new LinkedList<>();
@@ -124,7 +126,7 @@ public class Links {
 
     private void load() {
         StringJoiner out = new StringJoiner(System.lineSeparator());
-        String path = Links.class.getClassLoader().getResource("lng.csv").getFile();
+        String path = Links.class.getClassLoader().getResource("test_lng.csv").getFile();
             if (path.contains("%23")) {
                 path = path.replace("%23", "#");
             }
@@ -142,7 +144,7 @@ public class Links {
         boolean created = tmpDir.mkdir();
         String filePath = tmpDirPath + separator + "target.csv";
 
-        try (PrintWriter out = new PrintWriter(new FileOutputStream(filePath))) {
+        try (PrintWriter out = new PrintWriter(new FileOutputStream(filePath), true, StandardCharsets.UTF_8)) {
             out.println("Колличество групп с более чем одним элементом " + grCount);
             for (ArrayList<TripleString> grp : groups) {
                 int number = groups.indexOf(grp) + 1;
@@ -167,7 +169,7 @@ public class Links {
     }
 
     public static void main(String[] args) {
-        long start = System.currentTimeMillis();
+        long time = System.nanoTime();
         Links links = new Links();
         links.load();
         System.out.println("Load finished");
@@ -180,11 +182,7 @@ public class Links {
         int grCount = links.groupCount();
         System.out.println(String.format("Получилось %d групп с более чем одним элементом", grCount));
         links.writeToFile(grCount);
-        long finish = System.currentTimeMillis();
-        long timeConsumedMillis = finish - start;
-        System.out.println("Время работы " + (double) (System.currentTimeMillis() - timeConsumedMillis));
+        long fin = System.nanoTime() - time;
+        System.out.println(String.format("Время работы  %,9.3f s", fin / 1_000_000_0000.0));
     }
-
-
-
 }
