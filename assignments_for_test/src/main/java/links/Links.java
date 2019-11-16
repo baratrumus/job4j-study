@@ -50,41 +50,19 @@ public class Links {
         }
     }
 
-    private void garbageInfo() {
-        if (inputList.size() == 720000) {
-            System.gc();
-            //System.out.println("МУсорщик пошел");
-        }
-        if ((inputList.size() < 900000) && (inputList.size() > 800000)) {
-            System.out.println("меньше 900");
-        } else if ((inputList.size() < 800000) && (inputList.size() > 770000)) {
-            System.out.println("меньше 800");
-        } else if ((inputList.size() < 710000) && (inputList.size() > 700000)) {
-            System.out.println("меньше 710");
-            System.out.println("МУсорщик пошел2");
-            Runtime.getRuntime().gc();
-        } else if ((inputList.size() < 700000) && (inputList.size() > 600000)) {
-            System.out.println("меньше 700");
-        } else if ((inputList.size() < 200000) && (inputList.size() > 100000)) {
-            System.out.println("меньше 200");
-        }
-    }
 
     /**
      * за счет использования очереди как внешнего цикла и итератора как внутреннего
      * удается избежать Concurent Modification exception из-за удаления элементов,
      * которые мы забираем в группы, во внутреннем цикле
      */
-    private void makeGroups() {
+    public void makeGroups() {
         Queue<TripleString> outerQueue = new LinkedList<>();
         outerQueue.offer(inputList.get(0));
         while (!outerQueue.isEmpty()) {
             TripleString ts = outerQueue.poll();
             groupTmp.add(ts);  //добавляем объект, с которым сравниваем остальные
             inputList.remove(ts);
-
-            garbageInfo();
-
             ListIterator<TripleString> tsInnerIter = inputList.listIterator();
             while (tsInnerIter.hasNext()) {
                 TripleString tsInner = tsInnerIter.next();
@@ -124,12 +102,8 @@ public class Links {
         inputList.add(ts);
     }
 
-    private void load() {
+    public void load(String path) {
         StringJoiner out = new StringJoiner(System.lineSeparator());
-        String path = Links.class.getClassLoader().getResource("test_lng.csv").getFile();
-            if (path.contains("%23")) {
-                path = path.replace("%23", "#");
-            }
         try (BufferedReader read = new BufferedReader(new FileReader(path))) {
             read.lines().forEach(line -> writeToList(line));
         } catch (Exception e) {
@@ -137,7 +111,15 @@ public class Links {
         }
     }
 
-    private void writeToFile(int grCount) {
+    private String getResourcePath(String source) {
+        String path = Links.class.getClassLoader().getResource(source).getFile();
+        if (path.contains("%23")) {
+            path = path.replace("%23", "#");
+        }
+        return path;
+    }
+
+    public void writeToFile(int grCount) {
         String separator = File.separator;
         String tmpDirPath = System.getProperty("java.io.tmpdir") + separator + "LinksOUT";
         File tmpDir = new File(tmpDirPath);
@@ -158,7 +140,7 @@ public class Links {
         }
     }
 
-    private int groupCount() {
+    public int groupCount() {
         int ret = 0;
         for (ArrayList<TripleString> gr : groups) {
             if (gr.size() > 1) {
@@ -171,7 +153,7 @@ public class Links {
     public static void main(String[] args) {
         long time = System.nanoTime();
         Links links = new Links();
-        links.load();
+        links.load(links.getResourcePath("test_lng.csv"));
         System.out.println("Load finished");
         links.makeGroups();
         links.groups.sort(new Comparator<ArrayList<TripleString>>() {
