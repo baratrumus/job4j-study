@@ -75,12 +75,13 @@ public class MemoryUsage {
         System.out.println(String.format("bare object size %s B", sizeOf(new Object())));
         System.out.println(String.format("user size %s B", sizeOf(new User("test Next user"))));
 
-
         for (int i = 0; i < 10000; i++) {
             User user = new User("User " + i);
+            info();
             info(i + 1);
             System.out.println(String.format("average size %s", sizeOf(user)));
             user = null;
+
         }
         info();
         //System.gc();
