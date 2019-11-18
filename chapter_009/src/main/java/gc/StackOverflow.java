@@ -2,7 +2,7 @@ package gc;
 
 
 /**
- *  Смысл программы в выбросе StackOverflowException из за рекурсии
+ *  Смысл программы в выбросе StackOverflowException из за рекурсии, т.к. в стеке хранятся ф-ии
  */
 public class StackOverflow {
     private static Runtime rt = Runtime.getRuntime();
@@ -15,7 +15,6 @@ public class StackOverflow {
     }
 
     public static void info(int cnt) {
-
         int kb = 1024;
         long avgSize = (rt.totalMemory() - rt.freeMemory()) / cnt;
         System.out.println("Average user size[Bait] " + avgSize);

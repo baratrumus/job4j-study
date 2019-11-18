@@ -16,9 +16,11 @@ import static com.carrotsearch.sizeof.RamUsageEstimator.sizeOf;
  *3 Нужно найти информацию. Сколько памяти занимает пустой объект без полей.
  *4 Добиться состояния, когда виртуальная машины вызывает сборщик мусора самостоятельно. За счет ключей xmx.
  *5 Объяснить поведение программы в текстовом файле.
- *
+ */
+/**
  *The flag Xmx specifies the maximum memory allocation pool for a Java virtual machine (JVM),
  *  while Xms specifies the initial memory allocation pool -Xmx24m -Xms16m
+ *  Serial GC включается опцией -XX:+UseSerialGC
  */
 public class MemoryUsage {
 
