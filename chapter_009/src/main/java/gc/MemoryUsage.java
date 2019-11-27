@@ -8,8 +8,6 @@ import java.lang.ref.WeakReference;
 
 import static com.carrotsearch.sizeof.RamUsageEstimator.sizeOf;
 
-
-
 /**
  *1 Создать объект User c полями и перекрытым методом finalize
  *2 Создать несколько объектов User и руками рассчитать сколько он будет занимать памяти.
@@ -21,10 +19,12 @@ import static com.carrotsearch.sizeof.RamUsageEstimator.sizeOf;
  *The flag Xmx specifies the maximum memory allocation pool for a Java virtual machine (JVM),
  *  while Xms specifies the initial memory allocation pool -Xmx24m -Xms16m
  *  Serial GC включается опцией -XX:+UseSerialGC
+ *  Parallel GC включается опцией -XX:+UseParallelGC
+ *  CMS GC включается опцией -XX:+UseConcMarkSweepGC
+ *  G1 включается опцией Java -XX:+UseG1GC
  */
+
 public class MemoryUsage {
-
-
 
     /**
      * На WeakReference finalize запускает даже если user не null
