@@ -80,7 +80,6 @@ public class Links {
             if (!inputList.isEmpty()) {
                 outerQueue.offer(inputList.get(0));
             }
-
         }
     }
 
