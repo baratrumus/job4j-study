@@ -77,7 +77,7 @@ public class MemoryUsage {
         System.out.println(String.format("bare object size %s B", sizeOf(new Object())));
         System.out.println(String.format("user size %s B", sizeOf(new User("test Next user"))));
 
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 100000; i++) {
             User user = new User("User " + i);
             info();
             info(i + 1);

@@ -8,6 +8,7 @@ import ru.job4j.puzzle.firuges.Figure;
  * //TODO add comments.
  *
  * @author Petr Arsentev (parsentev@yandex.ru)
+ * @author Ilya Ivannikov (voldores@mail.ru)
  * @version $Id$
  * @since 0.1
  */
