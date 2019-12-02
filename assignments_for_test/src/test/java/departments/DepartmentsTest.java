@@ -1,4 +1,4 @@
-package ru.job4j;
+package departments;
 
 import org.junit.Test;
 import java.util.Arrays;
