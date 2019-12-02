@@ -28,12 +28,14 @@ public class RectangleMove implements Runnable {
                 delta *= -1;
             }
             this.rect.setX(valueX + delta);
-
             try {
                 Thread.sleep(300);
             } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
                 e.printStackTrace();
+                break;
             }
+
         }
     }
 }
