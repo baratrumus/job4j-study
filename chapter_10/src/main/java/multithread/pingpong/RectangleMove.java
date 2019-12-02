@@ -19,7 +19,7 @@ public class RectangleMove implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
+        while (!Thread.currentThread().isInterrupted()) {
             valueX = this.rect.getX();
             if (valueX > PingPong.LIMITX - delta * 4) {
                delta *= -1;
@@ -29,11 +29,10 @@ public class RectangleMove implements Runnable {
             }
             this.rect.setX(valueX + delta);
             try {
-                Thread.sleep(300);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 e.printStackTrace();
-                break;
             }
 
         }
