@@ -1,8 +1,6 @@
 package multithread.wget;
 
-import java.net.MalformedURLException;
 import java.net.URL;
-
 
 /**
  * @author Ilya Ivannikov (voldores@mail.ru)
@@ -15,27 +13,22 @@ public class Run {
     public static void main(String[] args) {
         try {
             if (args.length == 0) {
-                args = new String[] {"", ""};
+                args = new String[] {"200000",
+                        "https://github.com/ik87/TheatreSquare/archive/master.zip",
+                        "http://baticworld.ru/images/Gallery_images//P1050310_m.jpg"
+                        };
             }
-            Params pr = getParamsFromArgs(args);
-            Wget wg = new Wget(pr);
-            Thread run = new Thread(wg);
-            run.start();
-            run.join();
+            //http://baticworld.ru/images/Gallery_images//P1050210_m.jpg
+            Params params = new Params(args);
+            for (String urlSrting : params.urls()) {
+                URL url = new URL(urlSrting);
+                Wget wg = new Wget(params.speedLimit, url);
+                Thread run = new Thread(wg);
+                run.start();
+               // run.join(); // следующий поток начнется только когда предыдущий закончит работу
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
-    }
-
-    private static Params getParamsFromArgs(String[] args) throws Exception {
-        String urlSrting = "http://baticworld.ru/images/Gallery_images//P1050310_m.jpg";
-        URL url = new URL(urlSrting);
-       // URL url = new URL(args[0]);
-        int speedLimit = 200000;
-        if (args[1] != null && !args[1].isBlank()) {
-            speedLimit = Integer.parseInt(args[1]);
-        }
-        return new Params(url, speedLimit);
     }
 }

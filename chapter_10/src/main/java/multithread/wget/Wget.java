@@ -1,9 +1,10 @@
 package multithread.wget;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.net.URL;
 import java.net.HttpURLConnection;
 import java.util.List;
 import java.util.Map;
@@ -27,32 +28,35 @@ import java.util.Set;
  */
 
 public class Wget implements Runnable {
-    Params params;
+    int speedLimit;
+    URL url;
     private final static String LN = System.lineSeparator();
+    String separator = File.separator;
 
-    public Wget(Params params) {
-        this.params = params;
+    public Wget(int speedLimit, URL url) {
+        this.speedLimit = speedLimit;
+        this.url = url;
     }
 
     @Override
     public void run() {
         String fileName = "";
         try {
-            HttpURLConnection conn = (HttpURLConnection) params.url.openConnection();
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             String request = conn.getRequestMethod();
             int code = conn.getResponseCode();
             String response = conn.getResponseMessage();
             Map<String, List<String>> headers  = conn.getHeaderFields();
-            System.out.println("Connection info: " + LN);
-            System.out.println("url: " + request);
+            System.out.println(LN);
+            System.out.println("url: " + url.toString());
             System.out.println("request method: " + request);
             System.out.println("response code: " + code);
             System.out.println("response message: " + response);
-            System.out.println("response headers: ");
+            /*System.out.println("response headers: ");
             Set<String> headerKeys = headers.keySet();
             for (String k : headerKeys) {
                 System.out.println(k + " : " + headers.get(k));
-            }
+            }*/
             if (code != HttpURLConnection.HTTP_OK) {
                 System.out.println("Wrong server's response code: " + code);
                 return;
@@ -65,15 +69,20 @@ public class Wget implements Runnable {
                     fileName = disposition.substring(index + 9);
                 }
             } else {
-                fileName = params.url.getFile();
+                fileName = url.getFile();
                 index = fileName.lastIndexOf("/");
                 fileName = fileName.substring(index + 1);
             }
             System.out.println("Имя файла : " + fileName);
 
+            String dirString = System.getProperty("java.io.tmpdir")  + "WgetFiles" + separator;
+            File dir = new File(dirString);
+            if (!dir.exists()) {
+                dir.mkdir();
+            }
+
             try (BufferedInputStream in = new BufferedInputStream(conn.getInputStream());
-            //try (InputStream in = conn.getInputStream();
-                FileOutputStream fos = new FileOutputStream(System.getProperty("java.io.tmpdir") + fileName)) {
+                FileOutputStream fos = new FileOutputStream(dirString + fileName)) {
                 int bytesCount;
                 long timeLost;
                 int bytesCountAdd = 0;
@@ -87,7 +96,7 @@ public class Wget implements Runnable {
                     bytesCountAdd += bytesCount;
                     allBytes += bytesCount;
                     timeLost = System.currentTimeMillis() - oneSecondCount;
-                    if ((bytesCountAdd) > params.speedLimit) {
+                    if ((bytesCountAdd) > speedLimit) {
                         if (timeLost < 1000L) {
                             try {
                                 Thread.sleep(1000L - timeLost);
