@@ -50,7 +50,7 @@ public class Links {
         }
     }
 
-
+   // public static Map<String, Set<String>> analyze(List<List<String>> data) {
     /**
      * за счет использования очереди как внешнего цикла и итератора как внутреннего
      * удается избежать Concurent Modification exception из-за удаления элементов,
