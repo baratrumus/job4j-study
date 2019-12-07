@@ -14,11 +14,10 @@ public class Run {
         try {
             if (args.length == 0) {
                 args = new String[] {"200000",
-                        "https://github.com/ik87/TheatreSquare/archive/master.zip",
+                        "http://baticworld.ru/images/Gallery_images//P1050210_m.jpg",
                         "http://baticworld.ru/images/Gallery_images//P1050310_m.jpg"
                         };
             }
-            //http://baticworld.ru/images/Gallery_images//P1050210_m.jpg
             Params params = new Params(args);
             for (String urlSrting : params.urls()) {
                 URL url = new URL(urlSrting);
