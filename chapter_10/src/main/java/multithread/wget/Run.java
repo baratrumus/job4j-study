@@ -14,6 +14,7 @@ public class Run {
         try {
             if (args.length == 0) {
                 args = new String[] {"200000",
+                        "https://yadi.sk/d/F8wGLonYtVS82A",
                         "http://baticworld.ru/images/Gallery_images//P1050210_m.jpg",
                         "http://baticworld.ru/images/Gallery_images//P1050310_m.jpg"
                         };

@@ -66,7 +66,7 @@ public class NetRelationsMod {
                         Arrays.asList("3", "4", "5"),   //группа 1
                         Arrays.asList("8", "6", "7"),   //группа 2
                         Arrays.asList("ва", "er", "3"), //группа 1
-                        Arrays.asList("fg", "ds", "re"),//группа 3
+                        Arrays.asList("fg", "ds", "re"), //группа 3
                         Arrays.asList("8", "6", "uu"),   //группа 4
                         Arrays.asList("jj", "6", "7"),   //группа 4
                         Arrays.asList("ап", "ds", "7"),   //группа 3

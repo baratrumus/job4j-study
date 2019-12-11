@@ -1,9 +1,6 @@
 package multithread.userstorage;
 
-import multithread.counter.Count;
-import multithread.counter.CountTest;
 import org.junit.Test;
-
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
