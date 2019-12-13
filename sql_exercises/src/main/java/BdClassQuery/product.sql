@@ -45,6 +45,7 @@ select * from product as p where p.expired_date BETWEEN
 
 --4. Написать запрос, который выводит самый дорогой продукт.
 select * from product where price in (select max(price) from product);
+select * from product order by price desc LIMIT 1;
 
 --5. Написать запрос, который выводит количество всех продуктов определенного типа.
 select COUNT(type_id) FROM product WHERE type_id = 3;
@@ -54,10 +55,10 @@ select * from product where type_id = 1 or type_id = 2;
 
 --7. Написать запрос, который выводит тип продуктов, которых осталось меньше 10 штук.
 select count(*), t.name from type as t  inner join product as p on t.id = p.type_id
-GROUP BY t.name having count(type_id) < 3;
+GROUP BY t.name having count(type_id) < 10;
 
 --8. Вывести все продукты и их тип.
-select p.name as product, t.name as type from product as p inner join type as t on t.id = p.type_id;
+select p.name, t.name from product as p inner join type as t on t.id = p.type_id;
 
 --9. запрос, который выведет количество продуктов каждого типа.
 select count(*), t.name from type as t  inner join product as p on t.id = p.type_id
