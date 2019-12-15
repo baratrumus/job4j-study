@@ -21,7 +21,7 @@ public class BlockingQueueTest {
             @Override
             public void run() {
                 try {
-                    for (int i = 0; i < 7; i++) {
+                    for (int i = 0; i < 6; i++) {
                         bq.offer(i);
                         System.out.println(String.format("Number \"%s\" have put to queue", i));
                         System.out.println(String.format("queue size is %s", bq.getSize()));
@@ -35,23 +35,22 @@ public class BlockingQueueTest {
         Thread consumer = new Thread() {
             @Override
             public void run() {
-                try {
-                    int num;
-                    for (int i = 0; i < 6; i++) {
+                while ((producer.getState() != Thread.State.TERMINATED) || (bq.getSize() > 0)) {
+                    try {
+                        int num;
                         num = bq.poll();
                         result.add(num);
                         System.out.println(String.format("Number \"%s\" have put to queue", num));
                         System.out.println(String.format("queue size is %s", bq.getSize()));
+                    } catch (InterruptedException ie) {
+                        ie.printStackTrace();
+                        Thread.currentThread().interrupt();
                     }
-                } catch (InterruptedException ie) {
-                    ie.printStackTrace();
                 }
             }
         };
         producer.start();
         consumer.start();
-
-
         producer.join();
         consumer.join();
         System.out.println(result.size());

@@ -21,6 +21,11 @@ import java.util.Queue;
  * Consumer блокируется, до тех пор пока Producer не поместит в очередь данные. *
  * В задании нельзя использовать потокобезопасные коллекции реализованные в JDK. Ваша задача используя,
  * wait/notify реализовать блокирующую очередь.
+ * Представим утилиту по поиску текста в файловой системе.
+ * Одна нить ищет файлы с подходящим именем. Вторая нить берет эти файлы и читает.
+ * Это схема хорошо описывается шаблон Producer Consumer. Однако есть один момент.
+ * Когда первая нить заканчивает свою работу, потребители переходят в режим wait.
+ * И утилита работает вечно. нужно разработать механизм остановки потребителя, когда производитель закончил свою работу.
  */
 @ThreadSafe
 public class BlockingQueue<T> {
@@ -33,7 +38,7 @@ public class BlockingQueue<T> {
     }
 
     public int getSize() {
-        return size;
+        return queue.size();
     }
 
     //producer
@@ -66,10 +71,8 @@ public class BlockingQueue<T> {
             queue.notify();
             return value;
         }
-
-
-
     }
+
 
     public static void main(String[] args)  throws InterruptedException {
         final BlockingQueue<Integer> bq = new BlockingQueue<>(3);
@@ -79,11 +82,13 @@ public class BlockingQueue<T> {
             @Override
             public void run() {
                 try {
-                    for (int i = 0; i < 7; i++) {
+                    System.out.println(String.format("producerX %s", Thread.currentThread().getState()));
+                    for (int i = 0; i < 5; i++) {
                         bq.offer(i);
                     }
                 } catch (InterruptedException ie) {
                     ie.printStackTrace();
+                    //Thread.currentThread().interrupt();
                 }
             }
         };
@@ -91,20 +96,24 @@ public class BlockingQueue<T> {
         Thread consumer = new Thread() {
             @Override
             public void run() {
-                try {
-                    for (int i = 0; i < 5; i++) {
-                        bq.poll();
-                    }
-
-                } catch (InterruptedException ie) {
-                    ie.printStackTrace();
-                }
+               while ((producer.getState() != Thread.State.TERMINATED) || (bq.getSize() > 0)) {
+                   System.out.println(String.format("consumer %s", Thread.currentThread().getState()));
+                   System.out.println(String.format("producer %s", producer.getState()));
+                   try {
+                       bq.poll();
+                   } catch (InterruptedException ie) {
+                       ie.printStackTrace();
+                       Thread.currentThread().interrupt();
+                   }
+               }
             }
         };
         producer.start();
         consumer.start();
         //producer.join();
+        //consumer.interrupt();
         //consumer.join();
-
+        System.out.println(String.format("c %s", consumer.getState()));
+        System.out.println(String.format("p %s", producer.getState()));
     }
 }
