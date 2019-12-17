@@ -5,6 +5,16 @@ import java.util.List;
 import net.jcip.annotations.GuardedBy;
 import net.jcip.annotations.ThreadSafe;
 
+/**
+ * 1. Создать класс - структуру данных для хранение пользователей UserStorage.
+ * 2. В заголовке класса обозначить аннотацию @ThreadSafe из библиотеки
+ * 3. Хранилище должно иметь методы boolean add (User user), boolean update(User user), boolean delete(User user).
+ * 4. И особый метод transfer(int fromId, int toId, int amount);
+ * 5. Структура данных должна быть потокобезопасная;
+ * 6. В структуре User Должны быть поля int id, int amount.
+ * amount - это сумма денег на счете пользователя.
+ */
+
 @ThreadSafe
 public class UserStorage {
     @GuardedBy("this")
@@ -57,11 +67,11 @@ public class UserStorage {
     }
 
     public static void main(String[] args) {
-        UserStorage stoge = new UserStorage();
-        stoge.add(new User(1, 100));
-        stoge.add(new User(2, 200));
+        UserStorage store = new UserStorage();
+        store.add(new User(1, 100));
+        store.add(new User(2, 200));
 
-        stoge.transfer(1, 2, 50);
+        store.transfer(1, 2, 50);
 
     }
 

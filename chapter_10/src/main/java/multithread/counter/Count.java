@@ -21,4 +21,42 @@ public class Count {
     public synchronized int get() {
         return this.value;
     }
+
+    public static void main(String[] args)  throws InterruptedException {
+        final Count count = new Count();
+
+
+        Thread t1 = new Thread() {
+            @Override
+            public void run() {
+                synchronized (count) {
+                    count.increment();
+                }
+                System.out.println("Count " + count.get());
+            }
+        };
+
+        Thread t2 = new Thread() {
+            @Override
+            public void run() {
+                synchronized (count) {
+                    /*try {
+                        count.wait();
+
+                    } catch (InterruptedException ie) {
+                        ie.printStackTrace();
+                    }*/
+                    for (int i = 0; i < 10; i++) {
+                        count.increment();
+                        System.out.println("Count " + count.get());
+                    }
+                    //count.notify();
+                }
+                System.out.println("Count " + count.get());
+            }
+        };
+        t1.start();
+        t2.start();
+
+    }
 }
