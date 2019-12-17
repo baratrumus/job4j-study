@@ -93,10 +93,13 @@ public class BlockingQueue<T> {
             }
         };
         //consumer
+        //
         Thread consumer = new Thread() {
             @Override
             public void run() {
-               while ((producer.getState() != Thread.State.TERMINATED) || (bq.getSize() > 0)) {
+        //тоже вариант остановки consumera
+         // while ((producer.getState() != Thread.State.TERMINATED) || (bq.getSize() > 0))
+               while (!Thread.currentThread().isInterrupted() || (bq.getSize() > 0)) {
                    System.out.println(String.format("consumer %s", Thread.currentThread().getState()));
                    System.out.println(String.format("producer %s", producer.getState()));
                    try {
@@ -110,9 +113,9 @@ public class BlockingQueue<T> {
         };
         producer.start();
         consumer.start();
-        //producer.join();
-        //consumer.interrupt();
-        //consumer.join();
+        producer.join();
+        consumer.interrupt();
+        consumer.join();
         System.out.println(String.format("c %s", consumer.getState()));
         System.out.println(String.format("p %s", producer.getState()));
     }

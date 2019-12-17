@@ -35,7 +35,7 @@ public class BlockingQueueTest {
         Thread consumer = new Thread() {
             @Override
             public void run() {
-                while ((producer.getState() != Thread.State.TERMINATED) || (bq.getSize() > 0)) {
+                while (!Thread.currentThread().isInterrupted() || (bq.getSize() > 0))  {
                     try {
                         int num;
                         num = bq.poll();
@@ -52,6 +52,7 @@ public class BlockingQueueTest {
         producer.start();
         consumer.start();
         producer.join();
+        consumer.interrupt();
         consumer.join();
         System.out.println(result.size());
         assertThat(result, is(Arrays.asList(0, 1, 2, 3, 4, 5)));
