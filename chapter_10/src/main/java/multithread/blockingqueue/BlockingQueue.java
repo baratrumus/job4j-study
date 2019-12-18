@@ -29,7 +29,7 @@ import java.util.Queue;
  */
 @ThreadSafe
 public class BlockingQueue<T> {
-    @GuardedBy("this")
+    @GuardedBy("queue")
     private Queue<T> queue = new LinkedList<>();
     private final int size;
 
@@ -60,7 +60,7 @@ public class BlockingQueue<T> {
     // Если в коллекции объектов нет, то нужно перевести текущую нить в состояние ожидания.
     public T poll() throws InterruptedException {
         synchronized (this.queue) {
-            T value = null;
+            T value;
             while (queue.size() <= 0) {
                 System.out.println(String.format("queue is empty, %s wait ", Thread.currentThread().getName()));
                 queue.wait();
