@@ -31,10 +31,10 @@ import java.util.Queue;
 public class BlockingQueue<T> {
     @GuardedBy("queue")
     private Queue<T> queue = new LinkedList<>();
-    private final int size;
+    private final int maxSize;
 
     public BlockingQueue(int size) {
-        this.size = size;
+        this.maxSize = size;
     }
 
     public int getSize() {
@@ -44,20 +44,19 @@ public class BlockingQueue<T> {
     //producer
     public void offer(T value) throws InterruptedException {
         synchronized (this.queue) {
-            while (queue.size() >= size) {
+            while (queue.size() >= maxSize) {
                 System.out.println(String.format("queue is full %s wait", Thread.currentThread().getName()));
                 queue.wait();
             }
             queue.offer(value);
-            System.out.println(String.format("Number \"%s\" have put to queue", value));
+            System.out.println(String.format("\"%s\" have put to queue", value));
             System.out.println(String.format("queue size is %s", queue.size()));
             queue.notify();
         }
-
     }
     //Consumer
     //Метод poll() должен вернуть объект из внутренней коллекции.
-    // Если в коллекции объектов нет, то нужно перевести текущую нить в состояние ожидания.
+    //Если в коллекции объектов нет, то нужно перевести текущую нить в состояние ожидания.
     public T poll() throws InterruptedException {
         synchronized (this.queue) {
             T value;
@@ -66,7 +65,7 @@ public class BlockingQueue<T> {
                 queue.wait();
             }
             value = queue.poll();
-            System.out.println(String.format("Number \"%s\" have gotten", value));
+            System.out.println(String.format("\"%s\" have gotten", value));
             System.out.println(String.format("queue size is %s", queue.size()));
             queue.notify();
             return value;
@@ -93,7 +92,6 @@ public class BlockingQueue<T> {
             }
         };
         //consumer
-        //
         Thread consumer = new Thread() {
             @Override
             public void run() {
