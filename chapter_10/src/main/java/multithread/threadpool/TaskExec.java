@@ -3,7 +3,7 @@ package multithread.threadpool;
 import multithread.blockingqueue.BlockingQueue;
 
 public class TaskExec extends Thread {
-    private BlockingQueue<Runnable> tasks;
+    private final BlockingQueue<Runnable> tasks;
 
     public TaskExec(BlockingQueue<Runnable> tasks) {
         this.tasks = tasks;

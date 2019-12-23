@@ -27,8 +27,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class ThreadPool {
 
     private final List<Thread> threads = new LinkedList<>();
-    private BlockingQueue<Runnable> tasks;
-    int poolSize;
+    private final BlockingQueue<Runnable> tasks;
+    private final int poolSize;
 
     public ThreadPool(int queueSize) {
         poolSize = Runtime.getRuntime().availableProcessors();
