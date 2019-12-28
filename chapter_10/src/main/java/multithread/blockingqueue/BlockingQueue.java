@@ -104,6 +104,7 @@ public class BlockingQueue<T> {
                        bq.poll();
                    } catch (InterruptedException ie) {
                        ie.printStackTrace();
+                       //при обработке искл статус interrupted сбрасывается в false и его надо выставить снова
                        Thread.currentThread().interrupt();
                    }
                }

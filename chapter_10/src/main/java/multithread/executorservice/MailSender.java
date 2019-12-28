@@ -19,7 +19,7 @@ import java.util.concurrent.Executors;
 
 public class MailSender {
     //пул нитей по количеству доступных процессоров
-    ExecutorService pool = Executors.newFixedThreadPool(
+    private final ExecutorService pool = Executors.newFixedThreadPool(
             Runtime.getRuntime().availableProcessors()
     );
 
