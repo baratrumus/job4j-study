@@ -16,10 +16,10 @@ public class ProducerConsumer {
         }
     }
 
-    public void changeBlock(boolean enable) {
+    public void changeBlock(boolean sign) {
         synchronized (this.lock) {
-            System.out.println(String.format("%s enable ", Thread.currentThread().getName()));
-            blockCustomer = enable;
+            System.out.println(String.format("%s %s", Thread.currentThread().getName(), sign));
+            blockCustomer = sign;
             lock.notify();
         }
     }
