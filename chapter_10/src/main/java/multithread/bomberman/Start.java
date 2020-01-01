@@ -26,12 +26,20 @@ public class Start {
 
     public static void main(String[] args) throws InterruptedException {
 
-        Board board = new Board(2);
+        Board board = new Board(4);
         board.createBoard();
         Creature hero = new Creature(board, new Cell(0, 0), "hero", 1000);
+        Creature monster1 = new Creature(board, new Cell(1, 2), "monster1", 1000);
+        Creature monster2 = new Creature(board, new Cell(2, 3), "monster2", 1000);
         Thread threadHero = new Thread(hero, hero.getName());
+        Thread mon1 = new Thread(monster1, monster1.getName());
+        Thread mon2 = new Thread(monster2, monster2.getName());
         threadHero.start();
+        mon1.start();
+        mon2.start();
         Thread.sleep(10000);
         threadHero.interrupt();
+        mon1.interrupt();
+        mon2.interrupt();
     }
 }

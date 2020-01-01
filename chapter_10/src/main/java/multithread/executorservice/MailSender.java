@@ -38,7 +38,6 @@ public class MailSender {
     public void send(String subject, String body, String email) {
     }
 
-
     /**
      * Закрываем пул и ждем пока все задачи завершаться.
      */

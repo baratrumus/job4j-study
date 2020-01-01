@@ -26,18 +26,18 @@ public class Board {
         }
     }
 
-    public int getSize() {
-        return size;
+    ReentrantLock getLock(Cell cell) {
+        return board[cell.getX()][cell.getY()];
     }
 
-    public ReentrantLock getLock(Cell cell) {
-        return board[cell.getX()][cell.getY()];
+    int getSize() {
+        return size;
     }
 
     public boolean move(Cell source, Cell destination) {
         boolean res = false;
-        ReentrantLock destinationLock = getLock(destination);
-        ReentrantLock sourceLock = getLock(source);
+        ReentrantLock destinationLock = board[destination.getX()][destination.getY()];
+        ReentrantLock sourceLock = board[source.getX()][source.getY()];
         try {
             if (destinationLock.tryLock(500, TimeUnit.MILLISECONDS)) {
                 sourceLock.unlock();

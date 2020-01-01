@@ -15,14 +15,14 @@ public class Creature implements Runnable {
     private final String name;
     private final int movingDelay;
 
-    public Creature(Board board, Cell position, String name, int delay) {
+    Creature(Board board, Cell position, String name, int delay) {
         this.board = board;
         this.position = position;
         this.name = name;
         this.movingDelay = delay;
     }
 
-    public String getName() {
+    String getName() {
         return name;
     }
 
@@ -31,7 +31,6 @@ public class Creature implements Runnable {
         ReentrantLock lock = board.getLock(position);
         lock.lock();
         System.out.println(String.format("%s locked", position));
-
         while (!Thread.currentThread().isInterrupted()) {
             try {
                 Thread.sleep(movingDelay);
