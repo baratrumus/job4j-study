@@ -21,9 +21,9 @@ import ru.job4j.list.DynamicArray;
 @ThreadSafe
 public class ThreadSafeList<T> implements Iterable {
     @GuardedBy("this")
-    private int size;
+    private final int size;
     @GuardedBy("this")
-    private DynamicArray<T> da;
+    private final DynamicArray<T> da;
 
     public ThreadSafeList(int size) {
         this.size = size;

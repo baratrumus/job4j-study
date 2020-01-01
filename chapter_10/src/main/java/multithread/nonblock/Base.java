@@ -1,7 +1,7 @@
 package multithread.nonblock;
 
 public class Base {
-        int id;
+        final int id;
         int version;
 
         public Base(int id, int version) {

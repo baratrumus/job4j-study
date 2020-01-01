@@ -1,7 +1,7 @@
 package multithread.dinamiclist;
 
 public class ListWork implements Runnable {
-    public ThreadSafeList da = new ThreadSafeList(11);
+    public final ThreadSafeList da = new ThreadSafeList(11);
 
     @Override
     public void run() {

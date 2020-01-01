@@ -30,7 +30,7 @@ import java.util.Queue;
 @ThreadSafe
 public class BlockingQueue<T> {
     @GuardedBy("queue")
-    private Queue<T> queue = new LinkedList<>();
+    private final Queue<T> queue = new LinkedList<>();
     private final int maxSize;
 
     public BlockingQueue(int size) {
