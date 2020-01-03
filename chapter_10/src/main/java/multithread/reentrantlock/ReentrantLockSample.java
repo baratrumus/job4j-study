@@ -59,7 +59,6 @@ public class ReentrantLockSample {
             text += msg;
             System.out.println(text);
         }
-
     }
 
 
