@@ -19,18 +19,51 @@ package lift;
  * Считаем, что пользователь не может помешать лифту закрыть двери.
  */
 public class Lift {
-
     private final int stages;
     private final float stageHeight;
     private final float liftSpeed;
     private final int openCloseTime;
+    private int liftOnStage;
+    private boolean doorsClosed;
+    boolean youInLift;
+
 
     public Lift(int stages, float stageHeight, float liftSpeed, int openCloseTime) {
         this.stages = stages;
         this.stageHeight = stageHeight;
         this.liftSpeed = liftSpeed;
         this.openCloseTime = openCloseTime;
+        this.liftOnStage = 1;
+        this.doorsClosed = true;
+        youInLift = false;
     }
+
+
+    public void userAction(Lift lift) {
+        ConsoleInput input = new ConsoleInput();
+        String inp = "";
+        System.out.println("To call lift to your stage print c+stage (example c4)");
+        System.out.println("To move in lift to stage print m+stage (example m1)");
+        System.out.println("To exit program print q");
+
+        while (!"q".equals(inp)) {
+            inp = input.ask("Your input:");
+            if (inp.contains("c") && !youInLift) {
+                int yourStage = Character.getNumericValue(inp.charAt(1));
+                Thread callToStage = new Thread(lift.new MoveLiftToStage(lift, yourStage));
+                callToStage.start();
+            } else if (inp.contains("m")) {
+                youInLift = true;
+                System.out.println(String.format("You are in lift on the %s stage", liftOnStage));
+                int toStage = Character.getNumericValue(inp.charAt(1));
+                Thread moveToStage = new Thread(lift.new MoveLiftToStage(lift, toStage));
+                moveToStage.start();
+            } else if (!inp.contains("q")) {
+                System.out.println("Wrong input, make correct input.");
+            }
+        }
+    }
+
 
     public static void main(String[] args) {
         int stages;
@@ -44,31 +77,103 @@ public class Lift {
             openCloseTime = Integer.parseInt(args[3]);
         } else {
             stages = 6;
-            stageHeight = 2.5F;
-            liftSpeed = 2.5F;
-            openCloseTime = 5;
+            stageHeight = 3F;
+            liftSpeed = 1.5F;
+            openCloseTime = 3;
         }
         Lift lift = new Lift(stages, stageHeight, liftSpeed, openCloseTime);
-        Thread liftRun = new Thread(lift.new RunLift());
-        liftRun.start();
+        lift.userAction(lift);
     }
 
 
-    class RunLift implements Runnable {
-        ConsoleInput input = new ConsoleInput();
+    class MoveLiftToStage implements Runnable {
+        Lift lift;
+        int moveToStage;
 
+        public MoveLiftToStage(Lift lift, int stage) {
+            this.lift = lift;
+            this.moveToStage = stage;
+        }
 
+        long oneStageTime = (long) (1000 * stageHeight / liftSpeed);
         @Override
         public void run() {
-            while (!Thread.currentThread().isInterrupted()) {
-                String inp = input.ask("Введите этаж";
-               /* try {
+            System.out.println();
+            System.out.println(String.format("Lift is on the %s stage", liftOnStage));
+            if (youInLift) {
+                doorOperation();
+            }
+            synchronized (lift) {
+               do {
+                    try {
+                        liftOnStage = (liftOnStage < moveToStage) ? liftOnStage + 1 : liftOnStage - 1;
+                        Thread.currentThread().sleep(oneStageTime);
+                        System.out.println(String.format("Lift is on the %s stage", liftOnStage));
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                        Thread.currentThread().interrupt();
+                    }
+                } while (liftOnStage != moveToStage);
+            }
+            doorOperation();
+        }
 
+
+        private void doorOperation() {
+            synchronized (lift) {
+                try {
+                    if (doorsClosed) {
+                        System.out.printf("Doors are opening...");
+                        Thread.currentThread().sleep(openCloseTime * 1000);
+                        System.out.println(" Doors opened");
+                        doorsClosed = false;
+                    } else {
+                        System.out.printf("Doors are closing...");
+                        Thread.currentThread().sleep(openCloseTime * 1000);
+                        System.out.println(" Doors closed");
+                        doorsClosed = true;
+                    }
+                    //System.out.println(String.format("Lift is on the %s stage", currentStage));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                     Thread.currentThread().interrupt();
-                }*/
+                }
+            }
+        }
+
+
+
+    }
+
+/*
+    class DoorOperation implements Runnable {
+        Lift lift;
+        public DoorOperation(Lift lift) {
+            this.lift = lift;
+        }
+        @Override
+        public void run() {
+            synchronized (lift) {
+                try {
+                    if (doorsClosed) {
+                        System.out.printf("Doors are opening...");
+                        Thread.currentThread().sleep(openCloseTime * 1000);
+                        System.out.println(" Doors opened");
+                        doorsClosed = false;
+                    } else {
+                        System.out.printf("Doors are closing...");
+                        Thread.currentThread().sleep(openCloseTime * 1000);
+                        System.out.println(" Doors closed");
+                        doorsClosed = true;
+                    }
+                    //System.out.println(String.format("Lift is on the %s stage", currentStage));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    Thread.currentThread().interrupt();
+                }
             }
         }
     }
+*/
+
 }
