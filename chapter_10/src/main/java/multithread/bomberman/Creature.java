@@ -1,6 +1,7 @@
 package multithread.bomberman;
 
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -26,11 +27,13 @@ public class Creature implements Runnable {
         return name;
     }
 
+
     @Override
     public void run() {
-        ReentrantLock lock = board.getLock(position);
-        lock.lock();
-        System.out.println(String.format("%s locked", position));
+        if (board.put(position)) {
+            System.out.println(String.format("%s locked", position));
+        }
+
         while (!Thread.currentThread().isInterrupted()) {
             try {
                 Thread.sleep(movingDelay);
@@ -42,6 +45,7 @@ public class Creature implements Runnable {
         }
     }
 
+
     private boolean makeMove() {
         boolean result = false;
         Cell dest = getPossibleDest();
@@ -52,7 +56,7 @@ public class Creature implements Runnable {
         return result;
     }
 
-    private Cell getPossibleDest() {
+     private Cell getPossibleDest() {
         Cell dest;
         Random random = new Random();
         while (true) {

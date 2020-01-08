@@ -26,9 +26,21 @@ public class Board {
         }
     }
 
-    ReentrantLock getLock(Cell cell) {
-        return board[cell.getX()][cell.getY()];
+    //метод занимает позицию, если она не занята
+    boolean put(Cell cell) {
+        boolean res = false;
+        ReentrantLock lock = board[cell.getX()][cell.getY()];
+        try {
+            if (lock.tryLock(10, TimeUnit.MILLISECONDS)) {
+                res = true;
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            Thread.currentThread().interrupt();
+        }
+        return res;
     }
+
 
     int getSize() {
         return size;
