@@ -34,8 +34,8 @@ public class KofeMachine {
             }
         }
         return rt.toArray(new Integer[rt.size()]);
-
     }
+
     public static void main(String[] args) {
         KofeMachine km = new KofeMachine(50, 33);
         System.out.println(Arrays.toString(km.changes()));
