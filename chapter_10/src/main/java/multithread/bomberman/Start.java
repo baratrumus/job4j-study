@@ -25,7 +25,6 @@ package multithread.bomberman;
 public class Start {
 
     public static void main(String[] args) throws InterruptedException {
-
         Board board = new Board(4);
         board.createBoard();
         Creature hero = new Creature(board, new Cell(0, 0), "hero", 1000);
