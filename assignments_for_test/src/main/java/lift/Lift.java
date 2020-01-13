@@ -89,13 +89,14 @@ public class Lift {
     class MoveLiftToStage implements Runnable {
         Lift lift;
         int moveToStage;
+        long oneStageTime = (long) (1000 * stageHeight / liftSpeed);
+
 
         public MoveLiftToStage(Lift lift, int stage) {
             this.lift = lift;
             this.moveToStage = stage;
         }
 
-        long oneStageTime = (long) (1000 * stageHeight / liftSpeed);
         @Override
         public void run() {
             System.out.println();
@@ -133,40 +134,6 @@ public class Lift {
                         System.out.println(" Doors closed");
                         doorsClosed = true;
                     }
-                    //System.out.println(String.format("Lift is on the %s stage", currentStage));
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                    Thread.currentThread().interrupt();
-                }
-            }
-        }
-
-
-
-    }
-
-/*
-    class DoorOperation implements Runnable {
-        Lift lift;
-        public DoorOperation(Lift lift) {
-            this.lift = lift;
-        }
-        @Override
-        public void run() {
-            synchronized (lift) {
-                try {
-                    if (doorsClosed) {
-                        System.out.printf("Doors are opening...");
-                        Thread.currentThread().sleep(openCloseTime * 1000);
-                        System.out.println(" Doors opened");
-                        doorsClosed = false;
-                    } else {
-                        System.out.printf("Doors are closing...");
-                        Thread.currentThread().sleep(openCloseTime * 1000);
-                        System.out.println(" Doors closed");
-                        doorsClosed = true;
-                    }
-                    //System.out.println(String.format("Lift is on the %s stage", currentStage));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                     Thread.currentThread().interrupt();
@@ -174,6 +141,4 @@ public class Lift {
             }
         }
     }
-*/
-
 }
