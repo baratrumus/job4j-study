@@ -19,9 +19,29 @@ public class EchoServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
         res.setContentType("text/html");
-        String login = req.getParameter("login");
+        //String login = req.getParameter("login");
         PrintWriter writer = new PrintWriter(res.getOutputStream());
-        writer.append("hello world, " + users);
+        StringBuilder sb = new StringBuilder("<table>");
+        for (String login : users) {
+            sb.append("<tr><td>" + login + "</td></tr>");
+        }
+        sb.append("</table>");
+
+        writer.append("<!DOCTYPE html>"
+                + "<html lang=\"en\">"
+                + "<head>"
+                + "<meta charset=\"UTF-8\">"
+                + "<title>EchoServlet</title>"
+                + "</head> "
+                + "<body>"
+                + "<form action='" + req.getContextPath() + "/echo' method='post'>"
+                + "Name : <input type='text' name='login'/>"
+                + "<input type='submit'"
+                + "</form>"
+                + "<br>"
+                + sb.toString()
+                + "</body>"
+                + "</html>");
         writer.flush();
     }
 

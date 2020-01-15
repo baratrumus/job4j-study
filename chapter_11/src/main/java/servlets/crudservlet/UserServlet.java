@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+
 /**
  * Все приложение должно быть разбита на слои.
  * Presentation - Это слой сервлетов. В них приложение должно получать данные от клиента и отдавать данные клиенту.
@@ -74,7 +75,7 @@ public class UserServlet extends HttpServlet {
          */
         private final Map<String, Function<String[], Boolean>> dispatcher;
 
-        public Actions() {
+        private Actions() {
             dispatcher = new HashMap<>();
             this.dispatcher.put("add", this.create());  //Load handlers for destinations.
             this.dispatcher.put("update", this.update());
@@ -86,21 +87,17 @@ public class UserServlet extends HttpServlet {
         }
 
         //добавление юзера передаем имя, логин, емайл
-        public Function<String[], Boolean> create() {
-            return params -> {
-                return logic.add(params[1], params[2], params[3]);
-            };
+        private Function<String[], Boolean> create() {
+            return params -> logic.add(params[1], params[2], params[3]);
         }
 
         //обновление передаем новые имя, логин, емайл и id который обновляем
-        public Function<String[], Boolean> update() {
-            return params -> {
-                    return logic.update(params[0], params[1], params[2], params[3]);
-            };
+        private Function<String[], Boolean> update() {
+            return params -> logic.update(params[0], params[1], params[2], params[3]);
         }
 
         //удаление передаем id
-        public Function<String[], Boolean> delete() {
+        private Function<String[], Boolean> delete() {
             return params -> {
                 return logic.delete(params[0]);
             };

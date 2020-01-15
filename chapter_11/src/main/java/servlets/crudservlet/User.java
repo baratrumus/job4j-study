@@ -21,6 +21,18 @@ public class User {
         return this.id;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
+    public String getLogin() {
+        return this.login;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -61,7 +73,7 @@ public class User {
     @Override
     public int hashCode() {
         int result = 17;
-        result = 31 * result + name != null ? name.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (id != 0 ? id : 0);
         result = 31 * result + (login != null ? login.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
