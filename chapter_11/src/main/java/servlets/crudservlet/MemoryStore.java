@@ -7,7 +7,7 @@ public class MemoryStore implements Store {
     private final ConcurrentHashMap<Integer, User> store;
     private int idCount;
 
-    public MemoryStore() {
+    public  MemoryStore() {
         this.store = new ConcurrentHashMap();
         this.idCount = 0;
     }
@@ -16,28 +16,24 @@ public class MemoryStore implements Store {
         return SINGLETON_INSTANCE;
     }
 
-    public int getNextId() {
+    public synchronized int getNextId() {
         idCount++;
         return idCount;
     }
 
     @Override
     public boolean add(User user) {
-        Boolean result = (store.put(user.getId(), user) == null) ? true : false;
-        if (result) {
-            idCount++;
-        }
-        return result;
+        return (store.put(user.getId(), user) == null);
     }
 
     @Override
     public boolean update(int id, User user) {
-        return (store.replace(id, user) != null) ? true : false;
+        return (store.replace(id, user) != null);
     }
 
     @Override
     public boolean delete(int id) {
-        return (store.remove(id) != null) ? true : false;
+        return (store.remove(id) != null);
     }
 
     @Override
