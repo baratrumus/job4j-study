@@ -17,7 +17,8 @@ import java.util.Map;
 public class ValidateService {
     private final static ValidateService SINGLETON_INSTANCE = new ValidateService();
     //получаем экземпляр нижестоящего слоя Persistent
-    private final Store store = MemoryStore.getInstance();
+    //private final Store store = MemoryStore.getInstance();
+    private final Store DbStore = DBStore.getInstance();
 
     public static ValidateService getInstance() {
         return SINGLETON_INSTANCE;

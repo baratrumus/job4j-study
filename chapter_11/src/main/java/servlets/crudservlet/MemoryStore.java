@@ -2,7 +2,7 @@ package servlets.crudservlet;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-public class MemoryStore implements Store {
+public class MemoryStore implements Store<User> {
     private final static MemoryStore SINGLETON_INSTANCE = new MemoryStore();
     private final ConcurrentHashMap<Integer, User> store;
     private int idCount;
@@ -16,7 +16,7 @@ public class MemoryStore implements Store {
         return SINGLETON_INSTANCE;
     }
 
-    public int getNextId() {
+    public synchronized int getNextId() {
         idCount++;
         return idCount;
     }
