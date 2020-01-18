@@ -16,7 +16,6 @@
     <servlet>
         <servlet-name>UserServlet</servlet-name>
         <servlet-class>servlets.crudservlet.UserServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>UserServlet</servlet-name>
@@ -26,6 +25,7 @@
     <servlet>
         <servlet-name>UserCreateServlet</servlet-name>
         <servlet-class>servlets.userapp.UserCreateServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>UserCreateServlet</servlet-name>
@@ -45,7 +45,7 @@
 
     <servlet>
         <servlet-name>UsersServlet</servlet-name>
-        <servlet-class>servlets.userapp.UsersServlet</servlet-class>
+        <servlet-class>servlets.userapp.UsersListServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UsersServlet</servlet-name>

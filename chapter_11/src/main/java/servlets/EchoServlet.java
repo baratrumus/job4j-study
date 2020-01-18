@@ -12,6 +12,12 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @author Ivannikov Ilya (voldores@mail.ru)
+ * @version $id
+ * @since 0.1
+ */
+
 public class EchoServlet extends HttpServlet {
     private static final Logger LOG = LoggerFactory.getLogger(EchoServlet.class);
     private List<String> users = new CopyOnWriteArrayList<>();
@@ -19,7 +25,6 @@ public class EchoServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
         res.setContentType("text/html");
-        //String login = req.getParameter("login");
         PrintWriter writer = new PrintWriter(res.getOutputStream());
         StringBuilder sb = new StringBuilder("<table>");
         for (String login : users) {

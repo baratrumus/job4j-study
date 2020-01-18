@@ -10,8 +10,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-
 /**
+ * @author Ivannikov Ilya (voldores@mail.ru)
+ * @version $id
+ * @since 0.1
+
  * Все приложение должно быть разбита на слои.
  * Presentation - Это слой сервлетов. В них приложение должно получать данные от клиента и отдавать данные клиенту.
  * Logic - Выполнение бизнес логики. Например, проверить существует ли такой уже пользователь или нет. Если существует, то вернуть ошибку в слой Presentation.
