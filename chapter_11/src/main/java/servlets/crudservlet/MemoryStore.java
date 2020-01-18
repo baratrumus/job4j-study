@@ -2,6 +2,12 @@ package servlets.crudservlet;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * @author Ivannikov Ilya (voldores@mail.ru)
+ * @version $id
+ * @since 0.1
+ */
+
 public class MemoryStore implements Store {
     private final static MemoryStore SINGLETON_INSTANCE = new MemoryStore();
     private final ConcurrentHashMap<Integer, User> store;

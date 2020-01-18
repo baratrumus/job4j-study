@@ -30,7 +30,11 @@ public class User {
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
+    }
+
+    public String getDate() {
+        return this.createDate.toString();
     }
 
     public void setName(String name) {

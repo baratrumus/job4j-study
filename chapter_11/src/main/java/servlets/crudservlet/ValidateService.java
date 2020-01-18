@@ -12,6 +12,10 @@ import java.util.Map;
  * он не затронет большую часть кода.
  * Каждый метод должен производить валидацию данных.
  * Например, при обновлении полей нужно проверить. что такой пользователь существует.
+
+ * @author Ivannikov Ilya (voldores@mail.ru)
+ * @version $id
+ * @since 0.1
  */
 
 public class ValidateService {
@@ -50,8 +54,8 @@ public class ValidateService {
         return store.findAll();
     }
 
-    public User findById(int id) {
-        return  null;
+    public User findById(String id) {
+        return store.findById(Integer.parseInt(id));
     }
 
 }
