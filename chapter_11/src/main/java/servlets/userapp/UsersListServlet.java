@@ -29,7 +29,7 @@ public class UsersListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Map<Integer, User> users = logic.findAll();
         req.setAttribute("userMap", users);
-        req.getRequestDispatcher("list.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/views/list.jsp").forward(req, resp);
     }
 
     @Override

@@ -24,7 +24,7 @@ public class UserUpdateServlet  extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = logic.findById(req.getParameter("id"));
         req.setAttribute("user", user);
-        req.getRequestDispatcher("update.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/views/update.jsp").forward(req, resp);
     }
 
     @Override
@@ -34,6 +34,6 @@ public class UserUpdateServlet  extends HttpServlet {
                 req.getParameter("login"),
                 req.getParameter("email"));
         req.setAttribute("userMap", logic.findAll());
-        req.getRequestDispatcher("list.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/views/list.jsp").forward(req, resp);
     }
 }

@@ -23,7 +23,7 @@ public class UserCreateServlet  extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        req.getRequestDispatcher("create.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/views/create.jsp").forward(req, resp);
     }
 
     @Override
@@ -38,6 +38,6 @@ public class UserCreateServlet  extends HttpServlet {
         }
         req.setAttribute("userMap", logic.findAll());
         req.setAttribute("name", name);
-        req.getRequestDispatcher("list.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/views/list.jsp").forward(req, resp);
     }
 }

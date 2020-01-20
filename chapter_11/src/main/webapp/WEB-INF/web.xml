@@ -29,7 +29,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>UserCreateServlet</servlet-name>
-        <url-pattern>/create</url-pattern>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
 
 
