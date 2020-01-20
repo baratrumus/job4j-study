@@ -22,22 +22,27 @@ public class ValidateService {
     private final static ValidateService SINGLETON_INSTANCE = new ValidateService();
     //получаем экземпляр нижестоящего слоя Persistent
     //private final Store store = MemoryStore.getInstance();
-    private final Store DbStore = DBStore.getInstance();
+    private final Store store = DBStore.getInstance();
 
     public static ValidateService getInstance() {
         return SINGLETON_INSTANCE;
     }
 
+
     public boolean add(String name, String login, String email) {
+        boolean result = false;
         int id = store.getNextId();
-        User user = new User(id, name, login, email);
-        return store.add(user);
+        if (id != 0) {
+            User user = new User(id, name, login, email);
+            result = store.add(user);
+        }
+        return result;
     }
 
     public boolean update(String id, String name, String login, String email) {
         boolean res = false;
         int idNum = Integer.parseInt(id);
-        User user = store.findById(idNum);
+        User user = (User) store.findById(idNum);
         if (user != null) {
             user.setEmail(email);
             user.setLogin(login);
@@ -56,7 +61,7 @@ public class ValidateService {
     }
 
     public User findById(String id) {
-        return store.findById(Integer.parseInt(id));
+        return (User) store.findById(Integer.parseInt(id));
     }
 
 }

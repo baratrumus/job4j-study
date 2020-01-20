@@ -33,8 +33,7 @@ public class UserUpdateServlet  extends HttpServlet {
                 req.getParameter("name"),
                 req.getParameter("login"),
                 req.getParameter("email"));
-        Map<Integer, User> users = logic.findAll();
-        req.setAttribute("userMap", users);
+        req.setAttribute("userMap", logic.findAll());
         req.getRequestDispatcher("list.jsp").forward(req, resp);
     }
 }

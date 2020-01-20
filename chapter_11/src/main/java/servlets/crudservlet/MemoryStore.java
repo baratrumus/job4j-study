@@ -2,6 +2,11 @@ package servlets.crudservlet;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * @author Ivannikov Ilya (voldores@mail.ru)
+ * @version $id
+ * @since 0.1
+*/
 public class MemoryStore implements Store<User> {
     private final static MemoryStore SINGLETON_INSTANCE = new MemoryStore();
     private final ConcurrentHashMap<Integer, User> store;
@@ -23,21 +28,17 @@ public class MemoryStore implements Store<User> {
 
     @Override
     public boolean add(User user) {
-        Boolean result = (store.put(user.getId(), user) == null) ? true : false;
-        if (result) {
-            idCount++;
-        }
-        return result;
+        return (store.put(user.getId(), user) == null);
     }
 
     @Override
     public boolean update(int id, User user) {
-        return (store.replace(id, user) != null) ? true : false;
+        return (store.replace(id, user) != null);
     }
 
     @Override
     public boolean delete(int id) {
-        return (store.remove(id) != null) ? true : false;
+        return (store.remove(id) != null);
     }
 
     @Override

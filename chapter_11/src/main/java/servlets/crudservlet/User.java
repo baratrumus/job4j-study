@@ -1,5 +1,6 @@
 package servlets.crudservlet;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class User {
@@ -7,19 +8,20 @@ public class User {
     private String name;
     private String login;
     private String email;
-    private final LocalDateTime createDate;
+    private Timestamp createDate;
 
     public User(int id, String name, String login, String email) {
         this.id = id;
         this.name = name;
         this.login = login;
         this.email = email;
-        this.createDate = LocalDateTime.now();
+        this.createDate = new Timestamp(System.currentTimeMillis());
     }
 
     public int getId() {
         return this.id;
     }
+
 
     public String getName() {
         return this.name;
@@ -41,12 +43,16 @@ public class User {
         this.name = name;
     }
 
-    public void setEmail(String email) {
+    void setEmail(String email) {
         this.email = email;
     }
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public void setDate(Timestamp date) {
+        this.createDate = date;
     }
 
     @Override
