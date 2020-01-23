@@ -9,6 +9,7 @@ import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author Ivannikov Ilya (voldores@mail.ru)
@@ -68,8 +69,8 @@ public class DBStore implements Store<User>  {
      * создаем временного юзера, чтобы получить id в logic
      */
     @Override
-    public int getNextId() {
-        int id = 0;
+    public AtomicInteger getNextId() {
+        AtomicInteger id = new AtomicInteger(0);
         try (PreparedStatement pStatement = connection.prepareStatement(
                 "insert into userServlet(name, login, email, create_date) values (?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS)) {
             pStatement.setString(1, "tmp");
@@ -79,7 +80,7 @@ public class DBStore implements Store<User>  {
             pStatement.executeUpdate();
             ResultSet generatedKeys = pStatement.getGeneratedKeys();
             if (generatedKeys.next()) {
-                id = generatedKeys.getInt(1);
+                id.set(generatedKeys.getInt(1));
             }
         } catch (Exception e) {
             e.printStackTrace();

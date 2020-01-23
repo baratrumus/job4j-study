@@ -31,7 +31,7 @@ public class ValidateService {
 
     public boolean add(String name, String login, String email) {
         boolean result = false;
-        int id = store.getNextId();
+        int id = store.getNextId().get();
         if (id != 0) {
             User user = new User(id, name, login, email);
             result = store.add(user);

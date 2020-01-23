@@ -1,6 +1,7 @@
 package servlets.crudservlet;
 
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public interface Store<User> {
     boolean add(User user);
@@ -8,5 +9,5 @@ public interface Store<User> {
     boolean delete(int id);
     User findById(int id);
     Map findAll();
-    int getNextId();
+    AtomicInteger getNextId();
 }

@@ -1,6 +1,7 @@
 package servlets.crudservlet;
 
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author Ivannikov Ilya (voldores@mail.ru)
@@ -10,19 +11,19 @@ import java.util.concurrent.ConcurrentHashMap;
 public class MemoryStore implements Store<User> {
     private final static MemoryStore SINGLETON_INSTANCE = new MemoryStore();
     private final ConcurrentHashMap<Integer, User> store;
-    private int idCount;
+    private AtomicInteger idCount;
 
     public MemoryStore() {
         this.store = new ConcurrentHashMap();
-        this.idCount = 0;
+        this.idCount = new AtomicInteger(0);
     }
 
     public static MemoryStore getInstance() {
         return SINGLETON_INSTANCE;
     }
 
-    public synchronized int getNextId() {
-        idCount++;
+    public AtomicInteger getNextId() {
+        idCount.addAndGet(1);
         return idCount;
     }
 

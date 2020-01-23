@@ -24,8 +24,8 @@ public class Lift {
     private final float liftSpeed;
     private final int openCloseTime;
     private int liftOnStage;
+    private boolean youInLift;
     private boolean doorsClosed;
-    boolean youInLift;
 
 
     public Lift(int stages, float stageHeight, float liftSpeed, int openCloseTime) {
@@ -34,10 +34,29 @@ public class Lift {
         this.liftSpeed = liftSpeed;
         this.openCloseTime = openCloseTime;
         this.liftOnStage = 1;
+        this.youInLift = false;
         this.doorsClosed = true;
-        youInLift = false;
     }
 
+    public void setLiftOnStage(int liftOnStage) {
+        this.liftOnStage = liftOnStage;
+    }
+
+    public void setDoorsClosed(boolean doorsClosed) {
+        this.doorsClosed = doorsClosed;
+    }
+
+    public float getStageHeight() {
+        return stageHeight;
+    }
+
+    public float getLiftSpeed() {
+        return liftSpeed;
+    }
+
+    public int getOpenCloseTime() {
+        return openCloseTime;
+    }
 
     public void userAction(Lift lift) {
         ConsoleInput input = new ConsoleInput();
@@ -50,13 +69,13 @@ public class Lift {
             inp = input.ask("Your input:");
             if (inp.contains("c") && !youInLift) {
                 int yourStage = Character.getNumericValue(inp.charAt(1));
-                Thread callToStage = new Thread(lift.new MoveLiftToStage(lift, yourStage));
+                Thread callToStage = new Thread(new MoveLiftToStage(lift, yourStage, liftOnStage, youInLift, doorsClosed));
                 callToStage.start();
             } else if (inp.contains("m")) {
                 youInLift = true;
                 System.out.println(String.format("You are in lift on the %s stage", liftOnStage));
                 int toStage = Character.getNumericValue(inp.charAt(1));
-                Thread moveToStage = new Thread(lift.new MoveLiftToStage(lift, toStage));
+                Thread moveToStage = new Thread(new MoveLiftToStage(lift, toStage, liftOnStage, youInLift, doorsClosed));
                 moveToStage.start();
             } else if (!inp.contains("q")) {
                 System.out.println("Wrong input, make correct input.");
@@ -83,62 +102,5 @@ public class Lift {
         }
         Lift lift = new Lift(stages, stageHeight, liftSpeed, openCloseTime);
         lift.userAction(lift);
-    }
-
-
-    class MoveLiftToStage implements Runnable {
-        Lift lift;
-        int moveToStage;
-        long oneStageTime = (long) (1000 * stageHeight / liftSpeed);
-
-
-        public MoveLiftToStage(Lift lift, int stage) {
-            this.lift = lift;
-            this.moveToStage = stage;
-        }
-
-        @Override
-        public void run() {
-            System.out.println();
-            System.out.println(String.format("Lift is on the %s stage", liftOnStage));
-            if (youInLift) {
-                doorOperation();
-            }
-            synchronized (lift) {
-               do {
-                    try {
-                        liftOnStage = (liftOnStage < moveToStage) ? liftOnStage + 1 : liftOnStage - 1;
-                        Thread.currentThread().sleep(oneStageTime);
-                        System.out.println(String.format("Lift is on the %s stage", liftOnStage));
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                        Thread.currentThread().interrupt();
-                    }
-                } while (liftOnStage != moveToStage);
-            }
-            doorOperation();
-        }
-
-
-        private void doorOperation() {
-            synchronized (lift) {
-                try {
-                    if (doorsClosed) {
-                        System.out.printf("Doors are opening...");
-                        Thread.currentThread().sleep(openCloseTime * 1000);
-                        System.out.println(" Doors opened");
-                        doorsClosed = false;
-                    } else {
-                        System.out.printf("Doors are closing...");
-                        Thread.currentThread().sleep(openCloseTime * 1000);
-                        System.out.println(" Doors closed");
-                        doorsClosed = true;
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                    Thread.currentThread().interrupt();
-                }
-            }
-        }
     }
 }
