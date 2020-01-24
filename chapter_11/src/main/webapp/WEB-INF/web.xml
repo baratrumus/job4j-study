@@ -25,11 +25,11 @@
     <servlet>
         <servlet-name>UserCreateServlet</servlet-name>
         <servlet-class>servlets.userapp.UserCreateServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
+
     </servlet>
     <servlet-mapping>
         <servlet-name>UserCreateServlet</servlet-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>/create</url-pattern>
     </servlet-mapping>
 
 
@@ -50,6 +50,28 @@
     <servlet-mapping>
         <servlet-name>UsersServlet</servlet-name>
         <url-pattern>/list</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>UploadServlet</servlet-name>
+        <servlet-class>servlets.download.UploadServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>UploadServlet</servlet-name>
+        <url-pattern>/upload</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DownloadServlet</servlet-name>
+        <servlet-class>servlets.download.DownloadServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DownloadServlet</servlet-name>
+        <url-pattern>/download</url-pattern>
     </servlet-mapping>
 </web-app>
 
