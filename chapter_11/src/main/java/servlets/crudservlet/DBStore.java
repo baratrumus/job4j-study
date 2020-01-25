@@ -150,7 +150,7 @@ public class DBStore implements Store<User>  {
             while (rs.next()) {
                 int id = rs.getInt("id");
                 User user = new User(id, rs.getString("name"),
-                        rs.getString("login"), rs.getString("email"));
+                        rs.getString("login"), rs.getString("email"), "");
                 user.setDate(rs.getTimestamp("create_date"));
                 retList.put(id, user);
             }
@@ -169,7 +169,7 @@ public class DBStore implements Store<User>  {
             ResultSet rs = pStatement.executeQuery();
             while (rs.next()) {
                 user = new User(id, rs.getString("name"),
-                        rs.getString("login"), rs.getString("email"));
+                        rs.getString("login"), rs.getString("email"), "");
                 user.setDate(rs.getTimestamp("create_date"));
             }
             rs.close();

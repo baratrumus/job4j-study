@@ -13,11 +13,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+/**
+ * @author Ivannikov Ilya (voldores@mail.ru)
+ * @version $id
+ * @since 0.1
+ */
 
 /**
  * отдаем список всех файлов. В этом списке содержатся только имена.
@@ -25,7 +30,6 @@ import java.util.Random;
 public class UploadServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //String imgPath1 = getImgPath();
         //String imgPath2 = System.getProperty("user.dir"); //bin tomcat
         List<String> images = new ArrayList<>();
         ServletContext context = this.getServletConfig().getServletContext();

@@ -1,20 +1,28 @@
 package servlets.crudservlet;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
+
+/**
+ * @author Ivannikov Ilya (voldores@mail.ru)
+ * @version $id
+ * @since 0.1
+ */
 
 public class User {
     private final int id;
     private String name;
     private String login;
     private String email;
+    private String photoId;
     private Timestamp createDate;
 
-    public User(int id, String name, String login, String email) {
+
+    public User(int id, String name, String login, String email, String photoId) {
         this.id = id;
         this.name = name;
         this.login = login;
         this.email = email;
+        this.photoId = photoId;
         this.createDate = new Timestamp(System.currentTimeMillis());
     }
 
@@ -39,6 +47,10 @@ public class User {
         return this.createDate.toString();
     }
 
+    public String getPhotoId() {
+        return this.photoId;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -51,8 +63,13 @@ public class User {
         this.login = login;
     }
 
+
     public void setDate(Timestamp date) {
         this.createDate = date;
+    }
+
+    public void setPhotoId(String photoId) {
+        this.photoId = photoId;
     }
 
     @Override
@@ -77,6 +94,9 @@ public class User {
         if (email != null ? !email.equals(user.email) : user.email != null) {
             return false;
         }
+        if (email != null ? !photoId.equals(user.photoId) : user.photoId != null) {
+            return false;
+        }
         return createDate != null ? createDate.equals(user.createDate) : user.createDate == null;
     }
 
@@ -87,6 +107,7 @@ public class User {
         result = 31 * result + (id != 0 ? id : 0);
         result = 31 * result + (login != null ? login.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (photoId != null ? photoId.hashCode() : 0);
         result = 31 * result + (createDate != null ? createDate.hashCode() : 0);
         return result;
     }
@@ -98,6 +119,7 @@ public class User {
                 + ", name='" + name + '\''
                 + ", login='" + login + '\''
                 + ", email='" + email + '\''
+                + ", photoId='" + photoId + '\''
                 + ", createDate=" + createDate
                 + '}';
     }

@@ -29,11 +29,11 @@ public class ValidateService {
     }
 
 
-    public boolean add(String name, String login, String email) {
+    public boolean add(String name, String login, String email, String photoId) {
         boolean result = false;
         int id = store.getNextId().get();
         if (id != 0) {
-            User user = new User(id, name, login, email);
+            User user = new User(id, name, login, email, photoId);
             result = store.add(user);
         }
         return result;

@@ -21,6 +21,9 @@ import java.util.function.Function;
  * Persistent - Слой для хранения данных. Может быть: базой данных, памятью или файловой системой.
  * Каждый слой взаимодействует с другим слоем за счет абстракции(интерфейса). Слои могут взаимодействовать только с ниже стоящим слоем.
  * Например. Presentation - Logic. Logic - Persistent. Нельзя Presentation - Persistent или Persisten - Logic.
+ *
+ *
+ * Тестирование сервлета осуществлять через Test RESTFull service
  */
 
 /***
@@ -42,7 +45,7 @@ public class UserServlet extends HttpServlet {
      * должен отдавать список всех пользователей в системе.
      */
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("text/html");
         Map<Integer, User> users = logic.findAll();
         PrintWriter writer = new PrintWriter(resp.getOutputStream());
@@ -64,7 +67,9 @@ public class UserServlet extends HttpServlet {
         String login = req.getParameter("login");
         String email = req.getParameter("email");
         String id = req.getParameter("id");
-        String[] parameters = new String[] {id, name, login, email};
+        String photoId = "";
+        String[] parameters = new String[] {id, name, login, email, photoId};
+
         actions.getDispatcher().get(action).apply(parameters);
 
         PrintWriter writer = new PrintWriter(resp.getOutputStream());
@@ -91,7 +96,7 @@ public class UserServlet extends HttpServlet {
 
         //добавление юзера передаем имя, логин, емайл
         private Function<String[], Boolean> create() {
-            return params -> logic.add(params[1], params[2], params[3]);
+            return params -> logic.add(params[1], params[2], params[3], params[4]);
         }
 
         //обновление передаем новые имя, логин, емайл и id который обновляем

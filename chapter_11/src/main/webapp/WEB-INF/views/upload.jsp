@@ -19,18 +19,18 @@
             <th>URL</th>
             <th>View</th>
         </tr>
+
         </thead>
         <tbody>
 
         <c:set var = "baseUrl" scope = "session" value = "${pageContext.servletContext.contextPath}"/>
 
         <c:forEach items="${images}" var="image" varStatus="status">
-            <tr valign="top">
+            <tr>
                 <td><a href="${baseUrl}/download?name=${image}">Download</a></td>
                 <td>
                     <img src="${baseUrl}/images/${image}" width="100px" height="100px"/>
                 </td>
-
             </tr>
         </c:forEach>
         </tbody>
