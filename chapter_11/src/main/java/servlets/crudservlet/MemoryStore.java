@@ -1,5 +1,6 @@
 package servlets.crudservlet;
 
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -15,7 +16,9 @@ public class MemoryStore implements Store<User> {
 
     public MemoryStore() {
         this.store = new ConcurrentHashMap();
-        this.idCount = new AtomicInteger(0);
+        this.idCount = new AtomicInteger(1);
+        this.store.put(1, new User(1, "root", "root", "root@m.ru",
+                "bulin.jpg", "root", new Role(1)));
     }
 
     public static MemoryStore getInstance() {
@@ -50,5 +53,17 @@ public class MemoryStore implements Store<User> {
     @Override
     public ConcurrentHashMap<Integer, User> findAll() {
         return store;
+    }
+
+    @Override
+    public User userExists(String login, String password) {
+        User userFound = null;
+        for (Map.Entry<Integer, User>  user : store.entrySet()) {
+            if (user.getValue().getLogin().equals(login)  && user.getValue().getPassword().equals(password)) {
+                userFound = user.getValue();
+                break;
+            }
+        }
+        return userFound;
     }
 }

@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -23,16 +24,23 @@ public class UserUpdateServlet  extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = logic.findById(req.getParameter("id"));
         req.setAttribute("user", user);
+        req.setAttribute("roleMap", logic.getRoles());
         req.getRequestDispatcher("/WEB-INF/views/update.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        Integer roleKey = Integer.parseInt(req.getParameter("roles"));
         logic.update(req.getParameter("id"),
                 req.getParameter("name"),
                 req.getParameter("login"),
-                req.getParameter("email"));
+                req.getParameter("email"),
+                req.getParameter("pass"),
+                roleKey);
         req.setAttribute("userMap", logic.findAll());
+        String newRoleName = logic.getRoles().get(roleKey);
+        session.setAttribute("roleName", newRoleName);
         req.getRequestDispatcher("/WEB-INF/views/list.jsp").forward(req, resp);
     }
 }

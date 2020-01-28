@@ -1,6 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<html>
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset='UTF-8'>
     <title>User create</title>
@@ -13,11 +15,20 @@
 <body>
 <form method='post' action="${pageContext.servletContext.contextPath}/create" enctype="multipart/form-data">
     <b>Name:</b><br>
-    <input type='text' name='name' size='40'/><br>
+    <input type='text' name='name' size ='40'/><br>
     <b>Login:</b><br>
-    <input type='text' name='login' size='40'/><br>
+    <input type='text' name='login' size ='40'/><br>
+    <b>Password:</b><br>
+    <input type='text' name='pass' size ='40'/><br>
     <b>Email:</b><br>
-    <input type='email' name='email' size='40'/><br>
+    <input type='email' name='email' size ='40'/><br>
+    <b>Role:</b><br>
+    <select name="roles" width ='40'>
+        <c:forEach var="role" items="${roleMap}">
+            <option value="${role.key}">${role.value}</option>
+        </c:forEach>
+    </select>
+    <br>
     <input type='hidden' name='created' value=''/><br>
   <!--    -->
     <b>Upload image</b><br>

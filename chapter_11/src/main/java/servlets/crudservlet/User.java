@@ -14,16 +14,21 @@ public class User {
     private String login;
     private String email;
     private String photoId;
+    private String password;
+    private Role role;
     private Timestamp createDate;
 
 
-    public User(int id, String name, String login, String email, String photoId) {
+
+    public User(int id, String name, String login, String email, String photoId, String password, Role role) {
         this.id = id;
         this.name = name;
         this.login = login;
         this.email = email;
         this.photoId = photoId;
         this.createDate = new Timestamp(System.currentTimeMillis());
+        this.password = password;
+        this.role = role;
     }
 
     public int getId() {
@@ -39,12 +44,24 @@ public class User {
         return this.login;
     }
 
+    public String getPassword() {
+        return this.password;
+    }
+
     public String getEmail() {
         return this.email;
     }
 
     public String getDate() {
         return this.createDate.toString();
+    }
+
+    public String getRole() {
+        return this.role.getRoleName();
+    }
+
+    public int getRoleId() {
+        return this.role.getRoleId();
     }
 
     public String getPhotoId() {
@@ -68,8 +85,12 @@ public class User {
         this.createDate = date;
     }
 
-    public void setPhotoId(String photoId) {
-        this.photoId = photoId;
+    public void setPass(String pass) {
+        this.password = pass;
+    }
+
+    public void setRole(int roleNum) {
+        this.role = new Role(roleNum);
     }
 
     @Override
@@ -120,6 +141,7 @@ public class User {
                 + ", login='" + login + '\''
                 + ", email='" + email + '\''
                 + ", photoId='" + photoId + '\''
+                + ", password='" + password + '\''
                 + ", createDate=" + createDate
                 + '}';
     }

@@ -1,5 +1,6 @@
 package servlets.crudservlet;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,23 +30,25 @@ public class ValidateService {
     }
 
 
-    public boolean add(String name, String login, String email, String photoId) {
+    public boolean add(String name, String login, String pass, String email, String photoId, String roleNum) {
         boolean result = false;
         int id = store.getNextId().get();
         if (id != 0) {
-            User user = new User(id, name, login, email, photoId);
+            User user = new User(id, name, login, email, photoId, pass, new Role(Integer.parseInt(roleNum)));
             result = store.add(user);
         }
         return result;
     }
 
-    public boolean update(String id, String name, String login, String email) {
+    public boolean update(String id, String name, String login, String email, String pass, int roleNum) {
         boolean res = false;
         int idNum = Integer.parseInt(id);
         User user = (User) store.findById(idNum);
         if (user != null) {
             user.setEmail(email);
             user.setLogin(login);
+            user.setPass(pass);
+            user.setRole(roleNum);
             user.setName(name);
             res = store.update(idNum, user);
         }
@@ -62,6 +65,18 @@ public class ValidateService {
 
     public User findById(String id) {
         return (User) store.findById(Integer.parseInt(id));
+    }
+/*
+    public boolean isCredentials(String login, String pass) {
+        return (store.userExists(login, pass) != null);
+    }
+*/
+    public Map<Integer, String> getRoles() {
+        return new Role().getRoles();
+    }
+
+    public User getUserByLoginPass(String login, String pass) {
+        return (User) store.userExists(login, pass);
     }
 
 }
