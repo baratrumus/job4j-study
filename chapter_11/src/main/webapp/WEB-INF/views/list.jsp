@@ -50,7 +50,7 @@
            <input type='hidden' name='id' value="${userEntry.value.getId()}">
            <input type='submit' value='update'></form>
        </td>
-       <td><form action="${pageContext.servletContext.contextPath}/list" method='post'>
+       <td><form action="${pageContext.servletContext.contextPath}/" method='post'>
            <input type='hidden' name='id' value="${userEntry.value.getId()}">
            <input type='submit' value='delete'></form>
        </td>

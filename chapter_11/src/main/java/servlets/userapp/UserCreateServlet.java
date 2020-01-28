@@ -86,7 +86,7 @@ public class UserCreateServlet  extends HttpServlet {
      */
     private String processUploadedFile(FileItem item, File imgFolder)  throws IOException {
         String fileName = item.getName();
-        if (fileName != null) {
+        if ((fileName != null) && (!fileName.isEmpty())) {
             //берем из полного пути имя файла
             fileName = FilenameUtils.getName(fileName);
         }

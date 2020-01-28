@@ -14,16 +14,18 @@ public class User {
     private String login;
     private String email;
     private String photoId;
+    private String password;
     private Timestamp createDate;
 
 
-    public User(int id, String name, String login, String email, String photoId) {
+    public User(int id, String name, String login, String email, String photoId, String password) {
         this.id = id;
         this.name = name;
         this.login = login;
         this.email = email;
         this.photoId = photoId;
         this.createDate = new Timestamp(System.currentTimeMillis());
+        this.password = password;
     }
 
     public int getId() {
@@ -37,6 +39,10 @@ public class User {
 
     public String getLogin() {
         return this.login;
+    }
+
+    public String getPassword() {
+        return this.password;
     }
 
     public String getEmail() {

@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,11 +33,18 @@ public class UsersListServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Map<Integer, User> users = logic.findAll();
-        req.setAttribute("userMap", users);
-        String imgPath = getImgPath();
-        req.setAttribute("imgPath", imgPath);
-        req.getRequestDispatcher("/WEB-INF/views/list.jsp").forward(req, resp);
+        HttpSession session = req.getSession();
+        synchronized (session) {
+            if ((session == null) || (session.getAttribute("login") == null)) {
+                ((HttpServletResponse) resp).sendRedirect(String.format("%s/singin", req.getContextPath()));
+            } else {
+                Map<Integer, User> users = logic.findAll();
+                req.setAttribute("userMap", users);
+                String imgPath = getImgPath();
+                req.setAttribute("imgPath", imgPath);
+                req.getRequestDispatcher("/WEB-INF/views/list.jsp").forward(req, resp);
+            }
+        }
     }
 
     @Override

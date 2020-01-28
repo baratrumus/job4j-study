@@ -33,7 +33,7 @@ public class ValidateService {
         boolean result = false;
         int id = store.getNextId().get();
         if (id != 0) {
-            User user = new User(id, name, login, email, photoId);
+            User user = new User(id, name, login, email, photoId, "");
             result = store.add(user);
         }
         return result;
@@ -62,6 +62,10 @@ public class ValidateService {
 
     public User findById(String id) {
         return (User) store.findById(Integer.parseInt(id));
+    }
+
+    public boolean isCredentials(String login, String pass) {
+        return store.credentialsExists(login, pass);
     }
 
 }
