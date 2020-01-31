@@ -96,12 +96,13 @@ public class UserServlet extends HttpServlet {
 
         //добавление юзера передаем имя, логин, емайл
         private Function<String[], Boolean> create() {
-            return params -> logic.add(params[1], params[2], params[3], params[4]);
+            return params -> logic.add(params[1], params[2], "", params[3], params[4], "1");
         }
+
 
         //обновление передаем новые имя, логин, емайл и id который обновляем
         private Function<String[], Boolean> update() {
-            return params -> logic.update(params[0], params[1], params[2], params[3]);
+            return params -> logic.update(params[0], params[1], params[2], params[3], "", 1);
         }
 
         //удаление передаем id

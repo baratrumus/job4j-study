@@ -16,6 +16,17 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @version $id
  * @since 0.1
 */
+
+/**
+ * добавим новое хранилище DBStore impl Store.
+ * Класс DBStore должен реализовывать синглетон.
+ * Внутри нужно сделать хранение данных в базе данных.
+ * Нужно подключить пул коннектов.
+ * Пул коннектов содержит подготовленные коннекты. Когда клиент заканчивает работу с connection,
+ * он (connection) попадает обратно в пул и может быть использован повторно.
+ */
+
+
 public class DBStore implements Store<User>  {
 
     private static final Logger LOG = LoggerFactory.getLogger(DBStore.class);
@@ -150,7 +161,8 @@ public class DBStore implements Store<User>  {
             while (rs.next()) {
                 int id = rs.getInt("id");
                 User user = new User(id, rs.getString("name"),
-                        rs.getString("login"), rs.getString("email"), "", "");
+                        rs.getString("login"), rs.getString("email"),
+                        "", "", new Role(1));
                 user.setDate(rs.getTimestamp("create_date"));
                 retList.put(id, user);
             }
@@ -169,7 +181,8 @@ public class DBStore implements Store<User>  {
             ResultSet rs = pStatement.executeQuery();
             while (rs.next()) {
                 user = new User(id, rs.getString("name"),
-                        rs.getString("login"), rs.getString("email"), "", "");
+                        rs.getString("login"),
+                        rs.getString("email"), "", "", new Role(1));
                 user.setDate(rs.getTimestamp("create_date"));
             }
             rs.close();
@@ -179,7 +192,7 @@ public class DBStore implements Store<User>  {
         return user;
     }
 
-    public boolean credentialsExists(String login, String password) {
-        return true;
+    public User userExists(String login, String password) {
+        return null;
     }
 }
