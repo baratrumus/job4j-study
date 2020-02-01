@@ -196,6 +196,7 @@ public class DBStore implements Store<User>  {
         return user;
     }
 
+    @Override
     public User userExists(String login, String password) {
         return null;
     }

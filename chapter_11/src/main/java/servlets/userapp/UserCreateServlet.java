@@ -7,6 +7,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import servlets.crudservlet.Logic;
 import servlets.crudservlet.ValidateService;
 
 import javax.servlet.ServletContext;
@@ -27,8 +28,8 @@ import java.util.*;
  */
 
 public class UserCreateServlet  extends HttpServlet {
-    private static final Logger LOG = LoggerFactory.getLogger(UserCreateServlet.class);
-    private final ValidateService logic = ValidateService.getInstance();
+    //private static final Logger LOG = LoggerFactory.getLogger(UserCreateServlet.class);
+    private final Logic logic = ValidateService.getInstance();
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -37,7 +38,7 @@ public class UserCreateServlet  extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         ServletContext context = this.getServletConfig().getServletContext();
         String imgPathOnServer = context.getRealPath("/images");
@@ -65,7 +66,8 @@ public class UserCreateServlet  extends HttpServlet {
             items.stream().filter(FileItem::isFormField).forEach(i -> textParams.put(i.getFieldName(), i.getString()));
 
         } catch (FileUploadException e) {
-            this.LOG.error(e.getMessage(), e);
+            System.out.println(e.getMessage());
+            //this.LOG.error(e.getMessage(), e);
         }
 
         //перемещаем файлы из внешней папки внутрь сервера

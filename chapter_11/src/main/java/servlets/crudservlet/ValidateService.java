@@ -19,17 +19,17 @@ import java.util.Map;
  * @since 0.1
  */
 
-public class ValidateService {
-    private final static ValidateService SINGLETON_INSTANCE = new ValidateService();
+public class ValidateService implements Logic {
+    private final static Logic SINGLETON_INSTANCE = new ValidateService();
     //получаем экземпляр нижестоящего слоя Persistent
     private final Store store = MemoryStore.getInstance();
     //private final Store store = DBStore.getInstance();
 
-    public static ValidateService getInstance() {
+    public static Logic getInstance() {
         return SINGLETON_INSTANCE;
     }
 
-
+    @Override
     public boolean add(String name, String login, String pass, String email, String photoId, String roleNum) {
         boolean result = false;
         int id = store.getNextId().get();
@@ -40,6 +40,7 @@ public class ValidateService {
         return result;
     }
 
+    @Override
     public boolean update(String id, String name, String login, String email, String pass, int roleNum) {
         boolean res = false;
         int idNum = Integer.parseInt(id);
@@ -55,10 +56,12 @@ public class ValidateService {
         return res;
     }
 
+    @Override
     public boolean delete(String id) {
         return store.delete(Integer.parseInt(id));
     }
 
+    @Override
     public Map<Integer, User> findAll() {
         return store.findAll();
     }
@@ -66,11 +69,7 @@ public class ValidateService {
     public User findById(String id) {
         return (User) store.findById(Integer.parseInt(id));
     }
-/*
-    public boolean isCredentials(String login, String pass) {
-        return (store.userExists(login, pass) != null);
-    }
-*/
+
     public Map<Integer, String> getRoles() {
         return new Role().getRoles();
     }

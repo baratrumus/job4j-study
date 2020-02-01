@@ -1,8 +1,10 @@
 package servlets.userapp;
 
+import servlets.crudservlet.Logic;
 import servlets.crudservlet.User;
 import servlets.crudservlet.ValidateService;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +20,7 @@ import java.io.IOException;
 
 public class UserUpdateServlet  extends HttpServlet {
 
-    private final ValidateService logic = ValidateService.getInstance();
+    private final Logic logic = ValidateService.getInstance();
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -29,7 +31,7 @@ public class UserUpdateServlet  extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         Integer roleKey = Integer.parseInt(req.getParameter("roles"));
         logic.update(req.getParameter("id"),
@@ -41,6 +43,7 @@ public class UserUpdateServlet  extends HttpServlet {
         req.setAttribute("userMap", logic.findAll());
         String newRoleName = logic.getRoles().get(roleKey);
         session.setAttribute("roleName", newRoleName);
-        req.getRequestDispatcher("/WEB-INF/views/list.jsp").forward(req, resp);
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/list.jsp");
+        dispatcher.forward(req, resp);
     }
 }

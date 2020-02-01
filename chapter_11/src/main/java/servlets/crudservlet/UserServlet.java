@@ -31,7 +31,7 @@ import java.util.function.Function;
  */
 public class UserServlet extends HttpServlet {
     //получаем экземпляр нижестоящего слоя logic
-    private final ValidateService logic = ValidateService.getInstance();
+    private final Logic logic = ValidateService.getInstance();
 
     //dispatch pattern contains destinations for Action parameter
     private final Actions actions;

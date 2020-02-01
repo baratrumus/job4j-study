@@ -1,5 +1,6 @@
 package servlets.userapp;
 
+import servlets.crudservlet.Logic;
 import servlets.crudservlet.User;
 import servlets.crudservlet.ValidateService;
 
@@ -12,7 +13,7 @@ import java.io.IOException;
 
 public class SignInController   extends HttpServlet {
 
-    private final ValidateService logic = ValidateService.getInstance();
+    private final Logic logic = ValidateService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

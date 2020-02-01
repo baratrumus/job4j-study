@@ -44,30 +44,23 @@ import servlets.crudservlet.*;
 
 public class UsersListServlet extends HttpServlet {
     private static final Logger LOG = LoggerFactory.getLogger(UsersListServlet.class);
-    private final ValidateService logic = ValidateService.getInstance();
+    private final Logic logic = ValidateService.getInstance();
 
     /**
      * открывает таблицу со всеми пользователями.
      * В каждой строчке должна быть колонка с кнопками (редактировать, удалить)
      */
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        //synchronized (session) {
-            if ((session == null) || (session.getAttribute("login") == null)) {
-                resp.sendRedirect(String.format("%s/signin", req.getContextPath()));
-            } else {
-                Map<Integer, User> users = logic.findAll();
-                req.setAttribute("userMap", users);
-                String imgPath = getImgPath();
-                req.setAttribute("imgPath", imgPath);
-                req.getRequestDispatcher("/WEB-INF/views/list.jsp").forward(req, resp);
-            }
-        //}
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Map<Integer, User> users = logic.findAll();
+        req.setAttribute("userMap", users);
+        String imgPath = getImgPath();
+        req.setAttribute("imgPath", imgPath);
+        req.getRequestDispatcher("/WEB-INF/views/list.jsp").forward(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ServletContext context = this.getServletConfig().getServletContext();
         String imgPathOnServer = context.getRealPath("/images");
         String id = req.getParameter("id");

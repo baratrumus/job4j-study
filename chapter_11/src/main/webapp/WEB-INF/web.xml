@@ -89,7 +89,7 @@
         <url-pattern>/download</url-pattern>
     </servlet-mapping>
 
-    <!-- authentification -->
+
     <servlet>
         <servlet-name>SignInController</servlet-name>
         <servlet-class>servlets.userapp.SignInController</servlet-class>
