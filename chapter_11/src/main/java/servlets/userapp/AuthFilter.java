@@ -22,6 +22,7 @@ public class AuthFilter implements Filter {
                 && (!request.getRequestURI().contains("items/upload"))
                 && (!request.getRequestURI().contains("items/download"))
                 && (!request.getRequestURI().contains("items/images"))
+                && (!request.getRequestURI().contains("items/index.html"))
                 && (!request.getRequestURI().contains("items/user"))) {
             HttpSession session = request.getSession();
            // synchronized (session) {
