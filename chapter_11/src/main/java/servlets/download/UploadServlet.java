@@ -31,6 +31,7 @@ public class UploadServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //String imgPath2 = System.getProperty("user.dir"); //bin tomcat
+        resp.setContentType("image/*;image/png;image/jpg");
         List<String> images = new ArrayList<>();
         ServletContext context = this.getServletConfig().getServletContext();
         String imgPath = context.getRealPath("/images");

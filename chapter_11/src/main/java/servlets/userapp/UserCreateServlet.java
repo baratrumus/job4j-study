@@ -7,6 +7,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import servlets.crudservlet.Logic;
 import servlets.crudservlet.ValidateService;
 
 import javax.servlet.ServletContext;
@@ -27,16 +28,17 @@ import java.util.*;
  */
 
 public class UserCreateServlet  extends HttpServlet {
-    private static final Logger LOG = LoggerFactory.getLogger(UserCreateServlet.class);
-    private final ValidateService logic = ValidateService.getInstance();
+    //private static final Logger LOG = LoggerFactory.getLogger(UserCreateServlet.class);
+    private final Logic logic = ValidateService.getInstance();
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        req.setAttribute("roleMap", logic.getRoles());
         req.getRequestDispatcher("/WEB-INF/views/create.jsp").forward(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         ServletContext context = this.getServletConfig().getServletContext();
         String imgPathOnServer = context.getRealPath("/images");
@@ -64,20 +66,21 @@ public class UserCreateServlet  extends HttpServlet {
             items.stream().filter(FileItem::isFormField).forEach(i -> textParams.put(i.getFieldName(), i.getString()));
 
         } catch (FileUploadException e) {
-            this.LOG.error(e.getMessage(), e);
+            System.out.println(e.getMessage());
+            //this.LOG.error(e.getMessage(), e);
         }
 
         //перемещаем файлы из внешней папки внутрь сервера
         Boolean move = moveUploadedFilesIntoServer(imgPathOnServer, imgPath);
 
-        if (logic.add(textParams.get("name"), textParams.get("login"), textParams.get("email"), imgFilename)) {
+        if (logic.add(textParams.get("name"), textParams.get("login"),
+                textParams.get("pass"), textParams.get("email"), imgFilename, textParams.get("roles"))) {
             req.setAttribute("created", "yes");
         } else {
             req.setAttribute("created", "no");
         }
         req.setAttribute("userMap", logic.findAll());
         req.setAttribute("name", textParams.get("name"));
-        //req.setAttribute("imgPath", imgPath + "/");
         req.getRequestDispatcher("/WEB-INF/views/list.jsp").forward(req, resp);
     }
 
@@ -89,12 +92,12 @@ public class UserCreateServlet  extends HttpServlet {
         if ((fileName != null) && (!fileName.isEmpty())) {
             //берем из полного пути имя файла
             fileName = FilenameUtils.getName(fileName);
-        }
-        String resultPath = imgFolder + File.separator  + fileName;
-        File resultFile = new File(resultPath);
+            String resultPath = imgFolder + File.separator  + fileName;
+            File resultFile = new File(resultPath);
 
-        try (FileOutputStream out = new FileOutputStream(resultFile)) {
-            out.write(item.getInputStream().readAllBytes());
+            try (FileOutputStream out = new FileOutputStream(resultFile)) {
+                out.write(item.getInputStream().readAllBytes());
+            }
         }
         return fileName;
     }

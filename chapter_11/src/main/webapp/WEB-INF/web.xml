@@ -5,6 +5,7 @@
          http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
          version="2.4">
 
+
     <filter>
         <filter-name>AuthFilter</filter-name>
         <filter-class>servlets.userapp.AuthFilter</filter-class>
@@ -14,8 +15,7 @@
         <url-pattern>*</url-pattern>
     </filter-mapping>
 
-
-    <!--???????? ??????? ???  -->
+    <!--separated  servlet  -->
     <servlet>
         <servlet-name>EchoServlet</servlet-name>
         <servlet-class>servlets.EchoServlet</servlet-class>
@@ -25,7 +25,7 @@
         <url-pattern>/echo</url-pattern>
     </servlet-mapping>
 
-    <!--????????? ??????????, c dispatch pattern , crud user ? ?????? ??? ? ?? -->
+    <!--separated  servlet, with dispatch pattern , crud user model -->
     <servlet>
         <servlet-name>UserServlet</servlet-name>
         <servlet-class>servlets.crudservlet.UserServlet</servlet-class>
@@ -35,7 +35,7 @@
         <url-pattern>/user</url-pattern>
     </servlet-mapping>
 
-    <!--userapp ???????? ???????????? -->
+    <!--userapp create -->
     <servlet>
         <servlet-name>UserCreateServlet</servlet-name>
         <servlet-class>servlets.userapp.UserCreateServlet</servlet-class>
@@ -46,7 +46,7 @@
         <url-pattern>/create</url-pattern>
     </servlet-mapping>
 
-    <!--userapp ????????? ???????????? -->
+    <!--userapp update -->
     <servlet>
         <servlet-name>UserUpdateServlet</servlet-name>
         <servlet-class>servlets.userapp.UserUpdateServlet</servlet-class>
@@ -56,7 +56,7 @@
         <url-pattern>/update</url-pattern>
     </servlet-mapping>
 
-    <!--????????? ??????????, ??? ?????????????, ???????? ??????  -->
+    <!--userapp userlist -->
     <servlet>
         <servlet-name>UsersServlet</servlet-name>
         <servlet-class>servlets.userapp.UsersListServlet</servlet-class>
@@ -67,7 +67,7 @@
     </servlet-mapping>
 
 
-    <!--download ????????? ??????????, ??? ?????????????, ???????? ??????  -->
+    <!--download - upload serlet  -->
     <servlet>
         <servlet-name>UploadServlet</servlet-name>
         <servlet-class>servlets.download.UploadServlet</servlet-class>
@@ -78,7 +78,7 @@
         <url-pattern>/upload</url-pattern>
     </servlet-mapping>
 
-    <!--download ????????? ??????????, ??? ?????????????, ?????????? ??????  -->
+    <!--download - upload serlet   -->
     <servlet>
         <servlet-name>DownloadServlet</servlet-name>
         <servlet-class>servlets.download.DownloadServlet</servlet-class>
@@ -89,6 +89,7 @@
         <url-pattern>/download</url-pattern>
     </servlet-mapping>
 
+
     <servlet>
         <servlet-name>SignInController</servlet-name>
         <servlet-class>servlets.userapp.SignInController</servlet-class>
@@ -97,6 +98,17 @@
     <servlet-mapping>
         <servlet-name>SignInController</servlet-name>
         <url-pattern>/signin</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>SignOut</servlet-name>
+        <servlet-class>servlets.userapp.SignOut</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SignOut</servlet-name>
+        <url-pattern>/signout</url-pattern>
     </servlet-mapping>
 
 </web-app>

@@ -10,5 +10,5 @@ public interface Store<User> {
     User findById(int id);
     Map findAll();
     AtomicInteger getNextId();
-    boolean credentialsExists(String login, String password);
+    User userExists(String login, String password);
 }

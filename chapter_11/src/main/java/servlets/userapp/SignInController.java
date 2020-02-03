@@ -1,5 +1,7 @@
 package servlets.userapp;
 
+import servlets.crudservlet.Logic;
+import servlets.crudservlet.User;
 import servlets.crudservlet.ValidateService;
 
 import javax.servlet.ServletException;
@@ -11,7 +13,7 @@ import java.io.IOException;
 
 public class SignInController   extends HttpServlet {
 
-    private final ValidateService logic = ValidateService.getInstance();
+    private final Logic logic = ValidateService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -23,11 +25,14 @@ public class SignInController   extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
         //autentification
-        if (logic.isCredentials(login, password)) {
+        User u = logic.getUserByLoginPass(login, password);
+        if (u != null) {
             HttpSession session = req.getSession();
-            synchronized (session) {
+            //synchronized (session) {
                 session.setAttribute("login", login);
-            }
+                session.setAttribute("roleName", u.getRole());
+                session.setAttribute("id", u.getId());
+            //}
             resp.sendRedirect(String.format("%s/", req.getContextPath()));
         } else {
             req.setAttribute("error", "Invalid crefentionals");

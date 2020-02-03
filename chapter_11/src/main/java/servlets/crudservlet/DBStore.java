@@ -16,12 +16,22 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @version $id
  * @since 0.1
 */
+
+/**
+ * добавим новое хранилище DBStore impl Store.
+ * Класс DBStore должен реализовывать синглетон.
+ * Внутри нужно сделать хранение данных в базе данных.
+ * Нужно подключить пул коннектов.
+ * Пул коннектов содержит подготовленные коннекты. Когда клиент заканчивает работу с connection,
+ * он (connection) попадает обратно в пул и может быть использован повторно.
+ */
+
+
 public class DBStore implements Store<User>  {
 
     private static final Logger LOG = LoggerFactory.getLogger(DBStore.class);
     private static final BasicDataSource SOURCE = new BasicDataSource();
     private static final DBStore INSTANCE = new DBStore();
-    private Connection connection;
 
     private DBStore() {
         init();
@@ -31,7 +41,7 @@ public class DBStore implements Store<User>  {
         return INSTANCE;
     }
 
-    private boolean init() {
+    private void init() {
         try (InputStream in = DBStore.class.getClassLoader().getResourceAsStream("app.properties")) {
             Properties config = new Properties();
             if (in != null) {
@@ -44,18 +54,17 @@ public class DBStore implements Store<User>  {
             SOURCE.setMinIdle(5);
             SOURCE.setMaxIdle(10);
             SOURCE.setMaxOpenPreparedStatements(100);
-            this.connection = SOURCE.getConnection();
 
             createTableItems();
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
             throw new IllegalStateException(e);
         }
-        return this.connection != null;
     }
 
     private void createTableItems() {
-        try (PreparedStatement ps = this.connection.prepareStatement(
+        try (Connection connection = SOURCE.getConnection();
+             PreparedStatement ps = connection.prepareStatement(
                              "create table if not exists userServlet (id serial primary key not null, name varchar(250),"
                                      + " login varchar(250), email varchar(250), create_date timestamp);")
         ) {
@@ -71,7 +80,8 @@ public class DBStore implements Store<User>  {
     @Override
     public AtomicInteger getNextId() {
         AtomicInteger id = new AtomicInteger(0);
-        try (PreparedStatement pStatement = connection.prepareStatement(
+        try (Connection connection = SOURCE.getConnection();
+             PreparedStatement pStatement = connection.prepareStatement(
                 "insert into userServlet(name, login, email, create_date) values (?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS)) {
             pStatement.setString(1, "tmp");
             pStatement.setString(2, "tmp");
@@ -91,7 +101,8 @@ public class DBStore implements Store<User>  {
     @Override
     public boolean add(User model) {
         boolean res = false;
-        try (PreparedStatement pStatement = connection.prepareStatement(
+        try (Connection connection = SOURCE.getConnection();
+             PreparedStatement pStatement = connection.prepareStatement(
                 "update userServlet set name = ?, login = ?, email = ? where id = ?;")) {
             pStatement.setString(1, model.getName());
             pStatement.setString(2, model.getLogin());
@@ -109,7 +120,8 @@ public class DBStore implements Store<User>  {
     @Override
     public boolean update(int id, User model) {
         boolean res = false;
-        try (PreparedStatement pStatement = connection.prepareStatement(
+        try (Connection connection = SOURCE.getConnection();
+             PreparedStatement pStatement = connection.prepareStatement(
                 "update userServlet set name = ?, login = ?, email = ? where id = ?;")) {
             pStatement.setString(1, model.getName());
             pStatement.setString(2, model.getLogin());
@@ -130,7 +142,8 @@ public class DBStore implements Store<User>  {
         if (id <= 0) {
             return res;
         }
-        try (PreparedStatement pStatement = connection.prepareStatement(
+        try (Connection connection = SOURCE.getConnection();
+             PreparedStatement pStatement = connection.prepareStatement(
                 "delete from userServlet where id = ?;")) {
             pStatement.setInt(1, id);
             if (pStatement.executeUpdate() > 0) {
@@ -145,12 +158,14 @@ public class DBStore implements Store<User>  {
     @Override
     public Map<Integer, User> findAll() {
         Map<Integer, User> retList = new HashMap<>();
-        try (PreparedStatement pStatement = connection.prepareStatement("select * from userServlet;")) {
+        try (Connection connection = SOURCE.getConnection();
+             PreparedStatement pStatement = connection.prepareStatement("select * from userServlet;")) {
             ResultSet rs = pStatement.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");
                 User user = new User(id, rs.getString("name"),
-                        rs.getString("login"), rs.getString("email"), "", "");
+                        rs.getString("login"), rs.getString("email"),
+                        "", "", new Role(1));
                 user.setDate(rs.getTimestamp("create_date"));
                 retList.put(id, user);
             }
@@ -164,12 +179,14 @@ public class DBStore implements Store<User>  {
     @Override
     public User findById(int id) {
         User user = null;
-        try (PreparedStatement pStatement = connection.prepareStatement("select * from userServlet where id = ?;")) {
+        try (Connection connection = SOURCE.getConnection();
+             PreparedStatement pStatement = connection.prepareStatement("select * from userServlet where id = ?;")) {
             pStatement.setInt(1, id);
             ResultSet rs = pStatement.executeQuery();
             while (rs.next()) {
                 user = new User(id, rs.getString("name"),
-                        rs.getString("login"), rs.getString("email"), "", "");
+                        rs.getString("login"),
+                        rs.getString("email"), "", "", new Role(1));
                 user.setDate(rs.getTimestamp("create_date"));
             }
             rs.close();
@@ -179,7 +196,8 @@ public class DBStore implements Store<User>  {
         return user;
     }
 
-    public boolean credentialsExists(String login, String password) {
-        return true;
+    @Override
+    public User userExists(String login, String password) {
+        return null;
     }
 }

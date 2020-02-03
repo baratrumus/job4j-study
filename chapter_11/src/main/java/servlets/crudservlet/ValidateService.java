@@ -1,5 +1,6 @@
 package servlets.crudservlet;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,44 +19,49 @@ import java.util.Map;
  * @since 0.1
  */
 
-public class ValidateService {
-    private final static ValidateService SINGLETON_INSTANCE = new ValidateService();
+public class ValidateService implements Logic {
+    private final static Logic SINGLETON_INSTANCE = new ValidateService();
     //получаем экземпляр нижестоящего слоя Persistent
     private final Store store = MemoryStore.getInstance();
     //private final Store store = DBStore.getInstance();
 
-    public static ValidateService getInstance() {
+    public static Logic getInstance() {
         return SINGLETON_INSTANCE;
     }
 
-
-    public boolean add(String name, String login, String email, String photoId) {
+    @Override
+    public boolean add(String name, String login, String pass, String email, String photoId, String roleNum) {
         boolean result = false;
         int id = store.getNextId().get();
         if (id != 0) {
-            User user = new User(id, name, login, email, photoId, "");
+            User user = new User(id, name, login, email, photoId, pass, new Role(Integer.parseInt(roleNum)));
             result = store.add(user);
         }
         return result;
     }
 
-    public boolean update(String id, String name, String login, String email) {
+    @Override
+    public boolean update(String id, String name, String login, String email, String pass, int roleNum) {
         boolean res = false;
         int idNum = Integer.parseInt(id);
         User user = (User) store.findById(idNum);
         if (user != null) {
             user.setEmail(email);
             user.setLogin(login);
+            user.setPass(pass);
+            user.setRole(roleNum);
             user.setName(name);
             res = store.update(idNum, user);
         }
         return res;
     }
 
+    @Override
     public boolean delete(String id) {
         return store.delete(Integer.parseInt(id));
     }
 
+    @Override
     public Map<Integer, User> findAll() {
         return store.findAll();
     }
@@ -64,8 +70,12 @@ public class ValidateService {
         return (User) store.findById(Integer.parseInt(id));
     }
 
-    public boolean isCredentials(String login, String pass) {
-        return store.credentialsExists(login, pass);
+    public Map<Integer, String> getRoles() {
+        return new Role().getRoles();
+    }
+
+    public User getUserByLoginPass(String login, String pass) {
+        return (User) store.userExists(login, pass);
     }
 
 }

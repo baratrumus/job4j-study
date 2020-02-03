@@ -8,12 +8,11 @@
 
 <c:if test="${error != ''}">
     <div style = "background-color: #ff331f">
-         <c:out value="${error}" /> created
+         <c:out value="${error}" />
     </div>
 </c:if>
 
-
-<form method='post' action="${pageContext.servletContext.contextPath}/login" enctype="multipart/form-data">
+<form method='post' action="${pageContext.servletContext.contextPath}/signin">
     <b>Login:</b><br>
     <input type='text' name='login' size='40'/><br>
     <b>Password:</b><br>

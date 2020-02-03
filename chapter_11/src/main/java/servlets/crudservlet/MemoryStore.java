@@ -17,7 +17,8 @@ public class MemoryStore implements Store<User> {
     public MemoryStore() {
         this.store = new ConcurrentHashMap();
         this.idCount = new AtomicInteger(1);
-        this.store.put(1, new User(1, "root", "root", "root@m.ru", "", "root"));
+        this.store.put(1, new User(1, "root", "root", "root@m.ru",
+                "bulin.jpg", "root", new Role(1)));
     }
 
     public static MemoryStore getInstance() {
@@ -55,14 +56,14 @@ public class MemoryStore implements Store<User> {
     }
 
     @Override
-    public boolean credentialsExists(String login, String password) {
-        Boolean exists = false;
+    public User userExists(String login, String password) {
+        User userFound = null;
         for (Map.Entry<Integer, User>  user : store.entrySet()) {
             if (user.getValue().getLogin().equals(login)  && user.getValue().getPassword().equals(password)) {
-                exists = true;
+                userFound = user.getValue();
                 break;
             }
         }
-        return exists;
+        return userFound;
     }
 }
