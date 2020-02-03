@@ -53,7 +53,7 @@
 <body>
 <h2 align="center">New user</h2>
 <div class="container">
-<form action="index.html" method="post" onsubmit="addRow()">
+<form action="index.html" method="post"">
     <div class="form-group" style="width: 40%">
         <label for="name">Name:</label>
         <input type="text" class="form-control" id="name">
@@ -74,7 +74,7 @@
         <label for="comment">Description:</label>
         <textarea class="form-control" rows="5" id="comment"></textarea>
     </div>
-    <button type="submit" class="btn btn-default"  onclick="validate();addRow();">Submit</button>
+    <button type="button" class="btn btn-default"  onclick="validate();addRow();">Submit</button>
 </form>
 </div>
 
@@ -90,12 +90,7 @@
         </tr>
         </thead>
         <tbody>
-     <tr>
-         <td></td>
-         <td></td>
-         <td></td>
-         <td></td>
-     </tr>
+
         </tbody>
     </table>
 </div>
