@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Users</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+
+        // get json from servlet
+        $( //благодаря этой обертке мы обращаемся к данным только после того
+            // как будет загружен сервер и загружена страница
+            loadUsers()
+        );//
+
+        $(function(){
+            $('#Myform').on('submit', function(event){
+                event.preventDefault();
+                event.stopPropagation();
+                if (validate()) {
+                    createUser();
+                    loadUsers();
+                }
+            });
+        });
+
+        function loadUsers() {
+            $.ajax('./json', {
+                method : 'get',
+                complete: function(data) {
+                    console.log(JSON.parse(data.responseText));
+                    var result = "<tr>" +
+                        "<td>Name</td>" +
+                        "<td>Surname</td>" +
+                        "<td>Gender</td>" +
+                        "<td>Description</td>" +
+                        "<tr>";
+                    var users = JSON.parse(data.responseText);
+                    for (var i in users) {
+                        result += "<tr>" +
+                            "<td>" + users[i].name +"</td>" +
+                            "<td>" + users[i].surname +"</td>" +
+                            "<td>" + users[i].gender +"</td>" +
+                            "<td>" + users[i].desc +"</td>" +
+                            "<tr>";
+                    }
+                    var table = document.getElementById("userTable");
+                    table.innerHTML = result;
+                }
+            });
+        }
+
+
+
+
+        function createUser() {
+
+            //  send data to servlet
+            var userData = { name : $('#name').val(),
+                             surname : $('#surname').val(),
+                             gender : document.querySelector('input[name="genderS"]:checked').value,
+                             desc :   document.getElementById('comment').value }
+            console.log(userData);
+
+            $.ajax({
+                url : "./json",
+                type : 'post',
+                data: userData,
+                success: loadUsers()
+            });
+        }
+
+        function validate() {
+            var nameId = document.getElementById('name').value;
+            var surnameId = document.getElementById('surname').value;
+            var comment = document.getElementById('comment').value;
+            if (nameId === '') {
+                alert('Fill the field <Name>');
+            }
+            if (surnameId === '') {
+                alert('Fill the field <Surname>');
+            }
+            if (comment == '') {
+                alert('Fill the field <Description>');
+            }
+            return true;
+        }
+
+    </script>
+
+</head>
+<body>
+<h2 align="center">New user</h2>
+<div class="container">
+    <form id="Myform" method="post">
+        <div class="form-group" style="width: 40%">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name">
+        </div>
+
+        <div class="form-group" style="width: 40%">
+            <label for="surname">Surname:</label>
+            <input type="text" class="form-control" id="surname">
+        </div>
+
+        <div class="radio">
+            <label><input type="radio" name="genderS" value="Male" checked>Male</label>
+
+            <label><input type="radio" name="genderS" value="Female">Female</label>
+        </div>
+
+        <div class="form-group" style="width: 40%">
+            <label for="comment">Description:</label>
+            <textarea class="form-control" rows="5" id="comment"></textarea>
+        </div>
+        <input type="submit" value="Send">
+    </form>
+</div>
+
+<div class="container">
+    <h2>Users</h2>
+    <table id="userTable" border="1" class="table table-striped">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Sex</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</div>
+
+</body>
+
+</html>

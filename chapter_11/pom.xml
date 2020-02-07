@@ -11,6 +11,12 @@
     <artifactId>chapter_11</artifactId>
     <packaging>war</packaging>
 
+
+    <properties>
+        <jackson.core>2.9.8</jackson.core>
+    </properties>
+
+
     <dependencies>
         <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
         <dependency>
@@ -70,6 +76,12 @@
             <artifactId>powermock-api-mockito2</artifactId>
             <version>2.0.2</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.core}</version>
         </dependency>
 
 
