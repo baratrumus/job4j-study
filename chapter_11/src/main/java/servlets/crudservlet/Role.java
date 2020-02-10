@@ -10,7 +10,7 @@ import java.util.Map;
  */
 
 public class Role {
-    private final Map<Integer, String> roles = Map.of(1, "admin", 2, "moderator", 3, "user");;
+    private final Map<Integer, String> roles = Map.of(1, "admin", 2, "moderator", 3, "user");
     private final String role;
     private final int roleId;
 

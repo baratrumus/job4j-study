@@ -16,6 +16,7 @@
         <jackson.core>2.9.10.1</jackson.core>
     </properties>
 
+
     <dependencies>
         <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
         <dependency>
@@ -84,6 +85,6 @@
         </dependency>
 
 
-    </dependencies>
+   </dependencies>
 
 </project>

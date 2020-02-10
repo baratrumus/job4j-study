@@ -54,15 +54,13 @@
         }
 
 
-
-
         function createUser() {
 
             //  send data to servlet
             var userData = { name : $('#name').val(),
-                surname : $('#surname').val(),
-                gender : document.querySelector('input[name="genderS"]:checked').value,
-                desc :   document.getElementById('comment').value }
+                             surname : $('#surname').val(),
+                             gender : document.querySelector('input[name="genderS"]:checked').value,
+                             desc :   document.getElementById('comment').value }
             console.log(userData);
 
             $.ajax({
