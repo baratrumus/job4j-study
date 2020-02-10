@@ -11,6 +11,11 @@
     <artifactId>chapter_11</artifactId>
     <packaging>war</packaging>
 
+
+    <properties>
+        <jackson.core>2.9.10.1</jackson.core>
+    </properties>
+
     <dependencies>
         <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
         <dependency>
@@ -72,7 +77,13 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.core}</version>
+        </dependency>
 
-   </dependencies>
+
+    </dependencies>
 
 </project>
