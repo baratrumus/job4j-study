@@ -54,11 +54,14 @@ public class UsersListServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Map<Integer, User> users = logic.findAll();
         req.setAttribute("userMap", users);
-        String imgPath = getImgPath();
-        req.setAttribute("imgPath", imgPath);
+        HttpSession session = req.getSession();
+        session.setAttribute("imgPath", getImgPath());
         req.getRequestDispatcher("/WEB-INF/views/list.jsp").forward(req, resp);
     }
 
+    /**
+     * delete user from table
+     */
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ServletContext context = this.getServletConfig().getServletContext();

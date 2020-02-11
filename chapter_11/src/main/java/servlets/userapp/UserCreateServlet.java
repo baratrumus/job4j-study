@@ -7,6 +7,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import servlets.crudservlet.Cities;
 import servlets.crudservlet.Logic;
 import servlets.crudservlet.ValidateService;
 
@@ -34,6 +35,8 @@ public class UserCreateServlet  extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         req.setAttribute("roleMap", logic.getRoles());
+        String[] cities = Cities.getNames();
+        req.setAttribute("citiesList", cities);
         req.getRequestDispatcher("/WEB-INF/views/create.jsp").forward(req, resp);
     }
 
@@ -74,7 +77,8 @@ public class UserCreateServlet  extends HttpServlet {
         Boolean move = moveUploadedFilesIntoServer(imgPathOnServer, imgPath);
 
         if (logic.add(textParams.get("name"), textParams.get("login"),
-                textParams.get("pass"), textParams.get("email"), imgFilename, textParams.get("roles"))) {
+                textParams.get("password"), textParams.get("email"), imgFilename, textParams.get("country"),
+                textParams.get("CityInput"), textParams.get("roles"))) {
             req.setAttribute("created", "yes");
         } else {
             req.setAttribute("created", "no");

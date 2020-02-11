@@ -35,8 +35,8 @@ public class JsonController   extends HttpServlet {
         oneUser.put("desc", "sth");
         this.storage.put(this.id.get(), oneUser);
         id.addAndGet(1);
-
     }
+
 
 
     /**
@@ -53,7 +53,7 @@ public class JsonController   extends HttpServlet {
     }
 
     /**
-     *    принимаем  JSON объект, данные пользователя
+     *    принимаем не JSON объект, просто параметры, данные пользователя
      *    и пишем его в storage
      */
     @Override

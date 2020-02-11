@@ -30,18 +30,19 @@ public class ValidateService implements Logic {
     }
 
     @Override
-    public boolean add(String name, String login, String pass, String email, String photoId, String roleNum) {
+    public boolean add(String name, String login, String pass, String email, String photoId, String country, String city, String roleNum) {
         boolean result = false;
         int id = store.getNextId().get();
         if (id != 0) {
-            User user = new User(id, name, login, email, photoId, pass, new Role(Integer.parseInt(roleNum)));
+            User user = new User(id, name, login, email, photoId, pass, country, city, new Role(Integer.parseInt(roleNum)));
             result = store.add(user);
         }
         return result;
     }
 
     @Override
-    public boolean update(String id, String name, String login, String email, String pass, int roleNum) {
+    public boolean update(String id, String name, String login, String email, String pass, String country,
+                          String city, int roleNum) {
         boolean res = false;
         int idNum = Integer.parseInt(id);
         User user = (User) store.findById(idNum);
@@ -49,6 +50,8 @@ public class ValidateService implements Logic {
             user.setEmail(email);
             user.setLogin(login);
             user.setPass(pass);
+            user.setCity(city);
+            user.setCountry(country);
             user.setRole(roleNum);
             user.setName(name);
             res = store.update(idNum, user);

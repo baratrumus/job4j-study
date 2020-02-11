@@ -17,10 +17,12 @@ public class User {
     private String password;
     private Role role;
     private Timestamp createDate;
+    private String country;
+    private String city;
 
 
 
-    public User(int id, String name, String login, String email, String photoId, String password, Role role) {
+    public User(int id, String name, String login, String email, String photoId, String password, String country, String city, Role role) {
         this.id = id;
         this.name = name;
         this.login = login;
@@ -29,12 +31,13 @@ public class User {
         this.createDate = new Timestamp(System.currentTimeMillis());
         this.password = password;
         this.role = role;
+        this.country = country;
+        this.city = city;
     }
 
     public int getId() {
         return this.id;
     }
-
 
     public String getName() {
         return this.name;
@@ -91,6 +94,22 @@ public class User {
 
     public void setRole(int roleNum) {
         this.role = new Role(roleNum);
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     @Override

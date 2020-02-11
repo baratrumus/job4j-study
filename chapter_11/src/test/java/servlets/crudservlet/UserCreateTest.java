@@ -48,6 +48,7 @@ public class UserCreateTest {
         ServletConfig realConfig = ucs.getServletConfig();
 
         ServletContext mockContext = Mockito.mock(ServletContext.class);
+        ServletContext realContext = realConfig.getServletContext();
         when(realConfig.getServletContext()).thenReturn(mockContext);
 
         when(req.getParameter("name")).thenReturn("Anatoly");

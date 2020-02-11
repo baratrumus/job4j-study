@@ -12,15 +12,15 @@ public class ValidateStub implements Logic {
 
     public ValidateStub() {
         this.store.put(1, new User(1, "root", "root", "root@m.ru",
-                "", "root", new Role(1)));
+                "", "root", "", "", new Role(1)));
     }
 
     @Override
-    public boolean add(String name, String login, String pass, String email, String photoId, String roleNum) {
+    public boolean add(String name, String login, String pass, String email, String photoId, String country, String city, String roleNum) {
         boolean result = false;
         int id = this.ids++;
         if (id != 0) {
-            User user = new User(id, name, login, email, photoId, pass, new Role(Integer.parseInt(roleNum)));
+            User user = new User(id, name, login, email, photoId, pass, country, city, new Role(Integer.parseInt(roleNum)));
              if (this.store.put(id, user) != null) {
                 result = true;
              }
@@ -29,7 +29,8 @@ public class ValidateStub implements Logic {
     }
 
     @Override
-    public boolean update(String id, String name, String login, String email, String pass, int roleNum) {
+    public boolean update(String id, String name, String login, String email, String pass, String country,
+                          String city, int roleNum) {
         boolean res = false;
         int idNum = Integer.parseInt(id);
         User user = store.get(idNum);
@@ -39,6 +40,8 @@ public class ValidateStub implements Logic {
             user.setPass(pass);
             user.setRole(roleNum);
             user.setName(name);
+            user.setCity(city);
+            user.setCountry(country);
             if (store.put(idNum, user) != null) {
                 res = true;
             }

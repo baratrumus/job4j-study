@@ -17,8 +17,8 @@ public class MemoryStore implements Store<User> {
     public MemoryStore() {
         this.store = new ConcurrentHashMap();
         this.idCount = new AtomicInteger(1);
-        this.store.put(1, new User(1, "root", "root", "root@m.ru",
-                "bulin.jpg", "root", new Role(1)));
+        this.store.put(1, new User(1, "root", "r", "root@m.ru",
+                "P1010292.JPG", "r", "", "Kazan", new Role(1)));
     }
 
     public static MemoryStore getInstance() {

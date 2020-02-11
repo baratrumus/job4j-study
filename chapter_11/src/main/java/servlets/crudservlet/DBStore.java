@@ -165,7 +165,7 @@ public class DBStore implements Store<User>  {
                 int id = rs.getInt("id");
                 User user = new User(id, rs.getString("name"),
                         rs.getString("login"), rs.getString("email"),
-                        "", "", new Role(1));
+                        "", "", "", "", new Role(1));
                 user.setDate(rs.getTimestamp("create_date"));
                 retList.put(id, user);
             }
@@ -186,7 +186,7 @@ public class DBStore implements Store<User>  {
             while (rs.next()) {
                 user = new User(id, rs.getString("name"),
                         rs.getString("login"),
-                        rs.getString("email"), "", "", new Role(1));
+                        rs.getString("email"), "", "", "", "", new Role(1));
                 user.setDate(rs.getTimestamp("create_date"));
             }
             rs.close();
