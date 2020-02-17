@@ -91,7 +91,8 @@ public class UsersListServlet extends HttpServlet {
         try (InputStream in = UserCreateServlet.class.getClassLoader().getResourceAsStream("app.properties")) {
             Properties config = new Properties();
             config.load(in);
-            return config.getProperty("img-path");
+            String rt = config.getProperty("img-path-aside-of-server");
+            return rt;
         } catch (Exception e) {
             throw new IllegalStateException(e);
         }

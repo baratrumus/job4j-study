@@ -21,6 +21,7 @@ public class AuthFilter implements Filter {
         } else if ((!request.getRequestURI().contains("items/echo"))
                 && (!request.getRequestURI().contains("items/upload"))
                 && (!request.getRequestURI().contains("items/download"))
+                //&& (!request.getRequestURI().contains("html"))
                 && (!request.getRequestURI().contains("items/images"))
                 && (!request.getRequestURI().contains("items/user"))) {
             HttpSession session = request.getSession();
@@ -29,7 +30,6 @@ public class AuthFilter implements Filter {
                     ((HttpServletResponse) resp).sendRedirect(String.format("%s/signin", request.getContextPath()));
                     return;
             }
-            //}
             chain.doFilter(req, resp);
         } else {
             chain.doFilter(req, resp);

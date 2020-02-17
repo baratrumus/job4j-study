@@ -45,11 +45,13 @@ public class UserCreateTest {
         HttpServletResponse resp = mock(HttpServletResponse.class);
 
         UserCreateServlet ucs = new UserCreateServlet();
-        ServletConfig realConfig = ucs.getServletConfig();
+
+        //ServletConfig realConfig = ucs.getServletConfig();
+        ServletConfig mockConfig = Mockito.mock(ServletConfig.class);
+        //when(realConfig).thenReturn(mockConfig);
 
         ServletContext mockContext = Mockito.mock(ServletContext.class);
-        ServletContext realContext = realConfig.getServletContext();
-        when(realConfig.getServletContext()).thenReturn(mockContext);
+        when(mockConfig.getServletContext()).thenReturn(mockContext);
 
         when(req.getParameter("name")).thenReturn("Anatoly");
         ucs.doPost(req, resp);

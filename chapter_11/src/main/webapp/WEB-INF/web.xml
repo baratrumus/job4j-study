@@ -27,7 +27,7 @@
     </servlet-mapping>
 
 
-    <!--userapp create -->
+  <!--  userapp create -->
     <servlet>
         <servlet-name>UserCreateServlet</servlet-name>
         <servlet-class>servlets.userapp.UserCreateServlet</servlet-class>
@@ -132,27 +132,34 @@
     </servlet-mapping>
 
 
-    <!--static resourse connection -->
-    <servlet-mapping>
-        <servlet-name>default</servlet-name>
-        <url-pattern>/images</url-pattern>
-    </servlet-mapping>
+    <!--    static resourse connection  -->
+        <servlet-mapping>
+            <servlet-name>default</servlet-name>
+            <url-pattern>/images</url-pattern>
+        </servlet-mapping>
 
-    <servlet-mapping>
-        <servlet-name>default</servlet-name>
-        <url-pattern>*.css</url-pattern>
-    </servlet-mapping>
 
-    <servlet-mapping>
-        <servlet-name>default</servlet-name>
-        <url-pattern>*.js</url-pattern>
-    </servlet-mapping>
+       <servlet-mapping>
+           <servlet-name>default</servlet-name>
+           <url-pattern>*.css</url-pattern>
+       </servlet-mapping>
+
+       <servlet-mapping>
+           <servlet-name>default</servlet-name>
+           <url-pattern>*.js</url-pattern>
+       </servlet-mapping>
 
     <!--
-    <servlet-mapping>
-        <servlet-name>default</servlet-name>
-        <url-pattern>*.html</url-pattern>
-    </servlet-mapping>
+       <servlet-mapping>
+           <servlet-name>default</servlet-name>
+           <url-pattern>*.html</url-pattern>
+       </servlepping>
+
+
+      <welcome-file-list>
+          <welcome-file>ajusers.html</welcome-file>
+      </welcome-file-list>
     -->
+
 </web-app>
 

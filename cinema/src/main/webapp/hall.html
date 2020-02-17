@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+ <!--
+
+
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  -->
+
+      <script type="text/javascript" src="js/cinema.js"></script>
+      <link href="css/style.css" rel="stylesheet"  type="text/css"/>
+
+      <title>Booking of cinema places.</title>
+
+</head>
+<body>
+
+
+<script>
+    $(document).ready(function () {
+        loadBuzyPlaces();
+        setInterval(function() {loadBuzyPlaces() }, 10000);
+    });
+</script>
+
+
+<h2 align="center">Booking of places.</h2>
+
+<div class="container">
+    <div class="row pt-3">
+
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th class="wd">Row / Place</th>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>1</th>
+                <td><input type="radio" name="place" value="11"> Row 1, Place 1</td>
+                <td><input type="radio" name="place" value="12"> Row 1, Place 2</td>
+                <td><input type="radio" name="place" value="13"> Row 1, Place 3</td>
+            </tr>
+            <tr>
+                <th>2</th>
+                <td><input type="radio" name="place" value="21"> Row 2, Place 1</td>
+                <td><input type="radio" name="place" value="22"> Row 2, Place 2</td>
+                <td><input type="radio" name="place" value="23"> Row 2, Place 3</td>
+            </tr>
+            <tr>
+                <th>3</th>
+                <td><input type="radio" name="place" value="31"> Row 3, Place 1</td>
+                <td><input type="radio" name="place" value="32"> Row 3, Place 2</td>
+                <td><input type="radio" name="place" value="33"> Row 3, Place 3</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row float-right">
+        <button type="submit" class="btn btn-success" onclick="orderPlace()">Pay</button>
+    </div>
+</div>
+    <div class="container">
+    <h3  align="center">Buzy places:</h3>
+    <table class="table" id="buzyT">
+        <thead>
+        <tr>
+            <th>Row</th>
+            <th>Place</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+</body>
+</html>

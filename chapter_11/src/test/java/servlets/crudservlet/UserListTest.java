@@ -13,6 +13,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
 
@@ -40,6 +41,10 @@ public class UserListTest {
 
         HttpServletRequest req = mock(HttpServletRequest.class);
         HttpServletResponse resp = mock(HttpServletResponse.class);
+
+        //mock session
+        HttpSession httpSession = Mockito.mock(HttpSession.class);
+        when(req.getSession()).thenReturn(httpSession);
 
         UsersListServlet uls = new UsersListServlet();
 
