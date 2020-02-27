@@ -24,7 +24,9 @@ public class HallServlet extends HttpServlet {
     private final Controller storage = CinemaController.getInstance();
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+       //первый вход на страницу, заход в get идет не через ajax и first = null
+       //так что делаем редирект, чтобы логика ajax отработалась
         String first = req.getParameter("first");
         if (first == null) {
             resp.sendRedirect(String.format("%s/hall.html", req.getContextPath()));
@@ -42,10 +44,5 @@ public class HallServlet extends HttpServlet {
             pr.flush();
 
         }
-    }
-
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp){
     }
 }

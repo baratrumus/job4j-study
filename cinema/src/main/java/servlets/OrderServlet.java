@@ -32,16 +32,15 @@ public class OrderServlet extends HttpServlet {
         String place = req.getParameter("place");
         // 1-й заход в get.  Делаем редирект
         if (place != null) {
+            session.setAttribute("place", place);
+            session.setAttribute("orderInfo", "");
+            /*это неверно. Надо использовать только сессию
             synchronized (getServletContext()) {
-                getServletContext().setAttribute("place", place);
-                session.setAttribute("orderInfo", "");
-            }
+                getServletContext().setAttribute("place", place); }*/
             resp.sendRedirect(String.format("%s/pay.html", req.getContextPath()));
             // 2-й заход в get.  Здесь можно записать в response
         } else {
-            synchronized (getServletContext()) {
-                place = (String) getServletContext().getAttribute("place");
-            }
+            place =  session.getAttribute("place").toString();
             String info = session.getAttribute("orderInfo").toString();
             resp.setContentType("text/json");
             resp.setCharacterEncoding("UTF-8");
@@ -52,7 +51,7 @@ public class OrderServlet extends HttpServlet {
             sb.append(" seat ");
             sb.append(place.charAt(1));
             sb.append(", Sum : 10$");
-            sb.append(", " + info);
+            sb.append(". " + info);
             LOG.info(sb.toString());
             pr.append(new ObjectMapper().writeValueAsString(sb));
             pr.flush();
@@ -64,10 +63,7 @@ public class OrderServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession();
         boolean isPlaceFree = true;
-        String place;
-        synchronized (getServletContext()) {
-            place = (String) getServletContext().getAttribute("place");
-        }
+        String place = session.getAttribute("place").toString();
         if (place != null) {
             if (!storage.getOrders().isEmpty()) {
                 for (Order ord : storage.getOrders()) {
@@ -75,10 +71,12 @@ public class OrderServlet extends HttpServlet {
                         String error = "Place is buzy, please select another place!";
                         LOG.info(error);
                         session.setAttribute("orderInfo", error);
-                       /*
+                       /* передавать данные не требуется, т.к. после пост сразу грузится гет,
+                          который получает info через сессию. Но иногда аякс глючит и не прогружает гет после пост
+                          закономерность установить не удалось*/
                         PrintWriter writer = resp.getWriter();
                         writer.append(new ObjectMapper().writeValueAsString(error));
-                        writer.flush();*/
+                        writer.flush();
                         isPlaceFree = false;
                         break;
                     }
@@ -100,12 +98,8 @@ public class OrderServlet extends HttpServlet {
                 order.setRow(String.valueOf(place.charAt(0)));
                 storage.addOrder(order);
                 String message = "Your ticket has added!";
-                LOG.info(message);
                 session.setAttribute("orderInfo", message);
-
-                /*PrintWriter writer = resp.getWriter();
-                writer.append(new ObjectMapper().writeValueAsString(message));
-                writer.flush();*/
+                LOG.info(message);
             }
         }
     }
