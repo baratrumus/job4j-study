@@ -11,7 +11,7 @@ public class ValidateStub implements Logic {
     private int ids = 0;
 
     public ValidateStub() {
-        this.store.put(1, new User(1, "root", "root", "root@m.ru",
+        this.store.put(1, new User(1, "Anatoly", "root", "root@m.ru",
                 "", "root", "", "", new Role(1)));
     }
 

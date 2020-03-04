@@ -12,6 +12,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import servlets.userapp.UserCreateServlet;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -35,7 +36,6 @@ import static org.mockito.Mockito.when;
 public class UserCreateTest {
 
     @Test
-    @Ignore
     public void whenAddUserThenStoreIt() throws ServletException, IOException {
         Logic validate = new ValidateStub();
         PowerMockito.mockStatic(ValidateService.class);
@@ -44,14 +44,23 @@ public class UserCreateTest {
         HttpServletRequest req = mock(HttpServletRequest.class);
         HttpServletResponse resp = mock(HttpServletResponse.class);
 
-        UserCreateServlet ucs = new UserCreateServlet();
-
         //ServletConfig realConfig = ucs.getServletConfig();
         ServletConfig mockConfig = Mockito.mock(ServletConfig.class);
         //when(realConfig).thenReturn(mockConfig);
 
         ServletContext mockContext = Mockito.mock(ServletContext.class);
         when(mockConfig.getServletContext()).thenReturn(mockContext);
+
+        UserCreateServlet ucs = new UserCreateServlet() {
+            @Override
+            public ServletConfig getServletConfig() {
+                return mockConfig;
+            }
+        };
+
+        RequestDispatcher mockDispatcher = Mockito.mock(RequestDispatcher.class);
+
+        when(req.getRequestDispatcher("/WEB-INF/views/list.jsp")).thenReturn(mockDispatcher);
 
         when(req.getParameter("name")).thenReturn("Anatoly");
         ucs.doPost(req, resp);

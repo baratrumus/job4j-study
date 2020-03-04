@@ -42,7 +42,7 @@ public class UserCreateServlet  extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        resp.setContentType("text/html");
         ServletContext context = this.getServletConfig().getServletContext();
         String imgPathOnServer = context.getRealPath("/images");
         DiskFileItemFactory factory = new DiskFileItemFactory();
