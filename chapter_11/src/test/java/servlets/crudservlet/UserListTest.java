@@ -58,7 +58,7 @@ public class UserListTest {
         //объект validate проставляется при вызове статического метод ValidateService.getInstance();
         assertThat(validate.findAll().size(), is(1));
         String name = validate.findAll().values().iterator().next().getName();
-        assertThat(name, is("root"));
+        assertThat(name, is("Anatoly"));
     }
 
 }
