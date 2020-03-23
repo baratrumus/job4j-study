@@ -74,12 +74,10 @@ public class UserUpdateServlet  extends HttpServlet {
      */
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setCharacterEncoding("UTF-8");
-
         resp.setContentType("text/json");
         resp.setCharacterEncoding("UTF-8");
 
-        //принимаем параметры, переданные из javascript.  В DOM они не записываются, поэтому их нельзя принять req.getParameter()
+        //установлено enctype="multipart/form-data", поэтому их нельзя принять req.getParameter()
         BufferedReader reader = new BufferedReader(new InputStreamReader(req.getInputStream()));
         String requestData = reader.lines().collect(Collectors.joining());
         //User user = new Gson().fromJson(requestData, User.class);

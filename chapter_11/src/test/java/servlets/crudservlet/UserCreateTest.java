@@ -36,6 +36,7 @@ import static org.mockito.Mockito.when;
 public class UserCreateTest {
 
     @Test
+    @Ignore
     public void whenAddUserThenStoreIt() throws ServletException, IOException {
         Logic validate = new ValidateStub();
         PowerMockito.mockStatic(ValidateService.class);
