@@ -31,8 +31,6 @@
         <module>chapter_10</module>
         <module>chapter_11</module>
         <module>cinema</module>
-
-
     </modules>
 			
     <dependencies>

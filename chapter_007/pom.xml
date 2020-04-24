@@ -32,6 +32,8 @@
                     <driver>${db.driver}</driver>
                     <username>${db.username}</username>
                     <password>${db.password}</password>
+                    <verbose>true</verbose>
+                    <dropFirst>false</dropFirst>
                 </configuration>
                 <executions>
                     <execution>

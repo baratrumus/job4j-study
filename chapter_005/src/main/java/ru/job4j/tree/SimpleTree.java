@@ -25,7 +25,7 @@ public class SimpleTree<E extends Comparable<E>> implements STree<E>  {
             modCount++;
         }
         return res;
-    };
+    }
 
     /**
      * проверка что ребёнок уникален для всего дерева

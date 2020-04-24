@@ -7,7 +7,18 @@ import java.util.*;
  * @version $Id$
  * @since 0.1
  */
-
+/*
+Реализовать структуру для поддержания меню.
+Каждый элемент меню имеет имя. Все меню должно выводиться на экран.
+Каждый пункт меню может быть как одиночным элементов, так и иметь дочерние под пункты.
+Все меню должно выводиться на экран. В виде дерева.
+ Предусмотреть возможность определяет действие, когда пользователь выбрать конкретный пункт меню.
+Задача 1.
+---- Задача 1.1.
+--------- Задача 1.1.1.
+--------- Задача 1.1.2.
+----- Задача 1.2.
+ */
 public class TreeMenu implements ShowMenu, Menu {
     private TreeMap<String, MenuElement> rootMenu;
 
@@ -82,6 +93,10 @@ public class TreeMenu implements ShowMenu, Menu {
         return fullNumber;
     }
 
+
+    /**
+     * производит поиск value среди значений findby- параметров класса MenuElement
+     */
     public Optional<MenuElement> findElementBy(String value, String findBy) {
         Optional<MenuElement> rsl = Optional.empty();
         Queue<MenuElement> data = new LinkedList<>();
