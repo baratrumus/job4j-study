@@ -24,7 +24,7 @@ public class ConsoleInput implements Input {
      * throws MenuOutException указываем что этот метод может выкинуть этот exception
      * @return число ключа, если он входит в range menu, иначе -1
      */
-    public int ask(String question, List<Integer> range) throws MenuOutException {
+    public int ask(String question, List<Integer> range) {
         int key = Integer.valueOf(this.ask(question));
         boolean keyExist = false;
         for (int value : range) {
