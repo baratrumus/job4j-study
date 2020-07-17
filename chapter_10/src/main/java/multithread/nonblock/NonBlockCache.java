@@ -7,7 +7,6 @@ public class NonBlockCache {
 
     public Base add(Base model) throws OptimisticException {
         return cache.put(model.id, model);
-
     }
 
     public Base update(Base model) throws OptimisticException {
