@@ -3,7 +3,6 @@ package servlets.userapp;
 import servlets.crudservlet.Logic;
 import servlets.crudservlet.User;
 import servlets.crudservlet.ValidateService;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

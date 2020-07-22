@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/baratrumus/job4j.svg?branch=master)](https://travis-ci.org/baratrumus/job4j)
-[![codecov](https://codecov.io/gh/baratrumus/job4j/branch/master/graph/badge.svg)](https://codecov.io/gh/baratrumus/job4j)
+[![Build Status](https://travis-ci.org/baratrumus/java-study.svg?branch=master)](https://travis-ci.org/baratrumus/java-study)
+[![codecov](https://codecov.io/gh/baratrumus/java-study/branch/master/graph/badge.svg)](https://codecov.io/gh/baratrumus/java-study)
 
  Здесь находятся проекты и учебные задачи, которые я реализовал во время обучения по программе изложенной ниже. Весь код, все основные методы покрыты JUnit тестами. 
 
