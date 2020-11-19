@@ -20,6 +20,7 @@ create table product (
 );
 
 
+
 insert into type (name) values ('сыр');
 insert into type (name) values ('молоко');
 insert into type (name) values ('мясо');

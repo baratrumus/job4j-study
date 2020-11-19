@@ -72,3 +72,6 @@ insert into items (query_item, category_id, state_id) values ('make task уке8
 insert into attachs (file, item_id) values ('file to attach', 2);
 insert into comments (comment, item_id) values ('it should be done good', 1);
 insert into comments (comment, item_id) values ('it almost ready', 2);
+
+
+update product set name = ? where id = ?

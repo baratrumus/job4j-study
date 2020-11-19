@@ -20,5 +20,8 @@ public class MapOverloadOnlyHashTest {
         map.put(user2, 23);
         System.out.println(user1.equals(user2));
         System.out.println(map);
+
+        // юзера добавлены как разные ключи, тк хеш переопр и он проверяется,
+        // но дальше сверяется икуалс а его нет те объекты разные
     }
 }

@@ -26,7 +26,6 @@ public class NonBlockAlgoExample {
     public void changeBlock(boolean sign) {
         System.out.println(String.format("%s enable ", Thread.currentThread().getName()));
         blockCustomer = sign;
-
     }
 
     public static void main(String[] args)  throws InterruptedException {
@@ -47,7 +46,7 @@ public class NonBlockAlgoExample {
         CopyOnWriteArrayList<String> copyOnWriteArrayList = new CopyOnWriteArrayList<String>();
 
         //работает быстрее чем полная синхронизация.
-        //По тому же принципу что и предудущая.
+        //Блокирует только тот сегмент куда пишет
         ConcurrentHashMap map = new ConcurrentHashMap();
 
     }

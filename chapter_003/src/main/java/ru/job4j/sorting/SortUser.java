@@ -3,6 +3,7 @@ package ru.job4j.sorting;
 import java.util.Comparator;
 import java.util.List;
 import java.util.TreeSet;
+import java.util.function.Supplier;
 
 public class SortUser {
     /**
@@ -34,5 +35,6 @@ public class SortUser {
     }
 
     public static Comparator<User> nameAndAge = Comparator.comparing(User::getName).thenComparingInt(User::getAge);
+
 }
 

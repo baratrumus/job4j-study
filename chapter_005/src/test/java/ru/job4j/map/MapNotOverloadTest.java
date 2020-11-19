@@ -23,5 +23,7 @@ public class MapNotOverloadTest {
         map.put(user2, 23);
         System.out.println(user1.equals(user2));
         System.out.println(map);
+
+        // добавлено 2 юзера как разные ключи
     }
 }

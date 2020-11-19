@@ -10,6 +10,10 @@ CREATE TABLE company
     CONSTRAINT company_pkey PRIMARY KEY (id)
 );
 
+
+CREATE INDEX my_index ON person (name, user_id) USING BTREE;
+
+
 CREATE TABLE person
 (
     id integer NOT NULL,
@@ -36,6 +40,7 @@ insert into person (id, name, company_id) values (7, 'ivan', 5);
 -- company name for each person
 select p.id, p.name, c.name from person as p left outer join company as c on c.id = p.company_id where c.id <> 5;
 
+
 --2) Select the name of the company with the maximum number of persons + number of persons in this company
 select count(p.company_id), c.name from person as p left outer join company as c on c.id = p.company_id
 group by c.name ORDER BY count(p.id) DESC LIMIT 1;
@@ -43,8 +48,6 @@ group by c.name ORDER BY count(p.id) DESC LIMIT 1;
 select tbl.nm, max(tbl.cnt) from
     (select c.name as nm, count(c.id) as cnt from person as p left join company as c on c.id = p.company_id
      group by c.id) as tbl
-
-
 
 --
 -- select top 1 t1.*

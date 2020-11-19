@@ -19,5 +19,7 @@ public class MapOverloadOnlyEqualsTest {
         map.put(user2, 23);
         System.out.println(user1.equals(user2));
         System.out.println(map);
+
+        // юзера равны по икуалс но добавлены как разные ключи
     }
 }

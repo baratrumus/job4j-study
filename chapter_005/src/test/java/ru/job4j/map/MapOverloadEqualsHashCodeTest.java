@@ -19,5 +19,7 @@ public class MapOverloadEqualsHashCodeTest {
         map.put(user2, 90);
         System.out.println(user1.equals(user2));
         System.out.println(map);
+
+        //user23 был заменен на user 90
     }
 }

@@ -78,7 +78,7 @@ RENAME TABLE table2 TO table3;
 DROP TABLE table3;
 -- Добавьте в таблицу table1 поле status
 ALTER TABLE table1 ALTER COLUMN status;
-ALTER TABLE table1 DROP COLUMN age ;
+ALTER TABLE table1 DROP COLUMN age;
 RENAME COLUMN login TO user_login;
 --тип поля salary с int на varchar(255)
 ALTER TABLE table1 CHANGE salary salary VARCHAR(255);
